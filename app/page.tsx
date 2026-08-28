@@ -1,277 +1,167 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
-import {
-  connectWallet,
-  contractAddress,
-  digestText,
-  formatGen,
-  isLiveConfigured,
-  parseGen,
-  readContract,
-  shortAddress,
-  writeContract,
-} from "../lib/genlayer";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+import { contractAddress, digestText, formatGen, isLiveConfigured, parseGen, readContract, shortAddress } from "../lib/genlayer";
+import { normalizeParticipant, normalizePool, poolActions, record, roundState, type Participant, type Pool } from "../lib/lifecycle";
+import { errorMessage, useProtocol } from "../lib/useProtocol";
 
 type Tab = "explore" | "mine" | "create" | "owner";
-type Notice = { kind: "success" | "error" | "info"; text: string } | null;
-type Pool = {
-  id: string;
-  title: string;
-  description?: string;
-  verification_mode: string;
-  stake_wei: string;
-  rounds_required: number;
-  min_players: number;
-  max_players: number;
-  participant_count: number;
-  status: string;
-  join_deadline: number;
-  activity_starts_at: number;
-  activity_ends_at: number;
-  fee_bps: number;
-  terms_hash: string;
-};
-
-const GEN = 10n ** 18n;
-const demoPools: Pool[] = [
-  {
-    id: "move-30",
-    title: "30 mornings of movement",
-    description: "Move for at least twenty minutes before 9:00 AM, every day for four weeks.",
-    verification_mode: "source_verified",
-    stake_wei: String(12n * GEN),
-    rounds_required: 28,
-    min_players: 8,
-    max_players: 24,
-    participant_count: 18,
-    status: "forming",
-    join_deadline: 1788307200,
-    activity_starts_at: 1788307200,
-    activity_ends_at: 1790726400,
-    fee_bps: 250,
-    terms_hash: "104d7ac98f8d621f4f68a45b71c7e71d98f398dddc63c704dd31a5e22f55ac82",
-  },
-  {
-    id: "ship-weekly",
-    title: "Ship one meaningful thing",
-    description: "Publish one finished artifact every Friday for six consecutive weeks.",
-    verification_mode: "source_verified",
-    stake_wei: String(8n * GEN),
-    rounds_required: 6,
-    min_players: 4,
-    max_players: 12,
-    participant_count: 9,
-    status: "forming",
-    join_deadline: 1788652800,
-    activity_starts_at: 1788652800,
-    activity_ends_at: 1792281600,
-    fee_bps: 250,
-    terms_hash: "2b84e1a4ffb0ed617423e3bc2f36faed45be79006313b29010750a0e9ca61ea7",
-  },
-  {
-    id: "deep-work",
-    title: "Deep work before noon",
-    description: "Complete a focused ninety-minute session before noon on each weekday.",
-    verification_mode: "self_attested",
-    stake_wei: String(10n * GEN),
-    rounds_required: 21,
-    min_players: 6,
-    max_players: 20,
-    participant_count: 19,
-    status: "active",
-    join_deadline: 1785715200,
-    activity_starts_at: 1785715200,
-    activity_ends_at: 1788307200,
-    fee_bps: 250,
-    terms_hash: "66887911dccb0ba2e49c74cdf27bd862b1f1fa345d8f91ea5ce50eb50d3c7d73",
-  },
-];
-
-const fallbackStats = {
-  pools_created: 38,
-  pools_activated: 29,
-  pools_refunding: 2,
-  pools_settled: 17,
-  pools_cancelled: 3,
-  joins: 412,
-  checkins_passed: 2841,
-  checkins_failed: 193,
-  checkins_unclear: 76,
-  fees_accrued_wei: String(184n * GEN),
-  payouts_emitted: 211,
-};
-
-function asObject(value: unknown): Record<string, unknown> {
-  if (value instanceof Map) return Object.fromEntries(value);
-  return (value && typeof value === "object" ? value : {}) as Record<string, unknown>;
+type Detail = { key: string; pool: Pool; participants: Participant[]; canSettle: boolean; attempt: Record<string, unknown> | null };
+const tabs: [Tab, string][] = [["explore", "Explore"], ["mine", "Pool workspace"], ["create", "Create pool"], ["owner", "Owner"]];
+const shell = "mx-auto max-w-[1420px] px-5 sm:px-10 lg:px-14";
+function label(value: string) { return value.replaceAll("_", " "); }
+function date(value: number) { return value ? new Date(value * 1000).toLocaleString(undefined, {dateStyle: "medium", timeStyle: "short"}) : "Not scheduled"; }
+function Field({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }) {
+  return <label className="field-label"><span>{title}</span>{children}{hint && <small>{hint}</small>}</label>;
 }
-
-function normalizePool(value: unknown): Pool {
-  const item = asObject(value);
-  return {
-    id: String(item.id ?? ""),
-    title: String(item.title ?? "Untitled pool"),
-    verification_mode: String(item.verification_mode ?? "self_attested"),
-    stake_wei: String(item.stake_wei ?? "0"),
-    rounds_required: Number(item.rounds_required ?? 0),
-    min_players: Number(item.min_players ?? 0),
-    max_players: Number(item.max_players ?? 0),
-    participant_count: Number(item.participant_count ?? 0),
-    status: String(item.status ?? "forming"),
-    join_deadline: Number(item.join_deadline ?? 0),
-    activity_starts_at: Number(item.activity_starts_at ?? 0),
-    activity_ends_at: Number(item.activity_ends_at ?? 0),
-    fee_bps: Number(item.fee_bps ?? 0),
-    terms_hash: String(item.terms_hash ?? ""),
-  };
+function Metric({ title, value, note }: { title: string; value: string; note: string }) {
+  return <div className="surface-card p-5"><p className="eyebrow">{title}</p><p className="mt-3 break-words text-3xl font-black tracking-tight">{value}</p><p className="mt-2 text-xs text-[#718078]">{note}</p></div>;
 }
-
-function dateLabel(timestamp: number) {
-  if (!timestamp) return "Not scheduled";
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(timestamp * 1000));
-}
-
-function statusLabel(value: string) {
-  return value.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
-  return <label className="field-label"><span>{label}</span>{children}{hint && <small>{hint}</small>}</label>;
-}
-
-function Metric({ label, value, note }: { label: string; value: string; note: string }) {
-  return <div className="rounded-[22px] border border-[#173c2d]/10 bg-white/70 p-5 shadow-sm"><p className="eyebrow">{label}</p><p className="mt-3 text-3xl font-black tracking-[-.04em]">{value}</p><p className="mt-1 text-xs font-semibold text-[#718078]">{note}</p></div>;
+function Empty({ title, children }: { title: string; children: React.ReactNode }) {
+  return <div className="surface-card p-8"><h2 className="text-xl font-black">{title}</h2><p className="mt-3 text-sm leading-6 text-[#65746c]">{children}</p></div>;
 }
 
 export default function Home() {
+  const protocol = useProtocol("list_pools");
+  const { wallet, stats, config, credit, busy, ready, now, notice, setNotice, transact } = protocol;
   const [tab, setTab] = useState<Tab>("explore");
-  const [wallet, setWallet] = useState("");
-  const [pools, setPools] = useState<Pool[]>(demoPools);
-  const [stats, setStats] = useState<Record<string, unknown>>(fallbackStats);
-  const [config, setConfig] = useState<Record<string, unknown>>({ owner: "0x18b4000000000000000000000000000000009f31", fee_bps: 250, max_fee_bps: 1000, pending_fee_bps: 250, pending_fee_effective_at: 0 });
-  const [notice, setNotice] = useState<Notice>(null);
-  const [busy, setBusy] = useState("");
-  const [checkinPool, setCheckinPool] = useState("deep-work");
-
-  const loadLive = useCallback(async () => {
-    if (!isLiveConfigured) return;
-    try {
-      const [listingRaw, statsRaw, configRaw] = await Promise.all([
-        readContract("list_pools", [0, 50]),
-        readContract("get_stats"),
-        readContract("get_config"),
-      ]);
-      const listing = asObject(listingRaw);
-      const livePools = Array.isArray(listing.items) ? listing.items.map(normalizePool) : [];
-      setPools(livePools);
-      setStats(asObject(statsRaw));
-      setConfig(asObject(configRaw));
-      if (livePools[0]) setCheckinPool(livePools[0].id);
-    } catch (error) {
-      setNotice({ kind: "error", text: `Live data is unavailable: ${String((error as Error).message ?? error)}` });
-    }
-  }, []);
-
-  useEffect(() => {
-    const task = window.setTimeout(() => void loadLive(), 0);
-    return () => window.clearTimeout(task);
-  }, [loadLive]);
-  useEffect(() => {
-    const accountChanged = (...args: unknown[]) => setWallet(String((args[0] as string[])?.[0] ?? ""));
-    window.ethereum?.on?.("accountsChanged", accountChanged);
-    return () => window.ethereum?.removeListener?.("accountsChanged", accountChanged);
-  }, []);
-
-  const activePool = useMemo(() => pools.find((pool) => pool.status === "active") ?? pools[0] ?? demoPools[2], [pools]);
-  const owner = String(config.owner ?? "");
+  const [selectedId, setSelectedId] = useState("");
+  const [detail, setDetail] = useState<Detail | null>(null);
+  const [detailError, setDetailError] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const pools = useMemo(() => protocol.items.map(normalizePool), [protocol.items]);
+  const poolId = selectedId || pools[0]?.id || "";
+  const detailKey = [poolId, wallet, protocol.revision].join("|");
+  const selected = detail?.key === detailKey ? detail : null;
+  const pool = selected?.pool;
+  const me = selected?.participants.find(p => p.address.toLowerCase() === wallet.toLowerCase()) ?? null;
+  const actions = pool ? poolActions(pool, me, wallet, now, Boolean(selected?.canSettle) || now >= pool.activity_ends_at) : null;
+  const round = pool ? roundState(pool, me, now) : null;
+  const owner = String(config?.owner ?? "");
   const isOwner = Boolean(wallet && owner && wallet.toLowerCase() === owner.toLowerCase());
+  const disabled = Boolean(busy) || !ready;
+  const pendingFeeAt = Number(config?.pending_fee_effective_at ?? 0);
 
-  async function handleConnect() {
-    try {
-      setBusy("connect");
-      const account = await connectWallet();
-      setWallet(account);
-      setNotice({ kind: "success", text: `Wallet connected: ${shortAddress(account)}` });
-    } catch (error) {
-      setNotice({ kind: "error", text: String((error as Error).message ?? error) });
-    } finally { setBusy(""); }
-  }
+  useEffect(() => {
+    let cancelled = false;
+    const task = window.setTimeout(async () => {
+      setAcceptedTerms(false); setDetailError("");
+      if (!poolId || !isLiveConfigured) return;
+      try {
+        const [poolRaw, playersRaw, settleRaw] = await Promise.all([
+          readContract("get_pool", [poolId]), readContract("list_participants", [poolId, 0, 50]), readContract("can_settle", [poolId]),
+        ]);
+        const players = record(playersRaw);
+        const participants = Array.isArray(players.items) ? players.items.map(normalizeParticipant) : [];
+        if (Number(players.total ?? 0) > 50) {
+          const second = record(await readContract("list_participants", [poolId, 50, 50]));
+          if (Array.isArray(second.items)) participants.push(...second.items.map(normalizeParticipant));
+        }
+        const mine = participants.find(p => p.address.toLowerCase() === wallet.toLowerCase());
+        let attempt: Record<string, unknown> | null = null;
+        if (mine?.last_attempt_id) {
+          const parts = mine.last_attempt_id.split(":");
+          attempt = record(await readContract("get_attempt", [poolId, wallet, Number(parts.at(-2)), Number(parts.at(-1))]));
+        }
+        if (!cancelled) setDetail({key: detailKey, pool: normalizePool(poolRaw), participants, canSettle: settleRaw === true, attempt});
+      } catch (failure) { if (!cancelled) setDetailError(errorMessage(failure)); }
+    }, 0);
+    return () => { cancelled = true; window.clearTimeout(task); };
+  }, [detailKey, poolId, wallet]);
 
-  async function ensureWallet() {
-    if (wallet) return wallet;
-    const account = await connectWallet();
-    setWallet(account);
-    return account;
-  }
-
-  async function transact(label: string, method: string, args: unknown[] = [], value = 0n) {
-    try {
-      setBusy(label);
-      setNotice({ kind: "info", text: `${label}: waiting for wallet approval and validator consensus…` });
-      const account = await ensureWallet();
-      const hash = await writeContract(account, method, args, value);
-      setNotice({ kind: "success", text: `${label} finalized. Transaction ${shortAddress(hash)}.` });
-      await loadLive();
-    } catch (error) {
-      setNotice({ kind: "error", text: String((error as Error).message ?? error) });
-    } finally { setBusy(""); }
-  }
-
+  function openPool(id: string) { setSelectedId(id); setAcceptedTerms(false); setTab("mine"); }
   async function createPool(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const title = String(data.get("title") ?? "").trim();
-    const id = String(data.get("pool_id") ?? "").trim() || `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40)}-${Date.now().toString(36)}`;
-    await transact("Create pool", "create_pool", [id, title, String(data.get("description") ?? ""), String(data.get("rules") ?? ""), String(data.get("verification_mode") ?? "self_attested"), parseGen(String(data.get("stake") ?? "0")), Number(data.get("rounds") ?? 1), Number(data.get("min_players") ?? 2), Number(data.get("max_players") ?? 10), Number(data.get("join_days") ?? 7) * 86400, Number(data.get("round_hours") ?? 24) * 3600]);
+    try {
+      const id = String(data.get("pool_id") ?? "").trim() || "pool-" + Date.now().toString(36);
+      const minimum = Number(data.get("min_players"));
+      const maximum = Number(data.get("max_players"));
+      if (minimum > maximum) throw new Error("Minimum cohort cannot exceed maximum cohort.");
+      const stake = parseGen(String(data.get("stake")));
+      if (stake <= 0n) throw new Error("Stake must be greater than zero.");
+      const success = await transact("Create pool", "create_pool", [
+        id, String(data.get("title")).trim(), String(data.get("description")), String(data.get("rules")),
+        String(data.get("verification_mode")), stake, Number(data.get("rounds")), minimum, maximum,
+        Number(data.get("join_days")) * 86400, Number(data.get("round_hours")) * 3600,
+      ]);
+      if (success) openPool(id);
+    } catch (failure) { setNotice({kind: "error", text: errorMessage(failure)}); }
   }
-
-  async function submitCheckin(event: FormEvent<HTMLFormElement>) {
+  async function checkIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!pool || !actions?.submit) return;
     const data = new FormData(event.currentTarget);
-    const snapshot = String(data.get("snapshot") ?? "");
-    const digest = snapshot ? await digestText(snapshot) : String(data.get("digest") ?? "");
-    await transact("Submit check-in", "submit_checkin", [String(data.get("pool_id") ?? checkinPool), String(data.get("proof") ?? ""), String(data.get("evidence_url") ?? ""), digest, `web-${Date.now().toString(36)}`]);
+    try {
+      const snapshot = String(data.get("snapshot") ?? "");
+      const digest = snapshot.trim() ? await digestText(snapshot) : String(data.get("digest") ?? "").trim();
+      if (pool.verification_mode === "source_verified" && !/^[0-9a-f]{64}$/i.test(digest))
+        throw new Error("Provide the full rendered source text or a 64-character SHA-256 digest.");
+      await transact("Submit check-in", "submit_checkin", [pool.id, String(data.get("proof")), String(data.get("evidence_url") ?? ""), digest, crypto.randomUUID()]);
+    } catch (failure) { setNotice({kind: "error", text: errorMessage(failure)}); }
   }
 
-  return (
-    <main className="min-h-screen bg-[#f5f1e8] text-[#142118]">
-      <nav className="sticky top-0 z-40 border-b border-[#173c2d]/8 bg-[#f5f1e8]/92 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1420px] items-center justify-between gap-4 px-5 py-4 sm:px-10 lg:px-14">
-          <button className="flex items-center gap-3 text-left" onClick={() => setTab("explore")}><span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#173c2d] text-sm font-black text-[#dfff72] shadow-lg">CP</span><span><strong className="block text-[15px] tracking-tight">Commitment Pools</strong><small className="block text-[10px] font-bold uppercase tracking-[.16em] text-[#65746b]">Proof over promises</small></span></button>
-          <div className="hidden items-center gap-1 rounded-full bg-white/55 p-1 text-sm font-bold md:flex">{(["explore", "mine", "create", "owner"] as Tab[]).map((item) => <button key={item} onClick={() => setTab(item)} className={`nav-pill ${tab === item ? "nav-pill-active" : ""}`}>{item === "mine" ? "My commitments" : item === "create" ? "Create pool" : statusLabel(item)}</button>)}</div>
-          <button className="wallet-button" onClick={handleConnect} disabled={busy === "connect"}><span className={`h-2 w-2 rounded-full ${wallet ? "bg-[#dfff72]" : "bg-white/40"}`} />{wallet ? shortAddress(wallet) : busy === "connect" ? "Connecting…" : "Connect wallet"}</button>
-        </div>
-        <div className="mx-auto flex max-w-[1420px] gap-2 overflow-x-auto px-5 pb-3 md:hidden">{(["explore", "mine", "create", "owner"] as Tab[]).map((item) => <button key={item} onClick={() => setTab(item)} className={`mobile-tab ${tab === item ? "mobile-tab-active" : ""}`}>{item === "mine" ? "Mine" : item === "create" ? "Create" : statusLabel(item)}</button>)}</div>
-      </nav>
-
-      <div className="mx-auto max-w-[1420px] px-5 pt-4 sm:px-10 lg:px-14">
-        <div className={`mode-strip ${isLiveConfigured ? "mode-live" : "mode-preview"}`}><span className="font-black">{isLiveConfigured ? "Live contract" : "Product preview"}</span><span>{isLiveConfigured ? `${shortAddress(contractAddress)} · finalized writes only` : "Real interface, sample data. Transactions stay blocked until deployment is configured."}</span></div>
-        {notice && <div className={`notice notice-${notice.kind}`} role="status"><span>{notice.kind === "success" ? "✓" : notice.kind === "error" ? "!" : "…"}</span><p>{notice.text}</p><button aria-label="Dismiss message" onClick={() => setNotice(null)}>×</button></div>}
+  return <main className="min-h-screen bg-[#f5f1e8] text-[#142118]">
+    <nav className="sticky top-0 z-40 border-b border-[#173c2d]/10 bg-[#f5f1e8]/95 backdrop-blur-xl">
+      <div className={shell + " flex items-center justify-between gap-4 py-4"}>
+        <button className="flex items-center gap-3 text-left" onClick={() => setTab("explore")}><span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#173c2d] text-sm font-black text-[#dfff72]">CP</span><span><strong className="block text-sm">Commitment Pools</strong><small className="text-[10px] font-bold uppercase tracking-widest text-[#65746b]">Proof over promises</small></span></button>
+        <div className="hidden rounded-full bg-white/60 p-1 text-sm md:flex">{tabs.map(([id, title]) => <button key={id} aria-current={tab === id ? "page" : undefined} className={"nav-pill " + (tab === id ? "nav-pill-active" : "")} onClick={() => setTab(id)}>{title}</button>)}</div>
+        <button className="wallet-button" disabled={Boolean(busy)} onClick={() => void protocol.connect()}>{wallet ? shortAddress(wallet) : "Connect wallet"}</button>
       </div>
+      <div className={shell + " flex gap-2 overflow-x-auto pb-3 md:hidden"}>{tabs.map(([id, title]) => <button key={id} aria-current={tab === id ? "page" : undefined} className={"mobile-tab " + (tab === id ? "mobile-tab-active" : "")} onClick={() => setTab(id)}>{title}</button>)}</div>
+    </nav>
+    <div className={shell + " pt-4"}>
+      <div className="mode-strip mode-live"><strong>Studionet · sandbox</strong><span>{isLiveConfigured ? shortAddress(contractAddress) + " · finalized contract data · test GEN only" : "Contract not configured. Transactions are disabled."}</span><button className="ml-auto underline" onClick={protocol.refresh} disabled={protocol.loading || Boolean(busy)}>{protocol.loading ? "Loading…" : "Refresh"}</button></div>
+      {protocol.error && <div className="notice notice-error" role="alert"><span>!</span><p>{protocol.error} Previously loaded data may be stale; actions are disabled.</p><button aria-label="Retry loading" onClick={protocol.refresh}>↻</button></div>}
+      {notice && <div className={"notice notice-" + notice.kind} role={notice.kind === "error" ? "alert" : "status"}><span>{notice.kind === "success" ? "✓" : "!"}</span><div><p>{notice.text}</p>{notice.hash && <code className="mt-2 block break-all text-[11px]">{notice.hash}</code>}</div><button aria-label="Dismiss message" onClick={() => setNotice(null)}>×</button></div>}
+    </div>
 
-      {tab === "explore" && <>
-        <section className="mx-auto grid max-w-[1420px] gap-8 px-5 pb-14 pt-8 sm:px-10 lg:grid-cols-[1.08fr_.92fr] lg:px-14 lg:pb-20 lg:pt-12">
-          <div className="flex flex-col justify-center py-5 lg:py-12"><div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-[#173c2d]/10 bg-white/65 px-3 py-2 text-xs font-bold text-[#365444] shadow-sm"><span className="h-2 w-2 rounded-full bg-[#6d9b2f]" /> Stakes obey the terms signed before anyone joins</div><h1 className="max-w-3xl text-[clamp(3.3rem,7vw,7.35rem)] font-black leading-[.87] tracking-[-.072em] text-[#173c2d]">Put some <span className="text-[#547743]">weight</span><br />behind your word.</h1><p className="mt-8 max-w-xl text-lg leading-8 text-[#53635a]">Join a small cohort, stake on a visible schedule, and prove each round against rules nobody can rewrite after funds move.</p><div className="mt-9 flex flex-wrap gap-3"><button className="primary-button" onClick={() => setTab("create")}>Create a pool <span>↗</span></button><button className="secondary-button" onClick={() => document.getElementById("forming-pools")?.scrollIntoView({ behavior: "smooth" })}>Browse forming pools</button></div><div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold text-[#6c7a72]"><span>✓ Minimum cohort refunds</span><span>✓ Fee snapshot per pool</span><span>✓ All-fail refunds minus fee</span></div></div>
-          <div className="relative min-h-[580px] overflow-hidden rounded-[34px] bg-[#173c2d] p-5 text-white shadow-[0_35px_80px_rgba(23,60,45,.22)] sm:p-7"><div className="absolute -right-24 -top-24 h-64 w-64 rounded-full border-[48px] border-[#dfff72]/10" /><div className="relative flex items-center justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#b9c8bf]">Your next check-in</p><h2 className="mt-2 text-2xl font-black tracking-tight">{activePool.title}</h2></div><span className="rounded-full bg-[#dfff72] px-3 py-1.5 text-xs font-black text-[#173c2d]">Round 8 / {activePool.rounds_required}</span></div><div className="relative mt-8 rounded-[26px] bg-[#f8f5ed] p-6 text-[#142118] shadow-xl"><div className="flex items-end justify-between"><div><p className="eyebrow">Submit before</p><p className="mt-1 text-3xl font-black tracking-tight">2h 16m</p></div><div className="grid h-20 w-20 place-items-center rounded-full border-[9px] border-[#dfff72] text-sm font-black">38%</div></div><div className="mt-6 grid grid-cols-7 gap-2">{["M","T","W","T","F","S","S"].map((day, index) => <div key={`${day}-${index}`} className="text-center"><div className={`mx-auto h-12 rounded-full ${index < 5 ? "bg-[#173c2d]" : index === 5 ? "bg-[#dfff72]" : "bg-[#e8e4da]"}`} /><span className="mt-2 block text-[10px] font-bold text-[#7c867f]">{day}</span></div>)}</div><button className="mt-6 w-full rounded-2xl bg-[#173c2d] py-4 text-sm font-black text-white" onClick={() => setTab("mine")}>Open check-in workspace</button><p className="mt-3 text-center text-xs font-medium text-[#6f7a73]">{statusLabel(activePool.verification_mode)} · unclear results can retry within the same round</p></div><div className="relative mt-5 grid grid-cols-2 gap-4"><div className="rounded-[22px] bg-white/10 p-5 ring-1 ring-white/10"><p className="text-xs font-bold text-[#b9c8bf]">Your stake</p><p className="mt-2 text-2xl font-black">{formatGen(activePool.stake_wei)} GEN</p><p className="mt-1 text-xs text-[#9fb0a6]">Fee locked at {(activePool.fee_bps / 100).toFixed(2)}%</p></div><div className="rounded-[22px] bg-[#dfff72] p-5 text-[#173c2d]"><p className="text-xs font-bold text-[#466228]">Cohort progress</p><p className="mt-2 text-2xl font-black">84%</p><p className="mt-1 text-xs text-[#526c35]">16 of 19 still active</p></div></div></div>
-        </section>
-        <section id="forming-pools" className="mx-auto max-w-[1420px] px-5 pb-20 sm:px-10 lg:px-14"><div className="mb-6 flex items-end justify-between"><div><p className="eyebrow">Open formation windows</p><h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Commitments worth keeping</h2></div><p className="hidden text-sm font-semibold text-[#6e7d74] sm:block">Terms are hashed before the first stake.</p></div><div className="grid gap-5 lg:grid-cols-3">{pools.filter((pool) => pool.status === "forming").map((pool, index) => <article key={pool.id} className="pool-card"><div className={`pool-icon ${index % 2 ? "pool-icon-blue" : ""}`}>{index % 2 ? "↗" : "✓"}</div><div className="mt-6 flex items-start justify-between gap-4"><div><span className="status-chip">{statusLabel(pool.verification_mode)}</span><h3 className="mt-3 text-xl font-black tracking-tight">{pool.title}</h3></div><p className="shrink-0 text-xl font-black">{formatGen(pool.stake_wei)} <small className="text-xs text-[#718078]">GEN</small></p></div><p className="mt-3 min-h-12 text-sm leading-6 text-[#68776f]">{pool.description ?? `${pool.rounds_required} scheduled rounds with immutable verification rules.`}</p><div className="pool-facts"><div><strong>{pool.participant_count}/{pool.max_players}</strong><span>joined</span></div><div><strong>{pool.rounds_required}</strong><span>rounds</span></div><div><strong>{dateLabel(pool.join_deadline)}</strong><span>closes</span></div></div><div className="mt-5 flex items-center justify-between gap-3"><span className="truncate font-mono text-[10px] text-[#809087]" title={pool.terms_hash}>Terms {pool.terms_hash.slice(0, 8)}…</span><button className="small-primary" disabled={Boolean(busy)} onClick={() => transact("Join pool", "join", [pool.id], BigInt(pool.stake_wei))}>{busy === "Join pool" ? "Joining…" : "Review & join"}</button></div></article>)}</div></section>
-        <section className="bg-[#e7eadf]"><div className="mx-auto max-w-[1420px] px-5 py-20 sm:px-10 lg:px-14"><p className="eyebrow">How the product protects people</p><h2 className="mt-3 max-w-2xl text-4xl font-black tracking-[-.04em]">One clear lifecycle. No surprise rule changes.</h2><div className="mt-10 grid gap-4 md:grid-cols-4">{[["01", "Form", "Creator publishes the exact stake, cohort minimum, schedule, fee, evidence mode, and all-fail policy."],["02", "Activate", "Activity begins only after formation closes. An underfilled cohort moves to full-stake refunds."],["03", "Prove", "Each scheduled round has a bounded retry budget and an append-only evidence record."],["04", "Settle", "Value is conserved into winner credits, participant refunds, and the snapshotted fee—then finalized."]].map(([number, title, copy]) => <article className="rounded-[24px] bg-[#f7f4eb] p-6" key={number}><span className="text-xs font-black text-[#6e7d74]">{number}</span><h3 className="mt-8 text-xl font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-[#68776f]">{copy}</p></article>)}</div></div></section>
-      </>}
+    {tab === "explore" && <>
+      <section className={shell + " grid gap-8 py-12 lg:grid-cols-[1.1fr_.9fr] lg:py-16"}>
+        <div className="py-6"><p className="eyebrow">A little accountability. A real commitment.</p><h1 className="mt-7 text-[clamp(3.3rem,7vw,7.1rem)] font-black leading-[.9] tracking-[-.07em] text-[#173c2d]">Put some <span className="text-[#547743]">weight</span><br/>behind your word.</h1><p className="mt-8 max-w-xl text-lg leading-8 text-[#53635a]">Join a cohort, stake on a visible schedule, and prove each round against rules nobody can rewrite after you join.</p><div className="mt-8 flex flex-wrap gap-3"><button className="primary-button" onClick={() => setTab("create")}>Create a pool ↗</button><button className="secondary-button" onClick={() => document.getElementById("pools")?.scrollIntoView({behavior: "smooth"})}>Explore pools</button></div><p className="mt-6 text-xs leading-6 text-[#6c7a72]">Minimum-cohort refunds · Fee snapshot per pool · Explicit proof rules</p></div>
+        <aside className="rounded-[34px] bg-[#173c2d] p-7 text-white shadow-xl sm:p-9">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#b9c8bf]">The commitment, in four steps</p><h2 className="mt-4 text-3xl font-black tracking-tight">Know what you sign.<br/>Own what comes next.</h2>
+          <ol className="mt-8 space-y-5">{[["01","Review the terms","See your exact stake, deadline, proof policy, and failure consequences."],["02","Form the cohort","If the minimum is missed, participants can claim full refund credit."],["03","Prove each round","Submit within the scheduled window. Unclear results allow up to three attempts."],["04","Settle & withdraw","Winners share forfeited stakes after the snapshotted fee. If all fail, everyone receives a refund minus that fee."]].map(([step,title,description]) => <li key={step} className="flex gap-4"><span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#dfff72] text-xs font-black text-[#173c2d]">{step}</span><div><h3 className="text-sm font-black">{title}</h3><p className="mt-1 text-xs leading-5 text-[#bdccc3]">{description}</p></div></li>)}</ol>
+          <div className="mt-8 flex justify-between border-t border-white/15 pt-5 text-sm"><span>Actual pools on this contract</span><strong>{stats ? String(stats.pools_created ?? 0) : "—"}</strong></div>
+        </aside>
+      </section>
+      <section id="pools" className={shell + " pb-16"}><div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow">Public contract directory</p><h2 className="mt-2 text-3xl font-black tracking-tight">Commitments worth keeping</h2></div><p className="text-xs text-[#65746c]">{protocol.loading ? "Reading Studionet…" : pools.length + " of " + protocol.total + " pools loaded"}</p></div>
+        {!pools.length ? <Empty title={protocol.loading ? "Loading pools…" : protocol.error ? "Pool directory unavailable" : "Your first cohort starts here"}>{protocol.error ? "Retry the network connection above." : "No sample activity is displayed. Create a pool to publish the first set of terms on this Studionet contract."}</Empty> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{pools.map((item,index) => <article className="pool-card" key={item.id}><div className="flex items-center justify-between"><span className={"pool-icon " + (index % 2 ? "pool-icon-blue" : "")}>{String(index+1).padStart(2,"0")}</span><span className="status-chip">{label(item.status)}</span></div><h3 className="mt-5 break-words text-xl font-black">{item.title}</h3><p className="mt-2 text-xs text-[#718078]">{label(item.verification_mode)}</p><div className="pool-facts"><div><strong>{formatGen(item.stake_wei)} GEN</strong><span>stake per person</span></div><div><strong>{item.rounds_required}</strong><span>scheduled rounds</span></div><div><strong>{item.participant_count}/{item.max_players}</strong><span>participants</span></div></div><p className="mt-4 text-xs leading-5 text-[#718078]">Join deadline: {date(item.join_deadline)}</p><button className="secondary-button mt-5 w-full" onClick={() => openPool(item.id)}>Review terms & status →</button></article>)}</div>}
+        {pools.length < protocol.total && <button className="secondary-button mt-6" disabled={protocol.loading} onClick={() => void protocol.more()}>Load more pools</button>}
+      </section>
+    </>}
 
-      {tab === "mine" && <section className="mx-auto max-w-[1420px] px-5 py-10 sm:px-10 lg:px-14 lg:py-14"><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow">Participant workspace</p><h1 className="mt-2 text-4xl font-black tracking-[-.045em] sm:text-5xl">Keep the promise in front of you.</h1><p className="mt-3 max-w-2xl text-[#64736b]">Only actions available in the current contract state appear here. Payout emission is shown separately from network delivery.</p></div><button className="secondary-button" onClick={() => void transact("Emit withdrawal", "withdraw")}>Emit available withdrawal</button></div><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><Metric label="Active commitments" value="1" note="1 check-in due today"/><Metric label="Rounds passed" value="7 / 21" note="33% of schedule complete"/><Metric label="At stake" value={`${formatGen(activePool.stake_wei)} GEN`} note={`Fee snapshot ${(activePool.fee_bps / 100).toFixed(2)}%`}/><Metric label="Available credit" value="0 GEN" note="Withdrawal emits a child transfer"/></div>
-        <div className="mt-7 grid gap-6 lg:grid-cols-[1.08fr_.92fr]"><form onSubmit={submitCheckin} className="surface-card p-6 sm:p-8"><div className="flex flex-wrap items-start justify-between gap-4"><div><span className="status-chip">Round window open</span><h2 className="mt-3 text-2xl font-black">Submit this round’s proof</h2><p className="mt-2 text-sm text-[#6a7971]">An unclear result preserves your active status, but consumes one of three attempts.</p></div><div className="rounded-2xl bg-[#173c2d] px-4 py-3 text-right text-white"><small className="block text-[10px] font-bold uppercase tracking-[.12em] text-white/60">Closes in</small><strong className="text-xl">2h 16m</strong></div></div><div className="mt-7 grid gap-5"><Field label="Commitment"><select name="pool_id" value={checkinPool} onChange={(event) => setCheckinPool(event.target.value)}>{pools.map((pool) => <option key={pool.id} value={pool.id}>{pool.title}</option>)}</select></Field><Field label="What did you complete?" hint="Keep this factual. The model treats your text as untrusted evidence, not instructions."><textarea name="proof" required rows={4} placeholder="I completed a 90-minute focus session from 08:10 to 09:40…" /></Field><div className="grid gap-5 sm:grid-cols-2"><Field label="Evidence URL" hint="HTTPS public sources only."><input name="evidence_url" type="url" placeholder="https://…" /></Field><Field label="Expected SHA-256 digest" hint="Required for source-verified pools."><input name="digest" pattern="[0-9a-fA-F]{64}" placeholder="64 hexadecimal characters" /></Field></div><Field label="Optional source snapshot" hint="Paste normalized visible source text to calculate its digest locally."><textarea name="snapshot" rows={3} placeholder="Visible source text…" /></Field></div><div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[#173c2d]/10 pt-6"><p className="max-w-md text-xs leading-5 text-[#718078]">Submission records are append-only. A pass advances exactly one scheduled round; a fail ends participation.</p><button className="primary-button" disabled={Boolean(busy)} type="submit">{busy === "Submit check-in" ? "Waiting for consensus…" : "Submit proof"}</button></div></form>
-          <div className="grid gap-6"><article className="rounded-[28px] bg-[#173c2d] p-6 text-white sm:p-7"><div className="flex items-center justify-between"><p className="text-xs font-black uppercase tracking-[.15em] text-[#b8c8be]">Signed terms</p><span className="rounded-full bg-[#dfff72] px-2.5 py-1 text-[10px] font-black text-[#173c2d]">Immutable</span></div><h3 className="mt-5 text-2xl font-black">{activePool.title}</h3><dl className="terms-grid"><div><dt>Schedule</dt><dd>{activePool.rounds_required} rounds</dd></div><div><dt>Verification</dt><dd>{statusLabel(activePool.verification_mode)}</dd></div><div><dt>All fail</dt><dd>Refund minus fee</dd></div><div><dt>Stake</dt><dd>{formatGen(activePool.stake_wei)} GEN</dd></div></dl><div className="mt-6 rounded-2xl bg-white/8 p-4 font-mono text-[11px] text-[#b8c8be] break-all">Terms hash<br/><span className="text-white">{activePool.terms_hash}</span></div></article><article className="surface-card p-6"><div className="flex items-center justify-between"><div><p className="eyebrow">Recent attempts</p><h3 className="mt-2 text-xl font-black">Round 7</h3></div><span className="status-chip status-success">Pass</span></div><div className="mt-5 border-l-2 border-[#c9e95f] pl-4"><p className="text-sm font-bold">Attempt 1 · finalized</p><p className="mt-1 text-xs leading-5 text-[#718078]">Evidence matched its committed digest and validators agreed on the pass verdict.</p></div><p className="mt-5 text-[11px] font-semibold text-[#7a8980]">Reasoning is explanatory. Verdict and observed source digest are the authoritative consensus fields.</p></article></div></div></section>}
+    {tab === "mine" && <section className={shell + " py-10"}>
+      <div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow">Participant workspace</p><h1 className="mt-2 text-4xl font-black tracking-tight">Your next step, made clear.</h1><p className="mt-3 text-sm text-[#65746c]">Review any public pool. Connect your participant wallet to see your round and credit.</p></div><div className="w-full sm:w-80"><Field title="Choose a pool"><select value={poolId} onChange={e => openPool(e.target.value)}><option value="" disabled>Select a pool</option>{pools.map(p => <option key={p.id} value={p.id}>{p.title}</option>)}</select></Field></div></div>
+      <form className="mt-5 flex max-w-xl gap-3" onSubmit={e => {e.preventDefault(); openPool(String(new FormData(e.currentTarget).get("lookup")).trim());}}><Field title="Open a pool by ID"><input name="lookup" required maxLength={80} placeholder="Pool ID from your invitation" /></Field><button className="secondary-button self-end" type="submit">Open</button></form>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#173c2d]/10 bg-white/60 p-5"><div><p className="eyebrow">Your withdrawable contract credit</p><p className="mt-2 text-xl font-black">{wallet ? credit === null ? "Loading…" : formatGen(credit) + " GEN" : "Connect wallet to view"}</p>{protocol.creditError && <p className="mt-2 text-xs text-red-800">Credit unavailable: {protocol.creditError}</p>}<p className="mt-2 text-xs text-[#65746c]">Withdrawal emits a separate transfer. Emission is not proof of delivery.</p></div><button className="primary-button" disabled={disabled || credit === null || BigInt(credit) <= 0n} onClick={() => void transact("Withdraw credit", "withdraw")}>Withdraw credit</button></div>
+      {detailError ? <div className="mt-6" role="alert"><Empty title="Pool could not be loaded">{detailError}</Empty></div> : !pool ? <div className="mt-6"><Empty title={poolId ? "Loading pool…" : "No pool selected"}>{poolId ? "Checking immutable terms and participant state." : "Create a pool or open an invitation ID to get started."}</Empty></div> :
+      <div className="mt-7 grid items-start gap-6 lg:grid-cols-[1.15fr_.85fr]">
+        <div className="space-y-6">
+          <article className="surface-card p-6 sm:p-8"><div className="flex flex-wrap items-center justify-between gap-3"><span className="eyebrow break-all">{pool.id}</span><span className="status-chip">{label(pool.status)}</span></div><h2 className="mt-4 text-3xl font-black tracking-tight">{pool.title}</h2><p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-[#65746c]">{pool.description}</p><h3 className="mt-6 text-sm font-black">The rules you are accepting</h3><p className="mt-3 whitespace-pre-wrap rounded-2xl bg-[#edf0e8] p-4 text-sm leading-7">{pool.rules}</p>
+            <dl className="mt-6 grid grid-cols-2 gap-5 text-sm">{[["Stake",formatGen(pool.stake_wei)+" GEN"],["Verification",label(pool.verification_mode)],["Cohort",pool.participant_count+" joined · minimum "+pool.min_players+" · max "+pool.max_players],["Schedule",pool.rounds_required+" rounds · "+(pool.round_window_seconds/3600)+" hours each"],["Join deadline",date(pool.join_deadline)],["Activity starts",date(pool.activity_starts_at)],["Activity ends",date(pool.activity_ends_at)],["Fee on forfeitures",(pool.fee_bps/100)+"%"]].map(([key,value]) => <div key={key}><dt className="text-xs text-[#718078]">{key}</dt><dd className="mt-1 font-bold">{value}</dd></div>)}</dl>
+            <p className="mt-6 text-xs leading-6 text-[#65746c]">A failed or missed round forfeits your stake to successful participants, minus the fee. If everyone fails, all stakes are refunded minus the fee. A missed minimum or unusable activation window returns full refund credit. A source-verified check-in must match the validator-rendered public page; a self-attested statement is not independent proof.</p>
+            <details className="mt-5 text-xs"><summary className="cursor-pointer font-bold">Immutable terms hash & authority</summary><p className="mt-3 break-all font-mono">{pool.terms_hash}</p><p className="mt-2 break-all">Creator: {pool.creator}</p><p className="mt-2 break-all">Fee recipient: {pool.fee_recipient}</p></details>
+            {actions?.join && <div className="mt-6 border-t border-[#173c2d]/10 pt-5"><label className="flex items-start gap-3 text-xs leading-6"><input type="checkbox" className="mt-1" checked={acceptedTerms} onChange={e => setAcceptedTerms(e.target.checked)}/><span>I have reviewed the rules, schedule, refund policy and exact {formatGen(pool.stake_wei)} GEN stake. This is a Studionet test commitment.</span></label><button className="primary-button mt-4" disabled={disabled || !acceptedTerms} onClick={() => void transact("Join pool", "join", [pool.id], BigInt(pool.stake_wei))}>Confirm terms & stake {formatGen(pool.stake_wei)} GEN</button></div>}
+            {!wallet && <button className="primary-button mt-6" disabled={Boolean(busy)} onClick={() => void protocol.connect()}>Connect wallet to participate</button>}
+            <div className="mt-5 flex flex-wrap gap-3">{actions?.activate && <button className="primary-button" disabled={disabled} onClick={() => void transact("Activate pool", "activate_pool", [pool.id])}>Activate or enable refunds</button>}{actions?.cancel && <button className="secondary-button" disabled={disabled} onClick={() => void transact("Cancel empty pool", "cancel_empty_pool", [pool.id])}>Cancel empty pool</button>}{actions?.refund && <button className="primary-button" disabled={disabled} onClick={() => void transact("Claim formation refund", "claim_formation_refund", [pool.id])}>Claim full refund credit</button>}{actions?.settle && <button className="primary-button" disabled={disabled} onClick={() => void transact("Settle pool", "settle", [pool.id])}>Settle & allocate credits</button>}</div>
+            {pool.activation_failure && <p className="mt-4 text-xs text-[#7b3023]">Activation outcome: {label(pool.activation_failure)}</p>}
+            {pool.status === "settled" && <p className="mt-4 text-sm">{pool.winner_count} successful · {pool.loser_count} failed · {formatGen(pool.fee_wei)} GEN fee. Allocations are available as contract credit.</p>}
+          </article>
+          <article className="surface-card p-6"><h3 className="text-xl font-black">Cohort activity</h3>{!selected?.participants.length ? <p className="mt-4 text-sm text-[#718078]">No participants have joined.</p> : <ul className="mt-5 divide-y divide-[#173c2d]/10">{selected.participants.map(player => {const missed = player.status === "active" && pool.status === "active" && now >= roundState(pool,player,now).closesAt; return <li key={player.address} className="flex flex-wrap items-center justify-between gap-3 py-4"><div><p className="text-xs font-bold">{shortAddress(player.address)}{player.address.toLowerCase() === wallet.toLowerCase() ? " · you" : ""}</p><p className="mt-1 text-xs text-[#718078]">{player.rounds_passed}/{pool.rounds_required} rounds passed · {label(player.status)}</p></div>{missed && wallet && <button className="small-primary" disabled={disabled} onClick={() => void transact("Mark missed round", "mark_missed_round", [pool.id, player.address])}>Record missed deadline</button>}</li>;})}</ul>}</article>
+        </div>
+        <aside className="space-y-6">
+          <article className="rounded-[28px] bg-[#173c2d] p-6 text-white"><p className="text-xs font-bold uppercase tracking-widest text-[#b9c8bf]">Your position</p><h2 className="mt-3 text-3xl font-black">{me ? label(me.status) : wallet ? "Not a participant" : "Wallet not connected"}</h2>{me && round && <><p className="mt-5">{me.rounds_passed}/{pool.rounds_required} rounds passed</p><div className="mt-3 h-2 overflow-hidden rounded-full bg-white/15"><div className="h-full bg-[#dfff72]" style={{width: (me.rounds_passed / pool.rounds_required * 100) + "%"}}/></div>{me.status === "active" && <div className="mt-5 text-sm leading-7"><p>Next round: {round.number}</p><p>Opens: {date(round.opensAt)}</p><p>Closes: {date(round.closesAt)}</p><p>Attempts used: {round.attempts}/3</p></div>}<p className="mt-5 text-sm">Settlement credit: {formatGen(me.settlement_credit_wei)} GEN</p></>}</article>
+          {actions?.submit && <form className="surface-card space-y-5 p-6" onSubmit={checkIn}><div><p className="eyebrow">Round {round?.number}</p><h3 className="mt-2 text-xl font-black">Submit your proof</h3></div><Field title="What did you complete?"><textarea name="proof" required maxLength={3000} rows={5} placeholder="Describe the action, date, and how it meets the rules."/></Field><Field title={pool.verification_mode === "source_verified" ? "Public HTTPS evidence URL" : "Evidence URL (optional)"}><input name="evidence_url" type="url" pattern="https://.+" required={pool.verification_mode === "source_verified"} maxLength={2048} placeholder="https://…"/></Field>{pool.verification_mode === "source_verified" && <><Field title="Full rendered source text" hint="Whitespace is normalized before hashing. It must match the entire text validators fetch—not an excerpt."><textarea name="snapshot" rows={4}/></Field><Field title="Or provide a SHA-256 digest"><input name="digest" pattern="[a-fA-F0-9]{64}" maxLength={64}/></Field></>}<p className="text-xs leading-5 text-[#718078]">Submit well before the deadline; consensus can take several minutes. Proof and public evidence must not contain private information.</p><button className="primary-button w-full" disabled={disabled}>Submit round {round?.number} proof</button></form>}
+          {me && !actions?.submit && pool.status === "active" && <Empty title="Check-in is not available">{me.status !== "active" ? "Your participant status is terminal. Settlement becomes available when all participants are terminal or the activity ends." : "The next round is not open, its deadline passed, or its three-attempt limit was reached. Check the schedule above."}</Empty>}
+          {selected?.attempt && <article className="surface-card p-6"><p className="eyebrow">Latest recorded attempt</p><div className="mt-3 flex items-center justify-between"><h3 className="text-lg font-black">Round {String(selected.attempt.round)} · attempt {String(selected.attempt.attempt)}</h3><span className="status-chip">{String(selected.attempt.verdict)}</span></div><p className="mt-4 text-sm leading-6 text-[#65746c]">{String(selected.attempt.reasoning ?? "")}</p><p className="mt-3 text-xs text-[#718078]">Leader explanation is not an independent audit. The recorded verdict and evidence digest are the consensus fields.</p><details className="mt-4 text-xs"><summary>Evidence digest</summary><code className="mt-2 block break-all">{String(selected.attempt.observed_evidence_digest || "No external source digest")}</code></details></article>}
+        </aside>
+      </div>}
+    </section>}
 
-      {tab === "create" && <section className="mx-auto grid max-w-[1420px] gap-8 px-5 py-10 sm:px-10 lg:grid-cols-[1fr_380px] lg:px-14 lg:py-14"><div><p className="eyebrow">Creator workflow</p><h1 className="mt-2 text-4xl font-black tracking-[-.045em] sm:text-5xl">Write the rules before<br/>anyone puts money down.</h1><p className="mt-4 max-w-2xl text-base leading-7 text-[#65746c]">The pool ID, verification policy, schedule, economics, refund policy, and fee recipient are hashed together. Later platform changes cannot alter this pool.</p><form onSubmit={createPool} className="surface-card mt-8 p-6 sm:p-8"><div className="grid gap-5"><div className="grid gap-5 sm:grid-cols-2"><Field label="Pool title"><input name="title" required maxLength={120} placeholder="30 mornings of movement" /></Field><Field label="Pool ID" hint="Optional; one is generated if blank."><input name="pool_id" maxLength={80} placeholder="move-30" /></Field></div><Field label="Plain-language promise"><textarea name="description" required maxLength={500} rows={3} placeholder="What will every participant commit to doing?" /></Field><Field label="Pass / fail rules" hint="Be precise enough that an independent reviewer could apply them."><textarea name="rules" required maxLength={2500} rows={5} placeholder="Pass when… Fail when… Evidence must…" /></Field><fieldset><legend className="field-title">Verification mode</legend><div className="mt-2 grid gap-3 sm:grid-cols-2"><label className="choice-card"><input type="radio" name="verification_mode" value="self_attested" defaultChecked/><span><strong>Self-attested</strong><small>Lower friction. The participant’s statement is the only source.</small></span></label><label className="choice-card"><input type="radio" name="verification_mode" value="source_verified"/><span><strong>Source-verified</strong><small>HTTPS source plus a matching content digest is mandatory.</small></span></label></div></fieldset><div className="grid gap-5 sm:grid-cols-3"><Field label="Stake (GEN)"><input name="stake" type="number" min="0.000001" step="0.000001" required defaultValue="10" /></Field><Field label="Rounds"><input name="rounds" type="number" min="1" max="60" required defaultValue="21" /></Field><Field label="Round length (hours)"><input name="round_hours" type="number" min="1" max="744" required defaultValue="24" /></Field></div><div className="grid gap-5 sm:grid-cols-3"><Field label="Minimum cohort"><input name="min_players" type="number" min="2" max="100" required defaultValue="6" /></Field><Field label="Maximum cohort"><input name="max_players" type="number" min="2" max="100" required defaultValue="20" /></Field><Field label="Formation (days)"><input name="join_days" type="number" min="1" max="90" required defaultValue="7" /></Field></div></div><div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[#173c2d]/10 pt-6"><p className="max-w-lg text-xs leading-5 text-[#718078]">Creation does not move funds. Participants review the resulting immutable terms and stake separately.</p><button className="primary-button" type="submit" disabled={Boolean(busy)}>{busy === "Create pool" ? "Waiting for consensus…" : "Publish immutable terms"}</button></div></form></div><aside className="space-y-5 lg:pt-24"><div className="rounded-[28px] bg-[#dfff72] p-6"><p className="eyebrow text-[#506629]">Safety preview</p><h2 className="mt-4 text-2xl font-black">If the cohort minimum is missed</h2><p className="mt-3 text-sm leading-6 text-[#4f6034]">The pool never becomes active. Every joined participant can claim their full stake as contract credit—no platform fee.</p></div><div className="surface-card p-6"><p className="eyebrow">Creator checklist</p><ul className="check-list mt-5"><li>One measurable action per round</li><li>A deadline users can understand</li><li>Evidence sources available to validators</li><li>No private or authenticated URLs</li><li>Consequences stated before joining</li></ul></div><div className="rounded-[24px] border border-[#173c2d]/10 p-5 text-xs leading-5 text-[#65756c]"><strong className="text-[#173c2d]">Creator authority ends at publication.</strong><br/>Creators cannot edit terms, change fees, judge check-ins, seize stakes, or cancel after anyone joins.</div></aside></section>}
+    {tab === "create" && <section className={shell + " grid gap-8 py-12 lg:grid-cols-[1fr_340px]"}><div><p className="eyebrow">Creator workflow</p><h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">Write the rules before<br/>anyone puts money down.</h1><form onSubmit={createPool} className="surface-card mt-8 space-y-5 p-6 sm:p-8"><div className="grid gap-5 sm:grid-cols-2"><Field title="Pool title"><input name="title" required maxLength={120} placeholder="30 mornings of movement"/></Field><Field title="Pool ID" hint="Optional; generated if blank."><input name="pool_id" maxLength={80} placeholder="move-30"/></Field></div><Field title="Plain-language promise"><textarea name="description" required maxLength={500} rows={3}/></Field><Field title="Pass / fail rules" hint="Define one measurable action, accepted evidence, and clear failure conditions."><textarea name="rules" required maxLength={2500} rows={5}/></Field><Field title="Verification policy"><select name="verification_mode"><option value="self_attested">Self-attested — participant statement only</option><option value="source_verified">Source-verified — public HTTPS source + digest</option></select></Field><div className="grid gap-5 sm:grid-cols-3"><Field title="Test stake (GEN)"><input name="stake" inputMode="decimal" required pattern="[0-9]+([.][0-9]{1,18})?" defaultValue="0.001"/></Field><Field title="Rounds"><input name="rounds" type="number" min="1" max="60" required defaultValue="7"/></Field><Field title="Round length (hours)"><input name="round_hours" type="number" min="1" max="744" required defaultValue="24"/></Field><Field title="Minimum cohort"><input name="min_players" type="number" min="2" max="100" required defaultValue="2"/></Field><Field title="Maximum cohort"><input name="max_players" type="number" min="2" max="100" required defaultValue="10"/></Field><Field title="Formation (days)"><input name="join_days" type="number" min="1" max="90" required defaultValue="3"/></Field></div><p className="text-xs leading-6 text-[#718078]">Creation publishes terms without moving funds. Stake and all deadlines are immutable. Rounds begin at the formation deadline, so someone must activate the pool promptly.</p><button className="primary-button" disabled={disabled}>{busy === "Create pool" ? "Waiting for finality…" : "Publish immutable terms"}</button></form></div><aside className="space-y-5 lg:pt-24"><article className="rounded-[28px] bg-[#dfff72] p-6"><p className="eyebrow">Studionet first</p><h2 className="mt-4 text-2xl font-black">Make the promise small.<br/>Make the rules clear.</h2><p className="mt-4 text-sm leading-7">This product uses test GEN. Wallet funding and contract payouts must be validated on your Studionet setup before asking a cohort to stake.</p></article><article className="surface-card p-6"><h3 className="font-black">Creator checklist</h3><ul className="check-list mt-5"><li>One measurable action per round</li><li>Enough time for validator consensus</li><li>Public evidence available without login</li><li>Failure consequences stated up front</li><li>No personal or confidential evidence</li></ul></article><p className="p-4 text-xs leading-6 text-[#65746c]">Creators cannot edit published terms, judge check-ins, seize stakes, or cancel after a participant joins.</p></aside></section>}
 
-      {tab === "owner" && <section className="mx-auto max-w-[1420px] px-5 py-10 sm:px-10 lg:px-14 lg:py-14"><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow">Owner console</p><h1 className="mt-2 text-4xl font-black tracking-[-.045em] sm:text-5xl">Operate the protocol,<br/>not people’s outcomes.</h1><p className="mt-3 max-w-2xl text-[#64736b]">The owner may schedule a future fee, but cannot rewrite existing pools, verdicts, evidence, participant status, or settlement splits.</p></div><div className={`rounded-full px-4 py-2 text-xs font-black ${isOwner ? "bg-[#dfff72]" : "bg-white/70"}`}>{isOwner ? "Connected as owner" : `Owner ${shortAddress(owner)}`}</div></div><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><Metric label="Pools created" value={String(stats.pools_created ?? 0)} note={`${stats.pools_activated ?? 0} activated`}/><Metric label="Total joins" value={String(stats.joins ?? 0)} note={`${stats.checkins_passed ?? 0} passed check-ins`}/><Metric label="Fees accrued" value={`${formatGen(String(stats.fees_accrued_wei ?? 0))} GEN`} note="Only on forfeited funds"/><Metric label="Payouts emitted" value={String(stats.payouts_emitted ?? 0)} note="Delivery verified separately"/></div><div className="mt-7 grid gap-6 lg:grid-cols-[.9fr_1.1fr]"><form className="surface-card p-6 sm:p-8" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); void transact("Schedule fee", "schedule_fee_bps", [Number(data.get("fee_bps") ?? 0)]); }}><p className="eyebrow">Future fee schedule</p><div className="mt-4 flex items-end gap-3"><Field label="New fee (basis points)" hint="Maximum 1,000 bps / 10%."><input name="fee_bps" type="number" min="0" max="1000" defaultValue={String(config.fee_bps ?? 0)} /></Field><button className="primary-button mb-[22px] shrink-0" disabled={Boolean(busy) || (isLiveConfigured && !isOwner)} type="submit">Schedule</button></div><div className="mt-5 rounded-2xl bg-[#edf0e8] p-4 text-sm"><div className="flex justify-between"><span>Current fee</span><strong>{(Number(config.fee_bps ?? 0) / 100).toFixed(2)}%</strong></div><div className="mt-2 flex justify-between"><span>Delay</span><strong>24 hours</strong></div><div className="mt-2 flex justify-between"><span>Existing pools</span><strong>Unaffected</strong></div></div><button className="secondary-button mt-4 w-full" type="button" onClick={() => void transact("Apply scheduled fee", "apply_scheduled_fee")}>Apply matured change</button></form><article className="rounded-[28px] bg-[#173c2d] p-6 text-white sm:p-8"><div className="flex items-center justify-between"><div><p className="text-xs font-black uppercase tracking-[.15em] text-[#a9bbb0]">Protocol health</p><h2 className="mt-2 text-2xl font-black">Constraints are doing the work.</h2></div><span className="grid h-12 w-12 place-items-center rounded-full bg-[#dfff72] text-xl font-black text-[#173c2d]">✓</span></div><div className="mt-7 grid gap-3 sm:grid-cols-2">{[["Fee escalation","24h timelock"],["Pool economics","Snapshot at creation"],["Minimum cohort","Refund state"],["Retries","3 per round"],["All participants fail","Refund minus fee"],["Payout status","Emission ≠ delivery"]].map(([label,value]) => <div className="rounded-2xl bg-white/8 p-4 ring-1 ring-white/8" key={label}><p className="text-xs text-[#a9bbb0]">{label}</p><p className="mt-1 text-sm font-black">{value}</p></div>)}</div></article></div></section>}
-
-      <footer className="border-t border-[#173c2d]/10"><div className="mx-auto flex max-w-[1420px] flex-wrap items-center justify-between gap-4 px-5 py-8 text-xs font-semibold text-[#718078] sm:px-10 lg:px-14"><p>Commitment Pools · independent GenLayer product</p><p>Immutable terms · bounded evidence · conserved value</p></div></footer>
-    </main>
-  );
+    {tab === "owner" && <section className={shell + " py-12"}><p className="eyebrow">Owner console</p><h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">Operate the protocol,<br/>not people’s outcomes.</h1><p className="mt-5 text-sm text-[#65746c]">{owner ? (isOwner ? "Connected as contract owner · " : "Read-only unless connected as owner · ") + owner : "Loading contract authority…"}</p><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><Metric title="Pools created" value={stats ? String(stats.pools_created ?? 0) : "—"} note="From this deployed contract"/><Metric title="Total joins" value={stats ? String(stats.joins ?? 0) : "—"} note="Finalized participant entries"/><Metric title="Fees accrued" value={stats ? formatGen(String(stats.fees_accrued_wei ?? 0)) + " GEN" : "—"} note="Applied to forfeited stakes only"/><Metric title="Payouts emitted" value={stats ? String(stats.payouts_emitted ?? 0) : "—"} note="Delivery must be checked separately"/></div><div className="mt-7 grid gap-6 lg:grid-cols-2"><form className="surface-card p-7" onSubmit={event => {event.preventDefault(); void transact("Schedule fee", "schedule_fee_bps", [Number(new FormData(event.currentTarget).get("fee_bps"))]);}}><p className="eyebrow">Future fee schedule</p><h2 className="mt-3 text-2xl font-black">Current fee: {config ? Number(config.fee_bps)/100 + "%" : "—"}</h2><div className="mt-6"><Field title="New fee (basis points)" hint="100 basis points = 1%. Maximum 1,000 / 10%."><input name="fee_bps" type="number" min="0" max="1000" required defaultValue="500" disabled={!isOwner}/></Field></div><button className="primary-button mt-5" disabled={disabled || !isOwner}>Schedule with 24h delay</button><p className="mt-5 text-sm text-[#65746c]">{pendingFeeAt ? "Scheduled: " + Number(config?.pending_fee_bps)/100 + "% · can apply after " + date(pendingFeeAt) : "No fee change is scheduled."}</p><button className="secondary-button mt-4" type="button" disabled={disabled || !wallet || !pendingFeeAt || now < pendingFeeAt} onClick={() => void transact("Apply scheduled fee", "apply_scheduled_fee")}>Apply matured change</button><p className="mt-3 text-xs text-[#718078]">Anyone may apply a matured fee. Existing pools retain their original fee.</p></form><article className="rounded-[28px] bg-[#173c2d] p-7 text-white"><p className="text-xs uppercase tracking-widest text-[#b9c8bf]">Bounded authority</p><h2 className="mt-3 text-3xl font-black">The owner cannot choose who wins.</h2><ul className="mt-6 space-y-4 text-sm leading-7 text-[#bdccc3]"><li>Fees are snapshotted when each pool is created.</li><li>Proof verdicts, participation, and immutable terms are not owner-editable.</li><li>Settlement conserves the pool’s accounted stake across participants and fees.</li><li>Network status, payout delivery monitoring, and operational alerts remain separate concerns.</li></ul></article></div></section>}
+    <footer className="border-t border-[#173c2d]/10"><div className={shell + " flex flex-wrap justify-between gap-3 py-8 text-xs text-[#718078]"}><p>Commitment Pools · independent GenLayer product</p><p>Studionet sandbox · test funds only · evidence is public</p></div></footer>
+  </main>;
 }
