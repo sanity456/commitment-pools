@@ -1,0 +1,557 @@
+{
+  "product": "commitment-pools",
+  "network": "studionet",
+  "chainId": 61999,
+  "automatedFixture": true,
+  "events": [
+    {
+      "at": "2026-08-28T09:59:21.529Z",
+      "event": "source_pool_started",
+      "id": "verified-source-mtcs55fd"
+    },
+    {
+      "at": "2026-08-28T09:59:21.533Z",
+      "event": "submitting",
+      "method": "create_pool",
+      "args": [
+        "verified-source-mtcs55fd",
+        "Verified-source sandbox lifecycle",
+        "Public-page evidence integration fixture; not a real-world activity.",
+        "This is a sandbox page-verification exercise. The only requirement is to provide https://example.com whose rendered text includes the title Example Domain and states that the domain is for use in documentation examples without needing permission. Pass if that public text is present. No physical activity is claimed.",
+        "source_verified",
+        "1000",
+        1,
+        2,
+        2,
+        900,
+        3600
+      ],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T09:59:23.158Z",
+      "event": "submitted",
+      "method": "create_pool",
+      "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548"
+    },
+    {
+      "at": "2026-08-28T09:59:23.775Z",
+      "event": "progress",
+      "method": "create_pool",
+      "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T09:59:30.700Z",
+      "event": "progress",
+      "method": "create_pool",
+      "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:00:05.639Z",
+      "event": "progress",
+      "method": "create_pool",
+      "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:00:05.639Z",
+      "event": "finalized_success",
+      "method": "create_pool",
+      "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548"
+    },
+    {
+      "at": "2026-08-28T10:00:05.640Z",
+      "event": "submitting",
+      "method": "join",
+      "args": [
+        "verified-source-mtcs55fd"
+      ],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "1000"
+    },
+    {
+      "at": "2026-08-28T10:00:07.347Z",
+      "event": "submitted",
+      "method": "join",
+      "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b"
+    },
+    {
+      "at": "2026-08-28T10:00:07.637Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:00:14.801Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:00:42.968Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:00:42.968Z",
+      "event": "finalized_success",
+      "method": "join",
+      "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b"
+    },
+    {
+      "at": "2026-08-28T10:00:42.968Z",
+      "event": "submitting",
+      "method": "join",
+      "args": [
+        "verified-source-mtcs55fd"
+      ],
+      "account": "0xE3F03fcbab7a247Ed969E882a953e7d6760d7fC7",
+      "value": "1000"
+    },
+    {
+      "at": "2026-08-28T10:00:44.472Z",
+      "event": "submitted",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1"
+    },
+    {
+      "at": "2026-08-28T10:00:44.752Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:00:51.651Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1",
+      "status": "PROPOSING"
+    },
+    {
+      "at": "2026-08-28T10:00:58.586Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:01:33.667Z",
+      "event": "progress",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:01:33.667Z",
+      "event": "finalized_success",
+      "method": "join",
+      "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1"
+    },
+    {
+      "at": "2026-08-28T10:01:35.175Z",
+      "event": "source_capture_submitted",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "helper": "0x45E69A85adAA5CBc066970cA6e5D9B16815b3173"
+    },
+    {
+      "at": "2026-08-28T10:01:35.468Z",
+      "event": "source_capture_progress",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:01:42.447Z",
+      "event": "source_capture_progress",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "status": "COMMITTING"
+    },
+    {
+      "at": "2026-08-28T10:01:49.869Z",
+      "event": "source_capture_progress",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:02:18.066Z",
+      "event": "source_capture_progress",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:02:19.380Z",
+      "event": "source_capture_verified",
+      "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+      "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+      "byte_length": 127
+    },
+    {
+      "at": "2026-08-28T10:02:20.683Z",
+      "event": "waiting_for_source_pool_deadline",
+      "id": "verified-source-mtcs55fd",
+      "deadline": 1787912062
+    },
+    {
+      "at": "2026-08-28T10:14:31.557Z",
+      "event": "submitting",
+      "method": "activate_pool",
+      "args": [
+        "verified-source-mtcs55fd"
+      ],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:14:33.783Z",
+      "event": "submitted",
+      "method": "activate_pool",
+      "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d"
+    },
+    {
+      "at": "2026-08-28T10:14:34.061Z",
+      "event": "progress",
+      "method": "activate_pool",
+      "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d",
+      "status": "PROPOSING"
+    },
+    {
+      "at": "2026-08-28T10:14:41.253Z",
+      "event": "progress",
+      "method": "activate_pool",
+      "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:15:09.594Z",
+      "event": "progress",
+      "method": "activate_pool",
+      "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:15:09.594Z",
+      "event": "finalized_success",
+      "method": "activate_pool",
+      "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d"
+    },
+    {
+      "at": "2026-08-28T10:15:09.595Z",
+      "event": "submitting",
+      "method": "submit_checkin",
+      "args": [
+        "verified-source-mtcs55fd",
+        "The public Example Domain page contains the agreed title and documentation-example sentence.",
+        "https://example.com",
+        "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "d5600cda-cc8f-4cce-bc6d-38fedaf3ad6c"
+      ],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:15:12.042Z",
+      "event": "submitted",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080"
+    },
+    {
+      "at": "2026-08-28T10:15:12.531Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080",
+      "status": "PROPOSING"
+    },
+    {
+      "at": "2026-08-28T10:15:19.708Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080",
+      "status": "COMMITTING"
+    },
+    {
+      "at": "2026-08-28T10:15:26.931Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:16:02.395Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:16:02.395Z",
+      "event": "finalized_success",
+      "method": "submit_checkin",
+      "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080"
+    },
+    {
+      "at": "2026-08-28T10:16:06.848Z",
+      "event": "submitting",
+      "method": "submit_checkin",
+      "args": [
+        "verified-source-mtcs55fd",
+        "The public Example Domain page contains the agreed title and documentation-example sentence.",
+        "https://example.com",
+        "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "baa72561-e827-4a61-81e7-62f58ea3ac90"
+      ],
+      "account": "0xE3F03fcbab7a247Ed969E882a953e7d6760d7fC7",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:16:09.272Z",
+      "event": "submitted",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b"
+    },
+    {
+      "at": "2026-08-28T10:16:09.725Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:16:16.894Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b",
+      "status": "COMMITTING"
+    },
+    {
+      "at": "2026-08-28T10:16:37.882Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:17:13.229Z",
+      "event": "progress",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:17:13.229Z",
+      "event": "finalized_success",
+      "method": "submit_checkin",
+      "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b"
+    },
+    {
+      "at": "2026-08-28T10:17:19.203Z",
+      "event": "submitting",
+      "method": "settle",
+      "args": [
+        "verified-source-mtcs55fd"
+      ],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:17:21.759Z",
+      "event": "submitted",
+      "method": "settle",
+      "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997"
+    },
+    {
+      "at": "2026-08-28T10:17:22.248Z",
+      "event": "progress",
+      "method": "settle",
+      "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:17:29.205Z",
+      "event": "progress",
+      "method": "settle",
+      "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:18:04.759Z",
+      "event": "progress",
+      "method": "settle",
+      "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:18:04.759Z",
+      "event": "finalized_success",
+      "method": "settle",
+      "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997"
+    },
+    {
+      "at": "2026-08-28T10:18:06.229Z",
+      "event": "submitting",
+      "method": "withdraw",
+      "args": [],
+      "account": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:18:08.751Z",
+      "event": "submitted",
+      "method": "withdraw",
+      "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b"
+    },
+    {
+      "at": "2026-08-28T10:18:09.230Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b",
+      "status": "PROPOSING"
+    },
+    {
+      "at": "2026-08-28T10:18:16.759Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:18:45.260Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:18:45.260Z",
+      "event": "finalized_success",
+      "method": "withdraw",
+      "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b"
+    },
+    {
+      "at": "2026-08-28T10:18:45.879Z",
+      "event": "payout_children",
+      "parent": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b",
+      "children": [
+        {
+          "hash": "0x9498f9bf56909465c07afb55ae1d3c6506d76f4d5302d2af4fb758e32f6d4f7f",
+          "status": "FINALIZED",
+          "value": 1000,
+          "recipient": "0xFB1fD5aD9DC0ADbC9054A9D664211CfDFa83F097",
+          "delivered": true
+        }
+      ],
+      "deliveryProven": true
+    },
+    {
+      "at": "2026-08-28T10:18:47.214Z",
+      "event": "submitting",
+      "method": "withdraw",
+      "args": [],
+      "account": "0xE3F03fcbab7a247Ed969E882a953e7d6760d7fC7",
+      "value": "0"
+    },
+    {
+      "at": "2026-08-28T10:18:48.932Z",
+      "event": "submitted",
+      "method": "withdraw",
+      "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c"
+    },
+    {
+      "at": "2026-08-28T10:18:49.256Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c",
+      "status": "PENDING"
+    },
+    {
+      "at": "2026-08-28T10:18:56.211Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c",
+      "status": "ACCEPTED"
+    },
+    {
+      "at": "2026-08-28T10:19:24.523Z",
+      "event": "progress",
+      "method": "withdraw",
+      "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c",
+      "status": "FINALIZED"
+    },
+    {
+      "at": "2026-08-28T10:19:24.524Z",
+      "event": "finalized_success",
+      "method": "withdraw",
+      "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c"
+    },
+    {
+      "at": "2026-08-28T10:19:25.558Z",
+      "event": "payout_children",
+      "parent": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c",
+      "children": [
+        {
+          "hash": "0x8d0ec204afd4c9a927f4c76345c66690f9ca7798c948f4b2cf3c0266ebe92825",
+          "status": "FINALIZED",
+          "value": 1000,
+          "recipient": "0xE3F03fcbab7a247Ed969E882a953e7d6760d7fC7",
+          "delivered": true
+        }
+      ],
+      "deliveryProven": true
+    },
+    {
+      "at": "2026-08-28T10:19:25.558Z",
+      "event": "source_pool_passed",
+      "id": "verified-source-mtcs55fd",
+      "transactions": [
+        {
+          "method": "create_pool",
+          "hash": "0x5e8f49078583a29b041a145cf5136083180868fc566c5a29860cb4dccc624548"
+        },
+        {
+          "method": "join",
+          "hash": "0x99f74a1042b6a0658fb2f21d49edcee3e7a719b85fb7f6053f4a11fce6a2c17b"
+        },
+        {
+          "method": "join",
+          "hash": "0xf43f8cc766bf597f0be8d392280316f380ea60350a62a52c8c5e74df4aedb3e1"
+        },
+        {
+          "method": "capture",
+          "hash": "0xbba603f689c85d6de4e32b2079a041d214211c731987e92e89f78a8a497b4e39",
+          "helper": "0x45E69A85adAA5CBc066970cA6e5D9B16815b3173",
+          "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6"
+        },
+        {
+          "method": "activate_pool",
+          "hash": "0xd0dbc16def161858aeb7ada2d6d1138fc790d016aab7eb804027713f83afbb7d"
+        },
+        {
+          "method": "submit_checkin",
+          "hash": "0x55698990c3786c735086b3fb4f35747d2db74ed92d959a7344b5bca5fcc05080"
+        },
+        {
+          "method": "submit_checkin",
+          "hash": "0xc4de1447c4f463ff744332cf716ccabcfe56bb63fde17110bc056027ddae380b"
+        },
+        {
+          "method": "settle",
+          "hash": "0xb3b6217dc27f62eab96b270b2593a7443cf103b02b86de2211a646b2ad820997"
+        },
+        {
+          "method": "withdraw",
+          "hash": "0x23b7044b6df0d3ba98dc4daebdcd00357ef0f5411926ca578ef51f355d3a0c3b"
+        },
+        {
+          "method": "withdraw",
+          "hash": "0x45d01350d2fdb79e529359225bb4ecb68432426c643da715dcb9b8dd5bb0ff3c"
+        }
+      ]
+    }
+  ]
+}

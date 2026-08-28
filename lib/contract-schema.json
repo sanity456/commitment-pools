@@ -1,21 +1,11 @@
 {
   "ctor": {
-    "params": [
-      [
-        "initial_fee_bps",
-        "int"
-      ]
-    ],
+    "params": [["initial_fee_bps", "int"]],
     "kwparams": {}
   },
   "methods": {
     "activate_pool": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
@@ -29,46 +19,26 @@
       "payable": false
     },
     "can_join": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": true,
       "ret": "bool"
     },
     "can_settle": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": true,
       "ret": "bool"
     },
     "cancel_empty_pool": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
       "payable": false
     },
     "claim_formation_refund": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
@@ -76,50 +46,17 @@
     },
     "create_pool": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "title",
-          "string"
-        ],
-        [
-          "description",
-          "string"
-        ],
-        [
-          "rules",
-          "string"
-        ],
-        [
-          "verification_mode",
-          "string"
-        ],
-        [
-          "stake_wei",
-          "int"
-        ],
-        [
-          "rounds_required",
-          "int"
-        ],
-        [
-          "min_players",
-          "int"
-        ],
-        [
-          "max_players",
-          "int"
-        ],
-        [
-          "join_window_seconds",
-          "int"
-        ],
-        [
-          "round_window_seconds",
-          "int"
-        ]
+        ["pool_id", "string"],
+        ["title", "string"],
+        ["description", "string"],
+        ["rules", "string"],
+        ["verification_mode", "string"],
+        ["stake_wei", "int"],
+        ["rounds_required", "int"],
+        ["min_players", "int"],
+        ["max_players", "int"],
+        ["join_window_seconds", "int"],
+        ["round_window_seconds", "int"]
       ],
       "kwparams": {},
       "readonly": false,
@@ -128,22 +65,10 @@
     },
     "get_attempt": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "account",
-          "string"
-        ],
-        [
-          "round_number",
-          "int"
-        ],
-        [
-          "attempt_number",
-          "int"
-        ]
+        ["pool_id", "string"],
+        ["account", "string"],
+        ["round_number", "int"],
+        ["attempt_number", "int"]
       ],
       "kwparams": {},
       "readonly": true,
@@ -156,63 +81,36 @@
       "ret": "dict"
     },
     "get_credit": {
-      "params": [
-        [
-          "account",
-          "string"
-        ]
-      ],
+      "params": [["account", "string"]],
       "kwparams": {},
       "readonly": true,
       "ret": "dict"
     },
     "get_participant": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "account",
-          "string"
-        ]
+        ["pool_id", "string"],
+        ["account", "string"]
       ],
       "kwparams": {},
       "readonly": true,
       "ret": "dict"
     },
     "get_payout": {
-      "params": [
-        [
-          "payout_id",
-          "string"
-        ]
-      ],
+      "params": [["payout_id", "string"]],
       "kwparams": {},
       "readonly": true,
       "ret": "dict"
     },
     "get_pool": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": true,
       "ret": "dict"
     },
     "get_round": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "round_number",
-          "int"
-        ]
+        ["pool_id", "string"],
+        ["round_number", "int"]
       ],
       "kwparams": {},
       "readonly": true,
@@ -225,12 +123,7 @@
       "ret": "dict"
     },
     "join": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
@@ -238,18 +131,9 @@
     },
     "list_participants": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "offset",
-          "int"
-        ],
-        [
-          "limit",
-          "int"
-        ]
+        ["pool_id", "string"],
+        ["offset", "int"],
+        ["limit", "int"]
       ],
       "kwparams": {},
       "readonly": true,
@@ -257,14 +141,8 @@
     },
     "list_pools": {
       "params": [
-        [
-          "offset",
-          "int"
-        ],
-        [
-          "limit",
-          "int"
-        ]
+        ["offset", "int"],
+        ["limit", "int"]
       ],
       "kwparams": {},
       "readonly": true,
@@ -272,14 +150,8 @@
     },
     "mark_missed_round": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "player",
-          "string"
-        ]
+        ["pool_id", "string"],
+        ["player", "string"]
       ],
       "kwparams": {},
       "readonly": false,
@@ -287,24 +159,14 @@
       "payable": false
     },
     "schedule_fee_bps": {
-      "params": [
-        [
-          "new_fee_bps",
-          "int"
-        ]
-      ],
+      "params": [["new_fee_bps", "int"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
       "payable": false
     },
     "settle": {
-      "params": [
-        [
-          "pool_id",
-          "string"
-        ]
-      ],
+      "params": [["pool_id", "string"]],
       "kwparams": {},
       "readonly": false,
       "ret": "dict",
@@ -312,26 +174,11 @@
     },
     "submit_checkin": {
       "params": [
-        [
-          "pool_id",
-          "string"
-        ],
-        [
-          "proof",
-          "string"
-        ],
-        [
-          "evidence_url",
-          "string"
-        ],
-        [
-          "evidence_digest",
-          "string"
-        ],
-        [
-          "attempt_nonce",
-          "string"
-        ]
+        ["pool_id", "string"],
+        ["proof", "string"],
+        ["evidence_url", "string"],
+        ["evidence_digest", "string"],
+        ["attempt_nonce", "string"]
       ],
       "kwparams": {},
       "readonly": false,
