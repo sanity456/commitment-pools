@@ -19,7 +19,7 @@ import {
   type Participant,
   type Pool,
 } from "../lib/lifecycle";
-import { errorMessage, useProtocol } from "../lib/useProtocol";
+import { errorMessage, useProtocol, type Protocol } from "../lib/useProtocol";
 import { EvidenceCapture } from "./EvidenceCapture";
 import { ActivityPanel } from "./ActivityPanel";
 import { DirectoryPanel } from "./DirectoryPanel";
@@ -116,6 +116,21 @@ export default function ProductHome({
   initialId?: string;
 }) {
   const protocol = useProtocol("list_pools");
+  return (
+    <ProductWorkspace
+      key={protocol.session?.wallet ?? "signed-out"}
+      protocol={protocol}
+      initialId={initialId}
+    />
+  );
+}
+function ProductWorkspace({
+  protocol,
+  initialId,
+}: {
+  protocol: Protocol;
+  initialId: string;
+}) {
   const router = useRouter();
   const {
     wallet,
@@ -183,7 +198,7 @@ export default function ProductHome({
     const task = window.setTimeout(async () => {
       setAcceptedTerms(false);
       setDetailError("");
-      if (!poolId || !isLiveConfigured) return;
+      if (!poolId || !isLiveConfigured || !protocol.session?.signedIn) return;
       try {
         const [poolRaw, playersRaw, settleRaw] = await Promise.all([
           readContract("get_pool", [poolId]),
@@ -232,7 +247,7 @@ export default function ProductHome({
       cancelled = true;
       window.clearTimeout(task);
     };
-  }, [detailKey, poolId, wallet]);
+  }, [detailKey, poolId, wallet, protocol.session?.signedIn]);
 
   function openPool(id: string) {
     if (!id) return;
@@ -377,7 +392,7 @@ export default function ProductHome({
             disabled={Boolean(busy)}
             onClick={() => void protocol.connect()}
           >
-            {wallet ? shortAddress(wallet) : "Connect wallet"}
+            {wallet ? shortAddress(wallet) : "Sign in with wallet"}
           </button>
         </div>
         <div className={shell + " flex gap-2 overflow-x-auto pb-3 2xl:hidden"}>
@@ -694,13 +709,12 @@ export default function ProductHome({
                     ))}
                   </dl>
                   <p className="mt-6 text-xs leading-6 text-[#65746c]">
-                    A failed or missed round forfeits your stake to successful
-                    participants, minus the fee. If everyone fails, all stakes
-                    are refunded minus the fee. A missed minimum or unusable
-                    activation window returns full refund credit. A
-                    source-verified check-in must match the validator-rendered
-                    public page; a self-attested statement is not independent
-                    proof.
+                    Failed or missed rounds forfeit stake to successful
+                    participants, minus fees. If all fail, stakes return minus
+                    fees. Missed minimums or expired activation windows return
+                    full refund credit. Source-verified proof must match the
+                    validator-rendered page; self-attestation is not independent
+                    verification.
                   </p>
                   <details className="mt-5 text-xs">
                     <summary className="cursor-pointer font-bold">
@@ -1164,9 +1178,9 @@ export default function ProductHome({
                 </Field>
               </div>
               <p className="text-xs leading-6 text-[#718078]">
-                Creation publishes terms without moving funds. Stake and all
-                deadlines are immutable. Rounds begin at the formation deadline,
-                so someone must activate the pool promptly.
+                Creation publishes terms without moving funds. Stakes and
+                deadlines stay fixed. Rounds start at the formation deadline;
+                activate promptly.
               </p>
               <button className="primary-button" disabled={disabled}>
                 {busy === "Create pool"
