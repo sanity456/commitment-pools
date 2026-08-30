@@ -4,40 +4,41 @@ Commitment Pools is an independent GenLayer accountability product. Participants
 
 The repository includes the contracts, their tests, and the complete app in `frontend/`. For the private Vercel test link, Git import setup and remaining acceptance checks, see [Release status](RELEASE_STATUS.md).
 
-## Use the v2 build
+## Security-fixed v3 Studionet contracts
 
-- Contract: `contracts/commitment_pool_v2.py`
-- Direct tests: `tests/test_commitment_pool_v2.py`
-- Full-consensus smoke test: `tests/test_integration_v2.py`
+- Contract: `contracts/commitment_pool_v3.py`
+- Evidence helper: `contracts/evidence_capture_v3.py`
+- Direct tests: `tests/test_commitment_pool_v3.py` plus the v3 security regressions
+- Opt-in deployment smoke test: `tests/test_integration_v3.py`
 - Web app: `frontend/`
-- Product boundary and invariants: `ARCHITECTURE.md`
+- Security boundaries and rollout: `ARCHITECTURE_V3.md` and `SUBMISSION_CHECKLIST.md`
 
 `contracts/commitment_pool.py` is the audited legacy prototype and remains only for regression comparison.
 
-## Contract checks
+## Contract checks from a fresh checkout
 
-From the workspace root:
-
-```powershell
-.venv\Scripts\genvm-lint.exe check commitment-pools\contracts\commitment_pool_v2.py --json
-```
-
-From this directory:
+Use Python 3.12 (tested with 3.12.13). From this repository's root on Windows:
 
 ```powershell
-..\.venv\Scripts\python.exe -m pytest tests -q
+py -3.12 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.venv\Scripts\python.exe scripts/check_contracts.py
 ```
 
-For the opt-in full-consensus Studionet smoke test:
+On macOS/Linux, use `python3.12 -m venv .venv` and `.venv/bin/python` for the same install/check commands. No parent-workspace environment is required. The check script lints first, disables auto-loaded CLI plugins, and runs only mocked v3 tests. Add `--legacy` to include historical direct-mode regressions. It never sends transactions or clears artifact directories. Contract source is pinned to LF line endings by `.gitattributes` so byte-for-byte deployment verification survives a fresh checkout.
+
+Live smoke tests are separate and require explicit authorization to create new Studionet test contracts:
 
 ```powershell
-$env:RUN_GENLAYER_INTEGRATION='1'
-..\.venv\Scripts\gltest.exe tests\test_integration_v2.py --network studionet -v -s
+$env:RUN_GENLAYER_V3_INTEGRATION='1'
+.venv\Scripts\gltest.exe tests/test_integration_v3.py --network studionet -v -s
 ```
+
+This smoke test covers deployment/configuration, not complete live AI adjudication or wallet acceptance. Keep it out of ordinary CI/direct tests.
 
 ## Web app
 
-The verified Studionet deployment is configured in `frontend/lib/deployment.json`: `0xA44215E496E01726d444b80dd88b8F5c7b015Ade` on chain 61999. The default RPC is `https://studio.genlayer.com/api`. No secret is needed for reads. Optional `NEXT_PUBLIC_*` overrides belong in an ignored `frontend/.env.local`; they must point to the matching v2 contract on Studionet. Missing/invalid configuration disables transactions. Live read failures never substitute sample data.
+The verified **v3** Studionet core is configured in `frontend/lib/deployment.json`: `0x7279B4A7821c96489c0b086021F3E6944d343bFB` on chain 61999, with its own verified v3 evidence helper in `frontend/lib/evidence-deployment.json`. The RPC is `https://studio.genlayer.com/api`. Browser and server share these manifests; address/RPC environment overrides are not used. Vercel storage is bound to this product and core address in its own v3 Neon schema. The old manifests are archived as `*-v2.json`; the previous protected deployment and its records are preserved. Live read failures never substitute sample data.
 
 ```powershell
 cd frontend
@@ -52,19 +53,19 @@ The app exposes separate Explore, Participant, Creator, and Owner experiences. O
 
 ## Public-money warning
 
-Do not use the legacy contract. Do not treat v2 as externally audited. Current verification evidence and the remaining acceptance, privacy, monitoring, key-custody and external-review gates are listed in [Release status](RELEASE_STATUS.md).
+The prototype and v2 contracts are historical and have known limitations; do not create new commitments on them. v3 addresses the reported code issues and is deployed on Studionet, but has not been independently audited. Current verification evidence and the remaining acceptance, privacy, monitoring, key-custody and external-review gates are listed in [Release status](RELEASE_STATUS.md).
 
 ## Live lifecycle verification
 
-From `frontend/`, using Node 24 (or another runtime supporting TypeScript stripping):
+The live scripts target the checked-in deployment manifest. Older v2 receipt files remain historical evidence only. From `frontend/`, using Node 24 and explicit authorization for new test records:
 
 ```powershell
 $env:RUN_STUDIONET_LIFECYCLE='1'
-node scripts/verify-studionet.mjs
+node scripts/verify-source.mjs
 ```
 
 This explicitly opt-in harness creates labeled Studionet-only test records with ephemeral signers and at most 1,000 wei per payable call. It never exports keys, mints funds, runs on mainnet, or modifies an existing user agreement/pool. Every parent transaction must finalize with successful execution. Payout child delivery is reported separately and is not implied by a successful withdrawal call.
 
-The cohort harness honors a real 20-minute formation window before activation; it does not alter the node clock. Tests may take longer than the UI checks.
+The source-backed cohort harness honors a real 15-minute formation window before activation; it does not alter the node clock. Tests may take longer than the UI checks.
 
-See [Release status](RELEASE_STATUS.md) and [the detailed Studionet verification record](frontend/verification/release-2026-08-28.md) for verified scope and remaining product work.
+See [Release status](RELEASE_STATUS.md) and [the latest end-to-end verification record](frontend/verification/end-to-end-2026-08-30.md) for verified scope and remaining product work.

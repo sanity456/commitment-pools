@@ -2,7 +2,9 @@
   "network": "studionet",
   "chainId": 61999,
   "rpcUrl": "https://studio.genlayer.com/api",
-  "contractAddress": "0xA44215E496E01726d444b80dd88b8F5c7b015Ade",
+  "contractAddress": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
   "ownerAddress": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
-  "deploymentTransaction": "0x4731aae3b85aaaade60a649437664cdc72c9212083f59e444b3744851c9557e5"
+  "deploymentTransaction": "0xa1c08e59db624c4977c7fccd95d3048655451ea12679b08d93c068cfebdef536",
+  "protocolVersion": 3,
+  "sourceSha256": "e17b75f5e172db9f123f8f96c1110525d626fefa9c5f5b3e5c977a08844a9dbb"
 }
