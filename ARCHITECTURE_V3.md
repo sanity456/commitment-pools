@@ -35,4 +35,4 @@ The app requires protocol version 3 and the expected evidence limit before reser
 
 For release, verify new source bytes against successful finalized deployment receipts. Preserve the old protected app link and old data for recovery. Use a separate v3 product database schema, or implement explicit contract-scoped data migration, before pointing the new app at v3; never mix old directory IDs and new contract state silently. Do not reassign old agreements, balances, or private records.
 
-The application manifests deliberately still contain the known v2 deployment. No invented address or automatic migration was installed. See the submission checklist for the remaining external steps.
+The application manifests now contain the verified v3 core and helper. Historical v2 manifests remain in the repository as `*-v2.json`; no old records were reassigned. Vercel uses a separate product/core-bound v3 Neon namespace. Run `node scripts/verify-security-release.mjs --expected-fee-bps 500` from `frontend/` to compare both deployed sources with this checkout. See the submission checklist for the remaining external steps.

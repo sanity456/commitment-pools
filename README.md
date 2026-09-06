@@ -13,7 +13,7 @@ The repository includes the contracts, their tests, and the complete app in `fro
 - Web app: `frontend/`
 - Security boundaries and rollout: `ARCHITECTURE_V3.md` and `SUBMISSION_CHECKLIST.md`
 
-`contracts/commitment_pool.py` is the audited legacy prototype and remains only for regression comparison.
+`contracts/commitment_pool.py` is the legacy prototype and remains only for regression comparison. None of these contracts has an independent security certification.
 
 ## Contract checks from a fresh checkout
 
@@ -34,7 +34,9 @@ $env:RUN_GENLAYER_V3_INTEGRATION='1'
 .venv\Scripts\gltest.exe tests/test_integration_v3.py --network studionet -v -s
 ```
 
-This smoke test covers deployment/configuration, not complete live AI adjudication or wallet acceptance. Keep it out of ordinary CI/direct tests.
+This smoke test covers deployment/configuration, not complete live AI adjudication or wallet acceptance. Ordinary direct tests never deploy. The pinned [Ubuntu clean suite](.github/workflows/ubuntu-clean-suite.yml) runs the v2/v3 smoke cases against its own isolated five-validator GLSim, not the public network. The historical, opt-in public-network value diagnostic remains separate.
+
+The clean suite also runs all direct tests, stored-chain-timestamp boundary cases, frontend checks, both production builds, and a read-only comparison of the deployed v3 source. See [reproducibility and acceptance](SUBMISSION_CHECKLIST.md) for the remaining human and public-evidence gates.
 
 ## Web app
 

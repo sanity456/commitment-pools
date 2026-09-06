@@ -2,7 +2,7 @@
 
 ## Service boundaries
 
-This product has its own hosting projects, database (Neon on Vercel; D1 on Sites), contract addresses, wallet account journal and owner session. Do not point it at the other product's database or contract. The core v2 contract is the authority for balances, parties, deadlines, eligibility and decisions.
+This product has its own hosting projects, database (Neon on Vercel; D1 on Sites), contract addresses, wallet account journal and owner session. Do not point it at the other product's database or contract. The core v3 contract is the authority for balances, participants, deadlines, eligibility and settlement. Historical v2 contracts and records remain separate.
 
 The owner desk requires a verified wallet login plus a separate one-time owner-wallet message signature. Each grants an eight-hour HTTP-only session, not transaction authority. Normal wallet login cannot be reused as owner proof. Never request a seed phrase/private key in support; every on-chain write still needs its own wallet confirmation.
 
@@ -24,7 +24,7 @@ The owner desk requires a verified wallet login plus a separate one-time owner-w
 5. A successful withdrawal can still have a pending/unknown child transfer. Verify the finalized native child's sender, recipient, exact wei, transfer type and credited flag. Never recredit or send another payment solely because a child has not appeared.
 6. Escalate a genuine failed/missing transfer to the Studionet operator with public identifiers, not secrets. The application cannot reverse network transfers or reconstruct an unproven balance.
 
-The browser emergency outbox contains only request ID/hash/time, scoped to this product and wallet, to bridge a temporary journal outage. The server database is the durable history. Unattributed legacy outbox entries are retained but never silently assigned to a new wallet. If storage writes fail, do not assume the request is safely saved.
+The browser emergency outbox contains only request ID/hash/time, scoped to this product, wallet and core contract, to bridge a temporary journal outage. The server database is the durable history. Legacy entries without a recorded contract are retained and shown separately, never automatically imported or replayed. Check these unscoped hashes before repeating an action. If storage writes fail, do not assume the request is safely saved.
 
 ## Evidence problems
 
@@ -32,7 +32,7 @@ Use only low-sensitivity public HTTPS sources. The capture helper uses the same 
 
 Private addresses, credentials, fragments, nonstandard ports and oversized text are rejected. DNS/redirect isolation is a GenLayer runtime boundary, not a guarantee supplied by URL syntax checks. A stable capture can still fail evaluation if the source changes before the second fetch. A digest proves which bytes were committed; it does not prove those bytes are true.
 
-Do not silently trim, summarize or replace a captured source. Review the exact text, revise the source if needed, then obtain a new capture. Court duplicate detection is an app guard; the immutable v2 contract itself still permits repeated submissions.
+Do not silently trim, summarize or replace a captured source. Review the exact text, revise the source if needed, then obtain a new capture. Check-in nonces are bound to the pool, participant and round. The contract caps accepted attempts per round; malformed model output rolls back without consuming an attempt. Neither a retry nor an unclear verdict extends the stored round or settlement deadline.
 
 ## Operator runner
 
@@ -46,7 +46,7 @@ This is a **dry run**. It sends no on-chain transaction and needs no signer. It 
 
 Execution is opt-in with `--execute` and an externally supplied `KEEPER_PRIVATE_KEY` for a dedicated Studionet-only account. Never paste a key into a shell command, repository, support ticket or frontend environment variable. Use an approved secret manager/process environment. Never reuse the contract-owner key.
 
-The runner verifies chain 61999 explicitly, never relies on the global CLI network, uses full consensus, and sends zero native value. It may only perform permissionless deadline/settlement actions. It cannot fund, withdraw, accept for a party, choose a cooperative allocation, change fees, or select a party's fallback.
+The runner verifies chain 61999 explicitly, never relies on the global CLI network, uses full consensus, and sends zero native value. It may only perform permissionless lifecycle/deadline actions allowed by the contract. It cannot join for a participant, submit their proof, withdraw their credit, or change the fee schedule.
 
 Its durable `.local-data/operator.sqlite` records the intent before signing. Any unresolved old request stops new execution. Known hashes are reconciled on the next run; a no-hash uncertain request needs an operator to compare wallet history and safely reconcile the journal. Do not delete the journal to bypass that stop. Do not run concurrent scheduled instances. No host, schedule or unattended signer has been enabled in this release.
 

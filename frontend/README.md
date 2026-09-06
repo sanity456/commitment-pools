@@ -22,6 +22,10 @@ pnpm format:check
 pnpm audit --json
 ```
 
+For the wallet-only HTTP acceptance checks, start this product's preview and run `LOCAL_PRODUCT_ORIGIN=http://localhost:<port> node scripts/check-local-product.mjs` (set the environment variable with `$env:LOCAL_PRODUCT_ORIGIN` in PowerShell). This creates a disposable synthetic login session, checks rejection/replay/account isolation and logout, and sends no on-chain transaction. It does not replace the human browser-wallet trial.
+
+Native Next.js development output uses `.next-vercel-dev`; production builds use `.next-vercel`. Both are excluded from Vercel uploads so a running preview cannot replace production build output.
+
 For the Cloudflare/Sites production build, set `CODEX_LOCAL_PREVIEW=0` and run `pnpm build`. This must use the D1 adapter, not Node SQLite. Root `drizzle/` migrations and `.openai/hosting.json` are required by the package workflow.
 
 ## Where things live

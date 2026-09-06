@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { readContractAt } from "../lib/genlayer";
 import { errorMessage, type Protocol } from "../lib/useProtocol";
 import {
@@ -12,18 +12,28 @@ export function EvidenceCapture({
   protocol,
   urlName = "url",
   digestName = "digest",
+  disabled = false,
+  reviewContext = "",
+  onReviewChange,
 }: {
   protocol: Protocol;
   urlName?: string;
   digestName?: string;
+  disabled?: boolean;
+  reviewContext?: string;
+  onReviewChange?: (ready: boolean) => void;
 }) {
   const [url, setUrl] = useState("");
   const [capture, setCapture] = useState<Capture | null>(null);
-  const [reviewed, setReviewed] = useState(false);
+  const [reviewedContext, setReviewedContext] = useState<string | null>(null);
+  const reviewed = reviewedContext === reviewContext;
   const [error, setError] = useState("");
   const [working, setWorking] = useState(false);
   const [recoveryId, setRecoveryId] = useState("");
   const target = protocol.session?.captureAddress ?? "";
+  useEffect(() => {
+    onReviewChange?.(Boolean(capture && reviewed));
+  }, [capture, reviewed, onReviewChange]);
   async function load(nonce: string) {
     if (!protocol.wallet || !target)
       throw new Error("Connect the wallet that created the capture.");
@@ -48,9 +58,10 @@ export function EvidenceCapture({
       );
     setCapture(value);
     setUrl(value.url);
-    setReviewed(false);
+    setReviewedContext(null);
   }
   async function create() {
+    if (disabled || working || !protocol.ready || protocol.busy) return;
     setError("");
     setWorking(true);
     try {
@@ -74,9 +85,7 @@ export function EvidenceCapture({
   return (
     <fieldset className="product-evidence">
       <legend>Capture evidence</legend>
-      <p className="product-muted">
-        Complete public text, up to 6 KB. Keep the source unchanged.
-      </p>
+      <p className="product-muted">Public text only, up to 6 KB.</p>
       <label className="product-field">
         <span>Public source URL</span>
         <input
@@ -87,18 +96,19 @@ export function EvidenceCapture({
           onChange={(e) => {
             setUrl(e.target.value);
             setCapture(null);
-            setReviewed(false);
+            setReviewedContext(null);
           }}
         />
       </label>
       <p className="product-muted">
-        Captured text is public and permanent. No confidential content or
-        private links.
+        This sends a zero-value Studionet transaction. Captured text is public
+        and permanent.
       </p>
       <button
         className="product-button"
         type="button"
         disabled={
+          disabled ||
           working ||
           Boolean(protocol.busy) ||
           !protocol.ready ||
@@ -107,7 +117,7 @@ export function EvidenceCapture({
         }
         onClick={() => void create()}
       >
-        {working ? "Capturing…" : "Capture source"}
+        {working ? "Capturing…" : "Capture source on-chain"}
       </button>
       {!protocol.wallet && (
         <p className="product-muted">
@@ -135,7 +145,10 @@ export function EvidenceCapture({
             <input
               type="checkbox"
               checked={reviewed}
-              onChange={(e) => setReviewed(e.target.checked)}
+              disabled={disabled || working}
+              onChange={(e) =>
+                setReviewedContext(e.target.checked ? reviewContext : null)
+              }
             />
             <span>I reviewed this public text and it supports my proof.</span>
           </label>

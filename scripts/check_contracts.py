@@ -29,6 +29,7 @@ def main():
         subprocess.run([str(lint), "check", str(path), "--json"], cwd=ROOT, env=environment, check=True)
     selected = ["tests"] if args.legacy else [
         "tests/test_commitment_pool_v3.py", "tests/test_security_commitment_v3.py", "tests/test_evidence_capture_v3.py",
+        "tests/test_chain_timestamps_v3.py",
     ]
     subprocess.run(
         [sys.executable, "-m", "pytest", "-p", "gltest.direct.pytest_plugin",

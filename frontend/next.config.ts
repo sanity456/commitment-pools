@@ -3,7 +3,10 @@ import { resolve } from "node:path";
 import { documentSecurityHeaders } from "./server/document-security.ts";
 
 const nextConfig: NextConfig = {
-  distDir: ".next-vercel",
+  distDir:
+    process.env.NODE_ENV === "development"
+      ? ".next-vercel-dev"
+      : ".next-vercel",
   async headers() {
     return [{ source: "/:path*", headers: documentSecurityHeaders }];
   },

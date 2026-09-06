@@ -5,6 +5,7 @@
 node_modules
 .next
 .next-vercel
+.next-vercel-dev
 .vinext
 dist
 work

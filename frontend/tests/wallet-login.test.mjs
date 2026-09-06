@@ -215,13 +215,14 @@ test("Recovery outboxes are separated by wallet and never auto-import legacy acc
     product.id + ":emergency-hash-outbox:v1",
     JSON.stringify([{ intentId: "legacy-private", hash }]),
   );
-  rememberHash("alice-private", hash, alice.address);
-  assert.deepEqual(await recoverOutbox(bob.address), {
+  const core = "0x" + "cc".repeat(20);
+  rememberHash("alice-private", hash, alice.address, core);
+  assert.deepEqual(await recoverOutbox(bob.address, core), {
     recovered: 0,
     pending: 0,
   });
   assert.equal(calls.length, 0);
-  assert.deepEqual(await recoverOutbox(alice.address), {
+  assert.deepEqual(await recoverOutbox(alice.address, core), {
     recovered: 1,
     pending: 0,
   });
@@ -248,7 +249,7 @@ test("Both hosting targets use wallet auth and shipped UI has no credential form
   assert.match(ui, /Sign in with wallet/);
   assert.match(
     read("components/ProductHome.tsx"),
-    /key=\{protocol\.session\?\.wallet \?\? "signed-out"\}/,
+    /key=\{workspaceIdentity\(protocol\.session\)\}/,
   );
   assert.match(read("lib/wallet-auth-client.ts"), /await logoutWallet\(\)/);
   assert.match(read("lib/useProtocol.ts"), /subscribeToWalletSession/);

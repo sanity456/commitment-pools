@@ -1,6 +1,6 @@
 # Commitment Pools — private v3 Studionet release
 
-Updated: 2026-08-30
+Updated: 2026-09-06
 
 ## Current release
 
@@ -20,7 +20,11 @@ The preview is protected by Vercel Authentication and is not anonymously accessi
 
 ## End-to-end verification
 
-The 2026-08-30 release pass completed successfully:
+The September readiness update preserves the deployed v3 contract bytes and improves the wallet workspace, evidence review, transaction recovery and formation-window input. Local verification now passes 159 direct contract tests, 109 application tests, lint, both TypeScript targets and both production builds. The production documents pass fresh-nonce/CSP checks; the local development server passes all 26 synthetic wallet HTTP checks. Neon isolation and exact deployed-source verification were repeated successfully. See [the September readiness record](frontend/verification/readiness-2026-09-06.md).
+
+A pinned Ubuntu clean workflow and stored-chain-timestamp evidence tests are included. Its hosted run, immutable release evidence, a new private preview, public reviewer access and the human wallet trial are tracked separately; adding a workflow is not evidence that it passed.
+
+The historical 2026-08-30 release pass completed successfully:
 
 - 153 direct contract tests passed; 3 opt-in deployment cases were deselected.
 - 95 application tests passed.
@@ -36,9 +40,9 @@ The exact transaction and payout evidence is recorded in [the 2026-08-30 E2E rep
 
 ## Remaining beta gates
 
-The exact hosted UI rendered without console errors or horizontal overflow, and correctly explained that a compatible injected wallet was unavailable. This machine's in-app browser has no Ethereum wallet extension, so a human extension-popup/signature run remains required. WalletConnect, mobile deep links and smart-contract wallets are not implemented or claimed.
+The August hosted UI rendered without console errors or horizontal overflow, and correctly explained that a compatible injected wallet was unavailable in that test browser. A human extension-popup/signature run on the September release remains required. Follow [the human wallet trial](HUMAN-WALLET-TEST.md). WalletConnect, mobile deep links and smart-contract wallets are not implemented or claimed.
 
-Before evaluator access or real-money use, also complete the program-specific submission checklist, approve evaluator access to the private preview/source, run a two-person human trial, assign operational ownership and key custody, and obtain an independent security/AI-policy review. This is a Studionet test release, not a mainnet or security certification.
+Before submission, complete the program-specific checklist, obtain approved evaluator access to the private preview/source, pass the pinned Ubuntu run and complete the human trial. Before broader operation, assign operational ownership, backup/restore and key custody; independent security/AI-policy review remains advisable and required before any real-money launch. This is a Studionet test release, not a mainnet or security certification.
 
 ## Build and operate
 

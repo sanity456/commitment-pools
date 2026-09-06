@@ -28,11 +28,18 @@ import { HelpPanel } from "./HelpPanel";
 import { OwnerDesk } from "./OwnerDesk";
 import { PublishReview, type PublishDraft } from "./PublishReview";
 import { templates } from "../lib/templates";
+import { formationSeconds } from "../lib/pool-input";
+import {
+  detailIsFresh,
+  poolReviewKey,
+  workspaceIdentity,
+} from "../lib/workspace-review";
 
 type Tab =
   "explore" | "mine" | "mywork" | "create" | "activity" | "help" | "owner";
 type Detail = {
   key: string;
+  revision: number;
   pool: Pool;
   participants: Participant[];
   canSettle: boolean;
@@ -118,7 +125,7 @@ export default function ProductHome({
   const protocol = useProtocol("list_pools");
   return (
     <ProductWorkspace
-      key={protocol.session?.wallet ?? "signed-out"}
+      key={workspaceIdentity(protocol.session)}
       protocol={protocol}
       initialId={initialId}
     />
@@ -156,7 +163,8 @@ function ProductWorkspace({
   }
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailError, setDetailError] = useState("");
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [reviewedKey, setReviewedKey] = useState<string | null>(null);
+  const [evidenceKey, setEvidenceKey] = useState<string | null>(null);
   const pools = useMemo(
     () =>
       protocol.items
@@ -168,9 +176,14 @@ function ProductWorkspace({
         ),
     [protocol.items, protocol.session?.preferences],
   );
-  const poolId = selectedId || pools[0]?.id || "";
-  const detailKey = [poolId, wallet, protocol.revision].join("|");
-  const selected = detail?.key === detailKey ? detail : null;
+  const poolId = selectedId || detail?.key || pools[0]?.id || "";
+  const selected = detail?.key === poolId ? detail : null;
+  const detailFresh = detailIsFresh(
+    detail,
+    poolId,
+    protocol.revision,
+    detailError,
+  );
   const pool = selected?.pool;
   const me =
     selected?.participants.find(
@@ -186,17 +199,23 @@ function ProductWorkspace({
       )
     : null;
   const round = pool ? roundState(pool, me, now) : null;
+  const reviewKey = poolReviewKey(pool, me);
+  const acceptedTerms = reviewedKey === reviewKey;
+  const evidenceReviewed = evidenceKey === reviewKey;
+  function onEvidenceReview(reviewed: boolean) {
+    setEvidenceKey(reviewed ? reviewKey : null);
+  }
   const owner = String(config?.owner ?? "");
   const isOwner = Boolean(
     wallet && owner && wallet.toLowerCase() === owner.toLowerCase(),
   );
   const disabled = Boolean(busy) || !ready;
+  const poolDisabled = disabled || !detailFresh;
   const pendingFeeAt = Number(config?.pending_fee_effective_at ?? 0);
 
   useEffect(() => {
     let cancelled = false;
     const task = window.setTimeout(async () => {
-      setAcceptedTerms(false);
       setDetailError("");
       if (!poolId || !isLiveConfigured || !protocol.session?.signedIn) return;
       try {
@@ -233,7 +252,8 @@ function ProductWorkspace({
         }
         if (!cancelled)
           setDetail({
-            key: detailKey,
+            key: poolId,
+            revision: protocol.revision,
             pool: normalizePool(poolRaw),
             participants,
             canSettle: settleRaw === true,
@@ -247,13 +267,14 @@ function ProductWorkspace({
       cancelled = true;
       window.clearTimeout(task);
     };
-  }, [detailKey, poolId, wallet, protocol.session?.signedIn]);
+  }, [poolId, wallet, protocol.revision, protocol.session?.signedIn]);
 
   function openPool(id: string) {
     if (!id) return;
     router.push("/pools/" + encodeURIComponent(id));
     setSelectedId(id);
-    setAcceptedTerms(false);
+    setReviewedKey(null);
+    setEvidenceKey(null);
     setTab("mine");
   }
   async function createPool(event: FormEvent<HTMLFormElement>) {
@@ -269,6 +290,9 @@ function ProductWorkspace({
         throw new Error("Minimum cohort cannot exceed maximum cohort.");
       const stake = parseGen(String(data.get("stake")));
       if (stake <= 0n) throw new Error("Stake must be greater than zero.");
+      const joinLength = String(data.get("join_length") ?? "");
+      const joinUnit = String(data.get("join_unit") ?? "");
+      const joinWindow = formationSeconds(joinLength, joinUnit);
       const args = [
         id,
         String(data.get("title")).trim(),
@@ -279,7 +303,7 @@ function ProductWorkspace({
         Number(data.get("rounds")),
         minimum,
         maximum,
-        Number(data.get("join_days")) * 86400,
+        joinWindow,
         Number(data.get("round_hours")) * 3600,
       ];
       setDraft({
@@ -302,8 +326,10 @@ function ProductWorkspace({
               " rounds · " +
               data.get("round_hours") +
               " hours each · formation ends " +
-              data.get("join_days") +
-              " days after creation",
+              joinLength +
+              " " +
+              joinUnit +
+              " after creation",
           ],
           [
             "Forfeiture fee",
@@ -329,13 +355,13 @@ function ProductWorkspace({
   }
   async function checkIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!pool || !actions?.submit) return;
+    if (!pool || !actions?.submit || poolDisabled) return;
     const data = new FormData(event.currentTarget);
     try {
       const digest = String(data.get("digest") ?? "").trim();
       if (
         pool.verification_mode === "source_verified" &&
-        !/^[0-9a-f]{64}$/i.test(digest)
+        (!evidenceReviewed || !/^[0-9a-f]{64}$/i.test(digest))
       )
         throw new Error(
           "Capture and review the public source before submitting a source-verified proof.",
@@ -646,11 +672,17 @@ function ProductWorkspace({
               Withdraw credit
             </button>
           </div>
-          {detailError ? (
+          {detailError && (
             <div className="mt-6" role="alert">
               <Empty title="Pool could not be loaded">{detailError}</Empty>
             </div>
-          ) : !pool ? (
+          )}
+          {pool && !detailFresh && !detailError && (
+            <p className="mt-5 text-sm text-[#65746c]" role="status">
+              Refreshing pool state. Actions will unlock when checks finish.
+            </p>
+          )}
+          {!pool ? (
             <div className="mt-6">
               <Empty title={poolId ? "Loading pool…" : "No pool selected"}>
                 {poolId
@@ -735,7 +767,10 @@ function ProductWorkspace({
                           type="checkbox"
                           className="mt-1"
                           checked={acceptedTerms}
-                          onChange={(e) => setAcceptedTerms(e.target.checked)}
+                          disabled={poolDisabled}
+                          onChange={(e) =>
+                            setReviewedKey(e.target.checked ? reviewKey : null)
+                          }
                         />
                         <span>
                           I have reviewed the rules, schedule, refund policy and
@@ -745,7 +780,7 @@ function ProductWorkspace({
                       </label>
                       <button
                         className="primary-button mt-4"
-                        disabled={disabled || !acceptedTerms}
+                        disabled={poolDisabled || !acceptedTerms}
                         onClick={() =>
                           void transact(
                             "Join pool",
@@ -772,7 +807,7 @@ function ProductWorkspace({
                     {actions?.activate && (
                       <button
                         className="primary-button"
-                        disabled={disabled}
+                        disabled={poolDisabled}
                         onClick={() =>
                           void transact("Activate pool", "activate_pool", [
                             pool.id,
@@ -785,7 +820,7 @@ function ProductWorkspace({
                     {actions?.cancel && (
                       <button
                         className="secondary-button"
-                        disabled={disabled}
+                        disabled={poolDisabled}
                         onClick={() =>
                           void transact(
                             "Cancel empty pool",
@@ -800,7 +835,7 @@ function ProductWorkspace({
                     {actions?.refund && (
                       <button
                         className="primary-button"
-                        disabled={disabled}
+                        disabled={poolDisabled}
                         onClick={() =>
                           void transact(
                             "Claim formation refund",
@@ -815,7 +850,7 @@ function ProductWorkspace({
                     {actions?.settle && (
                       <button
                         className="primary-button"
-                        disabled={disabled}
+                        disabled={poolDisabled}
                         onClick={() =>
                           void transact("Settle pool", "settle", [pool.id])
                         }
@@ -871,7 +906,7 @@ function ProductWorkspace({
                             {missed && wallet && (
                               <button
                                 className="small-primary"
-                                disabled={disabled}
+                                disabled={poolDisabled}
                                 onClick={() =>
                                   void transact(
                                     "Mark missed round",
@@ -941,6 +976,7 @@ function ProductWorkspace({
                 </article>
                 {actions?.submit && (
                   <form
+                    key={pool.id + "|" + round?.number}
                     className="surface-card space-y-5 p-6"
                     onSubmit={checkIn}
                   >
@@ -956,6 +992,7 @@ function ProductWorkspace({
                         required
                         maxLength={2500}
                         rows={5}
+                        disabled={poolDisabled}
                         placeholder="Describe the action, date, and how it meets the rules."
                       />
                     </Field>
@@ -964,6 +1001,9 @@ function ProductWorkspace({
                         key={pool.id + "|" + wallet}
                         protocol={protocol}
                         urlName="evidence_url"
+                        disabled={poolDisabled}
+                        reviewContext={reviewKey}
+                        onReviewChange={onEvidenceReview}
                       />
                     ) : (
                       <Field title="Evidence URL (optional; not independently verified)">
@@ -983,7 +1023,11 @@ function ProductWorkspace({
                     </p>
                     <button
                       className="primary-button w-full"
-                      disabled={disabled}
+                      disabled={
+                        poolDisabled ||
+                        (pool.verification_mode === "source_verified" &&
+                          !evidenceReviewed)
+                      }
                     >
                       Submit round {round?.number} proof
                     </button>
@@ -1166,16 +1210,30 @@ function ProductWorkspace({
                     defaultValue="10"
                   />
                 </Field>
-                <Field title="Formation (days)">
-                  <input
-                    name="join_days"
-                    type="number"
-                    min="1"
-                    max="90"
-                    required
-                    defaultValue="3"
-                  />
-                </Field>
+                <fieldset className="field-label">
+                  <legend>Formation window</legend>
+                  <div className="grid grid-cols-[1fr_auto] gap-2">
+                    <input
+                      aria-label="Formation length"
+                      name="join_length"
+                      type="number"
+                      min="1"
+                      max="129600"
+                      step="1"
+                      required
+                      defaultValue="3"
+                    />
+                    <select
+                      name="join_unit"
+                      aria-label="Formation unit"
+                      defaultValue="days"
+                    >
+                      <option value="minutes">Minutes</option>
+                      <option value="hours">Hours</option>
+                      <option value="days">Days</option>
+                    </select>
+                  </div>
+                </fieldset>
               </div>
               <p className="text-xs leading-6 text-[#718078]">
                 Creation publishes terms without moving funds. Stakes and

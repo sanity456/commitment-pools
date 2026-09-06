@@ -13,6 +13,7 @@ node_modules/
 venv/
 .next/
 .next-vercel/
+.next-vercel-dev/
 .vinext/
 .wrangler/
 .local-data/
