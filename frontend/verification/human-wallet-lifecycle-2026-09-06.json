@@ -1,0 +1,982 @@
+{
+  "product": "commitment-pools",
+  "status": "formation_refund_path_passed_full_lifecycle_incomplete",
+  "checkpointChecks": {
+    "observationTimeUtc": "2026-09-06 13:07:55 UTC",
+    "encodedInputAndOutputRecordsVerified": 5,
+    "uniqueHumanTransactionHashes": 5,
+    "reciprocallyLinkedCreditedNativeChildren": 1,
+    "recordIntegrityAssertionsPassed": true,
+    "savedActivityRefreshObserved": "Activity refreshed. This did not resend any transaction.",
+    "savedARequestCountAfterRefresh": 4,
+    "deliveredPayoutStillDisplayedAfterRefresh": true,
+    "githubRepositoryPrivateVerified": true,
+    "githubReadOnlyCheck": "gh repo view sanity456/commitment-pools --json isPrivate,url",
+    "externalAccessSettingsChanged": false,
+    "runtimeSourceChangedDuringHumanTrial": false
+  },
+  "returnToA": {
+    "accountSwitchCompletionReply": "done",
+    "observationStartUtc": "2026-09-06 12:54:09 UTC",
+    "sessionInvalidationObserved": true,
+    "observedMessage": "Wallet or network changed. Sign in again to continue.",
+    "previousBActivityClearedFromView": true,
+    "creditView": "Connect wallet to view",
+    "withdrawDisabled": true,
+    "browserReloadUsed": false,
+    "loginRequestedOnce": true,
+    "loginRequestObservationUtc": "2026-09-06 12:54:25 UTC",
+    "pendingAppMessage": "Checking wallet session…",
+    "freshAAuthenticationVerified": true,
+    "refundClaimRequested": true,
+    "signedInAccountLabel": "0xab99…bad4",
+    "loginCompletionReply": "done",
+    "loginObservationStartUtc": "2026-09-06 12:55:39 UTC",
+    "privateActivity": {
+      "observationTimeUtc": "2026-09-06 12:56:32 UTC",
+      "loaded": true,
+      "savedRequestCount": 2,
+      "currentWalletOnlyChecked": false,
+      "savedRequests": [
+        {
+          "method": "create_pool",
+          "hash": "0x7d2fae96b129225e617226007823cc71b6147ea11fdd34a68039fe2b58100763",
+          "status": "Execution succeeded and finalized"
+        },
+        {
+          "method": "join",
+          "hash": "0xb57be739701dd784e2d2d2afb5492f2d9e77ab0e370abf648a0367fe40e4d51f",
+          "status": "Execution succeeded and finalized"
+        }
+      ],
+      "bActivationAbsent": true,
+      "scope": "Reverse B-to-A populated Activity UI isolation passed for these test records; no broad claim about every private API, support record, or browser is made."
+    }
+  },
+  "formationWindowClosed": {
+    "observationTimeUtc": "2026-09-06 12:44:59 UTC",
+    "source": "LATEST_FINAL can_join public contract read",
+    "canJoin": false,
+    "storedJoinDeadlineUnix": 1788698661,
+    "storedJoinDeadlineUtc": "2026-09-06T12:44:21.000Z",
+    "lastPoolSnapshot": "One participant, A; total_staked_wei 100; minimum 2; status forming, read immediately before the deadline.",
+    "bStakeRequested": false,
+    "interpretation": "The guided human test did not complete both joins within formation. This is not a passed two-participant lifecycle. Do not request a late B stake or silently create a duplicate pool.",
+    "recoveryExpectedNotObserved": "Recovery completed: full 100-wei refund claimed, withdrawn and delivered to A; zero fee and zero residual contract credit. The initial two-participant lifecycle did not run.",
+    "retry": "A longer formation window needs to be discussed before creating a replacement pool."
+  },
+  "preview": "https://commitment-pools-studionet-28cvvvtta-sanity3.vercel.app/",
+  "appSourceCommit": "ace5d3f78968dc8bf06a333f2c65c1ee37baee6e",
+  "localReviewBaseline": "dbcc749e16d4fe09de778cd93086bd987ac66a4a",
+  "privacy": {
+    "repository": "private",
+    "preview": "protected",
+    "onChainRecords": "public",
+    "ownerAuthorizedTest": true,
+    "submissionAuthorized": false
+  },
+  "humanInteraction": {
+    "completionReply": "done",
+    "meaning": "User reports completing only the most recently requested wallet step; independently verify the result before continuing.",
+    "currentRequest": "No wallet action is pending. Discuss and approve a longer formation window before creating a replacement two-participant test.",
+    "requestObservedAtUtc": null,
+    "observedAccountLabel": "0xab99…bad4",
+    "accountSwitchObservation": "After the user replied done for the B switch, the retained app displayed Wallet or network changed. Sign in again to continue., removed A's signed-in label and participant/credit data, and disabled withdrawal. A fresh login was requested once; the app entered Checking wallet session. B's authenticated identity is not yet observed.",
+    "creationClarification": "User explicitly clarified: im the one that accepted it"
+  },
+  "readOnlyPreflight": {
+    "command": "node scripts/verify-security-release.mjs --expected-fee-bps 500",
+    "passed": true,
+    "chainId": 61999,
+    "protocolVersion": 3,
+    "rpc": "https://studio.genlayer.com/api",
+    "core": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "helper": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+    "owner": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+    "feeBps": 500,
+    "coreSourceSha256": "e17b75f5e172db9f123f8f96c1110525d626fefa9c5f5b3e5c977a08844a9dbb",
+    "helperSourceSha256": "8eaa893c58927830a307763138dba45a5f77e4d31ead90e8d3688e0c7a6b123c",
+    "sourceVerification": "Exact repository bytes compared with finalized-success deployment receipts; current owner, version, fee, source limit and helper linkage verified.",
+    "balanceObservationTimeUtc": "2026-09-06 12:26:44 UTC",
+    "balanceMethod": "eth_getBalance(address, latest)",
+    "actors": [
+      {
+        "label": "A",
+        "userSuppliedAddress": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "balanceHex": "0xde0b6b3a763fc04",
+        "balanceWei": "999999999999998980"
+      },
+      {
+        "label": "B",
+        "userSuppliedAddress": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "balanceHex": "0x3d4",
+        "balanceWei": "980"
+      }
+    ],
+    "actorVerificationLimit": "Both public balances were read for user-supplied addresses. Wallet A's full address is additionally verified as the creator and sender of the finalized-success creation receipt; the app still shows matching 0xab99…bad4 before the funded request. Verify actual join senders from finalized receipts; B's active signing identity remains unverified."
+  },
+  "createPool": {
+    "method": "create_pool",
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "transactionValueWei": "0",
+    "poolId": "human-wallet-20260906-122644",
+    "args": [
+      "human-wallet-20260906-122644",
+      "Human wallet test - public-page check",
+      "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+      "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+      "source_verified",
+      "100",
+      1,
+      2,
+      2,
+      900,
+      3600
+    ],
+    "argTypes": [
+      "string",
+      "string",
+      "string",
+      "string",
+      "string",
+      "u256",
+      "u256",
+      "u256",
+      "u256",
+      "u256",
+      "u256"
+    ],
+    "reviewObserved": true,
+    "stakePerParticipantGen": "0.0000000000000001",
+    "expectedForfeitureFeeBps": 500,
+    "expectedAllFailPolicy": "refund_minus_fee",
+    "intendedFirstOutcome": "human_rejection",
+    "observedFirstOutcome": "human_approved_finalized_execution_success",
+    "transactionHash": "0x7d2fae96b129225e617226007823cc71b6147ea11fdd34a68039fe2b58100763",
+    "storedPool": {
+      "activated_at": "",
+      "activation_failure": "",
+      "activity_ends_at": 1788702261,
+      "activity_starts_at": 1788698661,
+      "all_fail_policy": "refund_minus_fee",
+      "created_at": "2026-09-06T12:29:21.028003+00:00",
+      "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "description": "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+      "evidence_policy": "complete_verified_source_no_truncation",
+      "fee_bps": 500,
+      "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+      "fee_wei": "0",
+      "forfeited_pot_wei": "0",
+      "id": "human-wallet-20260906-122644",
+      "join_deadline": 1788698661,
+      "loser_count": 0,
+      "max_players": 2,
+      "max_source_bytes": 6000,
+      "min_players": 2,
+      "participant_count": 0,
+      "protocol_version": 3,
+      "refund_count": 0,
+      "round_window_seconds": 3600,
+      "rounds_required": 1,
+      "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+      "settled_at": "",
+      "stake_wei": "100",
+      "status": "forming",
+      "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+      "title": "Human wallet test - public-page check",
+      "total_staked_wei": "0",
+      "verification_mode": "source_verified",
+      "winner_count": 0
+    },
+    "rejectionTest": "not_passed_user_approved_instead; no duplicate creation",
+    "storedPoolObservation": "LATEST_FINAL get_pool and can_join read completed before opening wallet A's join request; participant_count was 0 and can_join was true."
+  },
+  "evidencePlan": {
+    "url": "https://example.com",
+    "sourceInspected": true,
+    "purpose": "Technical public-page verification fixture only; does not prove real-world work or participant identity.",
+    "capture": "Each participant must approve and review the complete captured source; record actual capture IDs, digests, byte counts and receipts."
+  },
+  "expectationsNotObserved": {
+    "bothPassCreditWeiPerParticipant": "100",
+    "bothPassFeeWei": "0",
+    "allFailCreditWeiPerParticipantAt500Bps": "95",
+    "allFailFeeWei": "10"
+  },
+  "chainTimes": {
+    "source": "Stored get_pool values and finalized-success creation output, not local clock estimates",
+    "createdAt": "2026-09-06T12:29:21.028003+00:00",
+    "joinDeadlineUnix": 1788698661,
+    "joinDeadlineUtc": "2026-09-06T12:44:21.000Z",
+    "activityStartsAtUnix": 1788698661,
+    "activityStartsAtUtc": "2026-09-06T12:44:21.000Z",
+    "activityEndsAtUnix": 1788702261,
+    "activityEndsAtUtc": "2026-09-06T13:44:21.000Z",
+    "preJoinCanJoin": true
+  },
+  "chainTimePolicy": "Observation times and the pool ID are not chain timestamps. Use stored creation, formation and round timestamps for every deadline assertion; no local-clock substitution.",
+  "transactions": [
+    {
+      "hash": "0x7d2fae96b129225e617226007823cc71b6147ea11fdd34a68039fe2b58100763",
+      "method": "create_pool",
+      "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "0",
+      "createdAt": "2026-09-06T12:29:21.028003+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "FgRhcmdzXeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NKwCSHVtYW4gd2FsbGV0IHRlc3QgLSBwdWJsaWMtcGFnZSBjaGVja5wKQ2hlY2sgb25lIHB1YmxpYyBkb2N1bWVudGF0aW9uIHBhZ2UgYW5kIHN1Ym1pdCBhIHNvdXJjZS12ZXJpZmllZCBzdGF0ZW1lbnQuIFRoaXMgaXMgYSB0ZWNobmljYWwgU3R1ZGlvbmV0IGFjY2VwdGFuY2UgdGVzdCwgbm90IGEgcmVhbC13b3JsZCB3b3JrIG9yIGlkZW50aXR5IGNsYWltLuwZVGhpcyBpcyBhIHNhbmRib3ggcHVibGljLXBhZ2UgdmVyaWZpY2F0aW9uIGV4ZXJjaXNlLCBub3QgYSByZWFsLXdvcmxkIGFjdGl2aXR5IG9yIGlkZW50aXR5IGNsYWltLiBGb3IgdGhpcyBvbmUgcm91bmQsIHBhc3Mgb25seSBpZiB0aGUgcGFydGljaXBhbnQgc3RhdGVtZW50IGNvbmZpcm1zIHRoYXQgaHR0cHM6Ly9leGFtcGxlLmNvbSBoYXMgdGhlIGhlYWRpbmcgRXhhbXBsZSBEb21haW4gYW5kIHNheXMgdGhlIGRvbWFpbiBpcyBmb3IgdXNlIGluIGRvY3VtZW50YXRpb24gZXhhbXBsZXMgd2l0aG91dCBuZWVkaW5nIHBlcm1pc3Npb24sIGFuZCB0aGUgZmV0Y2hlZCBwdWJsaWMgcGFnZSBzdXBwb3J0cyBib3RoIGZhY3RzLiBGYWlsIGZvciBhIGNsZWFyIGNvbnRyYWRpY3Rpb247IG90aGVyd2lzZSByZXR1cm4gdW5jbGVhci58c291cmNlX3ZlcmlmaWVkoQYJERGhOIHhAQZtZXRob2RcY3JlYXRlX3Bvb2w=",
+      "decodedInput": {
+        "args": [
+          "human-wallet-20260906-122644",
+          "Human wallet test - public-page check",
+          "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+          "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+          "source_verified",
+          "100",
+          "1",
+          "2",
+          "2",
+          "900",
+          "3600"
+        ],
+        "method": "create_pool"
+      },
+      "resultBase64": "AHYQYWN0aXZpdHlfZW5kc19hdKnjrac1EmFjdGl2aXR5X3N0YXJ0c19hdKmCrKc1B2ZlZV9icHOhHwJpZOQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NA1qb2luX2RlYWRsaW5lqYKspzULbWF4X3BsYXllcnMRC21pbl9wbGF5ZXJzERFwYXJ0aWNpcGFudF9jb3VudAEPcm91bmRzX3JlcXVpcmVkCQlzdGFrZV93ZWkcMTAwBnN0YXR1czxmb3JtaW5nCnRlcm1zX2hhc2iEBDBlY2E3Y2JlZTUxZWEzNjhhOTUzNjUwZTcyNmNkYmYxNjAwOGExYTY3ZDJjYTZiYmFmMDBmNGY0OGNiOTdlODQFdGl0bGWsAkh1bWFuIHdhbGxldCB0ZXN0IC0gcHVibGljLXBhZ2UgY2hlY2sRdmVyaWZpY2F0aW9uX21vZGV8c291cmNlX3ZlcmlmaWVk",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "activity_ends_at": "1788702261",
+        "activity_starts_at": "1788698661",
+        "fee_bps": "500",
+        "id": "human-wallet-20260906-122644",
+        "join_deadline": "1788698661",
+        "max_players": "2",
+        "min_players": "2",
+        "participant_count": "0",
+        "rounds_required": "1",
+        "stake_wei": "100",
+        "status": "forming",
+        "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+        "title": "Human wallet test - public-page check",
+        "verification_mode": "source_verified"
+      },
+      "finalizedAtUnix": 1788697796.6019545,
+      "exactInputVerificationPassed": true,
+      "baselineCreditWei": {
+        "A": "0",
+        "B": "0"
+      }
+    },
+    {
+      "hash": "0xb57be739701dd784e2d2d2afb5492f2d9e77ab0e370abf648a0367fe40e4d51f",
+      "method": "join",
+      "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "100",
+      "createdAt": "2026-09-06T12:39:16.740331+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2Qkam9pbg==",
+      "decodedInput": {
+        "args": [
+          "human-wallet-20260906-122644"
+        ],
+        "method": "join"
+      },
+      "resultBase64": "ACYRcGFydGljaXBhbnRfY291bnQJBnBsYXllctQCMHhBYjk5Yzc0MTQ5NGJFRjkxRkFFNjYxNDRkZGEzMUJlOTMxODBiYUQ0B3Bvb2xfaWTkAWh1bWFuLXdhbGxldC0yMDI2MDkwNi0xMjI2NDQJc3Rha2Vfd2VpHDEwMA==",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "participant_count": "1",
+        "player": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "pool_id": "human-wallet-20260906-122644",
+        "stake_wei": "100"
+      },
+      "finalizedAtUnix": 1788698390.1490653,
+      "exactInputVerificationPassed": true
+    },
+    {
+      "hash": "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327",
+      "method": "activate_pool",
+      "sender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "0",
+      "createdAt": "2026-09-06T12:50:43.788563+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2RsYWN0aXZhdGVfcG9vbA==",
+      "decodedInput": {
+        "args": [
+          "human-wallet-20260906-122644"
+        ],
+        "method": "activate_pool"
+      },
+      "exactInputVerificationPassed": true,
+      "resultBase64": "AHYQYWN0aXZpdHlfZW5kc19hdKnjrac1EmFjdGl2aXR5X3N0YXJ0c19hdKmCrKc1B2ZlZV9icHOhHwJpZOQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NA1qb2luX2RlYWRsaW5lqYKspzULbWF4X3BsYXllcnMRC21pbl9wbGF5ZXJzERFwYXJ0aWNpcGFudF9jb3VudAkPcm91bmRzX3JlcXVpcmVkCQlzdGFrZV93ZWkcMTAwBnN0YXR1c0xyZWZ1bmRpbmcKdGVybXNfaGFzaIQEMGVjYTdjYmVlNTFlYTM2OGE5NTM2NTBlNzI2Y2RiZjE2MDA4YTFhNjdkMmNhNmJiYWYwMGY0ZjQ4Y2I5N2U4NAV0aXRsZawCSHVtYW4gd2FsbGV0IHRlc3QgLSBwdWJsaWMtcGFnZSBjaGVjaxF2ZXJpZmljYXRpb25fbW9kZXxzb3VyY2VfdmVyaWZpZWQ=",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "activity_ends_at": "1788702261",
+        "activity_starts_at": "1788698661",
+        "fee_bps": "500",
+        "id": "human-wallet-20260906-122644",
+        "join_deadline": "1788698661",
+        "max_players": "2",
+        "min_players": "2",
+        "participant_count": "1",
+        "rounds_required": "1",
+        "stake_wei": "100",
+        "status": "refunding",
+        "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+        "title": "Human wallet test - public-page check",
+        "verification_mode": "source_verified"
+      },
+      "finalizedAtUnix": 1788699077.3344781
+    },
+    {
+      "hash": "0xe1163f498178095cd8990c6e1673fd41b7b2e67ef955c6afaf2d8d0cc3f0e2ea",
+      "method": "claim_formation_refund",
+      "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "0",
+      "createdAt": "2026-09-06T12:57:32.268180+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2S0AWNsYWltX2Zvcm1hdGlvbl9yZWZ1bmQ=",
+      "decodedInput": {
+        "args": [
+          "human-wallet-20260906-122644"
+        ],
+        "method": "claim_formation_refund"
+      },
+      "resultBase64": "AB4KY3JlZGl0X3dlaRwxMDAHcG9vbF9pZOQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZzdGF0dXNMY2FuY2VsbGVk",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "credit_wei": "100",
+        "pool_id": "human-wallet-20260906-122644",
+        "status": "cancelled"
+      },
+      "finalizedAtUnix": 1788699485.8388634,
+      "exactInputVerificationPassed": true
+    },
+    {
+      "hash": "0xdef3ccf4480417eb828847358a1edb3b48f5046e6b2baa57ebd3bc4204513e30",
+      "method": "withdraw",
+      "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "0",
+      "createdAt": "2026-09-06T13:00:52.129256+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "DgZtZXRob2REd2l0aGRyYXc=",
+      "decodedInput": {
+        "method": "withdraw"
+      },
+      "resultBase64": "ADYKYW1vdW50X3dlaRwxMDANZGVsaXZlcnlfbm90ZawERW1pc3Npb24gaXMgbm90IGNvbmZpcm1hdGlvbjsgdmVyaWZ5IHRoZSBmaW5hbGl6ZWQgY2hpbGQgdHJhbnNhY3Rpb24uCmVtaXR0ZWRfYXSEAjIwMjYtMDktMDZUMTM6MDA6NTIuMTI5MjU2KzAwOjAwAmlkfHBheW91dC0wMDAwMDAwNQlyZWNpcGllbnTUAjB4YWI5OWM3NDE0OTRiZWY5MWZhZTY2MTQ0ZGRhMzFiZTkzMTgwYmFkNAZzdGF0dXPEAWVtaXR0ZWRfZm9yX2ZpbmFsaXphdGlvbg==",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "amount_wei": "100",
+        "delivery_note": "Emission is not confirmation; verify the finalized child transaction.",
+        "emitted_at": "2026-09-06T13:00:52.129256+00:00",
+        "id": "payout-00000005",
+        "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "status": "emitted_for_finalization"
+      },
+      "finalizedAtUnix": 1788699689.6005056,
+      "triggeredTransactions": [
+        "0x0597d839bcffe4d40c7701e3b65e7e49553febc26d8d48e4cab3426896922412"
+      ],
+      "exactInputVerificationPassed": true
+    }
+  ],
+  "observations": [
+    {
+      "kind": "creation",
+      "userReportedApproval": true,
+      "appActivity": "Execution succeeded and finalized",
+      "verification": "Read-only public Studionet receipt: exact sender, target, all eleven decoded arguments, zero value, FINALIZED, execution success and result code 0/return verified."
+    },
+    {
+      "kind": "credit_baseline",
+      "source": "LATEST_FINAL get_credit reads before funded join",
+      "creditWei": {
+        "A": "0",
+        "B": "0"
+      }
+    },
+    {
+      "kind": "join_a_requested",
+      "observedAccountLabel": "0xab99…bad4",
+      "reviewedStakeWei": "100",
+      "appState": "Stake checkbox checked and disabled; stake action and Refresh disabled after request; no join receipt observed yet."
+    },
+    {
+      "kind": "join_a_verified",
+      "observationTimeUtc": "2026-09-06 12:42:30 UTC",
+      "appState": "Join pool executed successfully and finalized on Studionet; 1 joined; A active with 0/1 rounds passed.",
+      "verification": "Exact sender, target, pool ID, 100 wei, FINALIZED, execution success and result code 0/return independently verified. Stored participant joined_at precedes stored join_deadline. can_join was true at this read."
+    },
+    {
+      "kind": "b_login_and_private_activity",
+      "observationTimeUtc": "2026-09-06 12:47:34 UTC",
+      "accountLabel": "0xe6e7…5c43",
+      "privateRequestCount": 0,
+      "scope": "A-to-B Activity isolation observed; reverse isolation pending."
+    },
+    {
+      "kind": "formation_refund_enabling_requested",
+      "observationTimeUtc": "2026-09-06 12:48:13 UTC",
+      "appState": "Activate or enable refunds, wallet account button and Refresh disabled after one request.",
+      "purpose": "Enable the normal full formation-refund path for A's existing 100-wei stake, not a B deposit.",
+      "expectedValueWei": "0",
+      "executionNotYetVerified": true
+    },
+    {
+      "kind": "refund_enabling_verified",
+      "observationTimeUtc": "2026-09-06 12:52:06 UTC",
+      "transactionHash": "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327",
+      "status": "refunding",
+      "reason": "minimum_cohort_not_met",
+      "exactInputVerificationPassed": true,
+      "storedExecutionWithinFormationGrace": true,
+      "creditAWei": "0",
+      "note": "Refunds are enabled, not yet claimed or delivered."
+    },
+    {
+      "kind": "b_populated_private_activity",
+      "observationTimeUtc": "2026-09-06 12:52:15 UTC",
+      "signedInAccountLabel": "0xe6e7…5c43",
+      "savedRequestCount": 1,
+      "currentWalletOnlyChecked": false,
+      "savedHash": "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327",
+      "savedStatus": "Execution succeeded and finalized",
+      "aRequestsAbsent": true,
+      "scope": "B sees its one finalized activation request, not A's creation or join. Reverse B-to-A populated Activity isolation remains pending."
+    },
+    {
+      "kind": "a_login_and_reverse_private_activity_verified",
+      "observationTimeUtc": "2026-09-06 12:56:32 UTC",
+      "accountLabel": "0xab99…bad4",
+      "savedRequestCount": 2,
+      "aCreationAndJoinPresent": true,
+      "bActivationAbsent": true,
+      "scope": "Both directions of the populated private Activity UI check are now observed, not a comprehensive privacy certification."
+    },
+    {
+      "kind": "refund_claim_requested",
+      "observationTimeUtc": "2026-09-06 12:56:45 UTC",
+      "method": "claim_formation_refund",
+      "valueWei": "0",
+      "expectedCreditWei": "100",
+      "appState": "Claim full refund credit, account button and Refresh disabled after one request; existing credit remains zero in the pre-execution view.",
+      "executionNotYetVerified": true
+    },
+    {
+      "kind": "formation_refund_claim_verified",
+      "observationTimeUtc": "2026-09-06 13:00:08 UTC",
+      "transactionHash": "0xe1163f498178095cd8990c6e1673fd41b7b2e67ef955c6afaf2d8d0cc3f0e2ea",
+      "poolStatus": "cancelled",
+      "refundCount": 1,
+      "participantRefundClaimed": true,
+      "creditWei": "100",
+      "feeWei": "0",
+      "storedSettlementTimestamp": "2026-09-06T12:57:32.268180+00:00",
+      "note": "The stored pool settlement timestamp matches the claim transaction's stored creation timestamp. Full credit is verified, not native delivery."
+    },
+    {
+      "kind": "withdrawal_requested",
+      "observationTimeUtc": "2026-09-06 13:00:30 UTC",
+      "valueWei": "0",
+      "expectedPayoutWei": "100",
+      "appState": "Withdraw credit, account button and Refresh disabled after one request; visible pre-execution credit 0.0000000000000001 GEN.",
+      "executionAndDeliveryNotYetVerified": true
+    },
+    {
+      "kind": "withdrawal_and_native_delivery_verified",
+      "observationTimeUtc": "2026-09-06 13:03:54 UTC",
+      "parentHash": "0xdef3ccf4480417eb828847358a1edb3b48f5046e6b2baa57ebd3bc4204513e30",
+      "nativeChildHash": "0x0597d839bcffe4d40c7701e3b65e7e49553febc26d8d48e4cab3426896922412",
+      "payoutId": "payout-00000005",
+      "nativeChildFinalized": true,
+      "nativeChildType": 0,
+      "nativeValueCredited": true,
+      "exactSenderRecipientAnd100WeiVerified": true,
+      "reciprocalParentChildLinkVerified": true,
+      "balanceDeltaWei": "100",
+      "remainingCreditWei": "0",
+      "appNotice": "Payout delivered: the exact amount and recipient were verified in the finalized native transfer."
+    }
+  ],
+  "pendingTransaction": null,
+  "joinA": {
+    "userCompletionReply": "done",
+    "receipt": {
+      "hash": "0xb57be739701dd784e2d2d2afb5492f2d9e77ab0e370abf648a0367fe40e4d51f",
+      "method": "join",
+      "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "valueWei": "100",
+      "createdAt": "2026-09-06T12:39:16.740331+00:00",
+      "status": "FINALIZED",
+      "execution": "success",
+      "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2Qkam9pbg==",
+      "decodedInput": {
+        "args": [
+          "human-wallet-20260906-122644"
+        ],
+        "method": "join"
+      },
+      "resultBase64": "ACYRcGFydGljaXBhbnRfY291bnQJBnBsYXllctQCMHhBYjk5Yzc0MTQ5NGJFRjkxRkFFNjYxNDRkZGEzMUJlOTMxODBiYUQ0B3Bvb2xfaWTkAWh1bWFuLXdhbGxldC0yMDI2MDkwNi0xMjI2NDQJc3Rha2Vfd2VpHDEwMA==",
+      "resultCode": 0,
+      "resultCodeName": "return",
+      "output": {
+        "participant_count": "1",
+        "player": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "pool_id": "human-wallet-20260906-122644",
+        "stake_wei": "100"
+      },
+      "finalizedAtUnix": 1788698390.1490653,
+      "exactInputVerificationPassed": true
+    },
+    "participant": {
+      "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "joined_at": "2026-09-06T12:39:16.740331+00:00",
+      "last_attempt_id": "",
+      "refund_claimed": false,
+      "rounds_passed": 0,
+      "settlement_credit_wei": "0",
+      "stake_wei": "100",
+      "status": "active"
+    },
+    "pool": {
+      "activated_at": "",
+      "activation_failure": "",
+      "activity_ends_at": 1788702261,
+      "activity_starts_at": 1788698661,
+      "all_fail_policy": "refund_minus_fee",
+      "created_at": "2026-09-06T12:29:21.028003+00:00",
+      "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "description": "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+      "evidence_policy": "complete_verified_source_no_truncation",
+      "fee_bps": 500,
+      "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+      "fee_wei": "0",
+      "forfeited_pot_wei": "0",
+      "id": "human-wallet-20260906-122644",
+      "join_deadline": 1788698661,
+      "loser_count": 0,
+      "max_players": 2,
+      "max_source_bytes": 6000,
+      "min_players": 2,
+      "participant_count": 1,
+      "protocol_version": 3,
+      "refund_count": 0,
+      "round_window_seconds": 3600,
+      "rounds_required": 1,
+      "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+      "settled_at": "",
+      "stake_wei": "100",
+      "status": "forming",
+      "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+      "title": "Human wallet test - public-page check",
+      "total_staked_wei": "100",
+      "verification_mode": "source_verified",
+      "winner_count": 0
+    },
+    "canJoin": true,
+    "storedJoinBeforeDeadline": true,
+    "observationTimeUtc": "2026-09-06 12:42:30 UTC"
+  },
+  "loginB": {
+    "completionReply": "done",
+    "observationStartUtc": "2026-09-06 12:46:45 UTC",
+    "signedInAccountLabel": "0xe6e7…5c43",
+    "expectedAddress": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "fullSigningAddressVerified": true,
+    "privateActivity": {
+      "loaded": true,
+      "savedRequestCount": 0,
+      "currentWalletOnlyChecked": false,
+      "observedHeading": "No saved requests yet",
+      "aCreationAndJoinNotDisplayed": true,
+      "scope": "One-direction human UI isolation check: A's prior saved creation and join did not appear in B's completed Activity view. This does not prove all backend authorization paths or reverse populated-record isolation."
+    },
+    "publicPoolView": "A's public on-chain participation remained visible, as expected. B displayed Not a participant, zero credit, and disabled withdrawal. No join control was shown after formation ended.",
+    "signingAddressVerification": {
+      "source": "Finalized-success public receipt for the human-approved activate_pool call",
+      "hash": "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327",
+      "sender": "0xE6E7bfFA242d2900fad7067012564d441F735c43"
+    }
+  },
+  "formationRecovery": {
+    "preflightObservationTimeUtc": "2026-09-06 12:47:34 UTC",
+    "preflight": {
+      "pool": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1788702261,
+        "activity_starts_at": 1788698661,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-09-06T12:29:21.028003+00:00",
+        "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "description": "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "human-wallet-20260906-122644",
+        "join_deadline": 1788698661,
+        "loser_count": 0,
+        "max_players": 2,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 1,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 3600,
+        "rounds_required": 1,
+        "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+        "settled_at": "",
+        "stake_wei": "100",
+        "status": "forming",
+        "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+        "title": "Human wallet test - public-page check",
+        "total_staked_wei": "100",
+        "verification_mode": "source_verified",
+        "winner_count": 0
+      },
+      "canJoin": false,
+      "expectedRecoveryReason": "minimum_cohort_not_met",
+      "expectedRefundCreditWei": "100",
+      "refundCredited": false
+    },
+    "appAction": "Activate or enable refunds",
+    "requestObservedAtUtc": "2026-09-06 12:48:13 UTC",
+    "expectedStatus": "refunding",
+    "expectedReason": "minimum_cohort_not_met",
+    "claimRequiredAfterEnabling": true,
+    "withdrawalRequiredAfterClaim": true,
+    "completed": true,
+    "enablingVerified": true,
+    "enablingVerification": {
+      "observationTimeUtc": "2026-09-06 12:52:06 UTC",
+      "userCompletionReply": "done",
+      "receipt": {
+        "hash": "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327",
+        "method": "activate_pool",
+        "sender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+        "valueWei": "0",
+        "createdAt": "2026-09-06T12:50:43.788563+00:00",
+        "status": "FINALIZED",
+        "execution": "success",
+        "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2RsYWN0aXZhdGVfcG9vbA==",
+        "decodedInput": {
+          "args": [
+            "human-wallet-20260906-122644"
+          ],
+          "method": "activate_pool"
+        },
+        "exactInputVerificationPassed": true,
+        "resultBase64": "AHYQYWN0aXZpdHlfZW5kc19hdKnjrac1EmFjdGl2aXR5X3N0YXJ0c19hdKmCrKc1B2ZlZV9icHOhHwJpZOQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NA1qb2luX2RlYWRsaW5lqYKspzULbWF4X3BsYXllcnMRC21pbl9wbGF5ZXJzERFwYXJ0aWNpcGFudF9jb3VudAkPcm91bmRzX3JlcXVpcmVkCQlzdGFrZV93ZWkcMTAwBnN0YXR1c0xyZWZ1bmRpbmcKdGVybXNfaGFzaIQEMGVjYTdjYmVlNTFlYTM2OGE5NTM2NTBlNzI2Y2RiZjE2MDA4YTFhNjdkMmNhNmJiYWYwMGY0ZjQ4Y2I5N2U4NAV0aXRsZawCSHVtYW4gd2FsbGV0IHRlc3QgLSBwdWJsaWMtcGFnZSBjaGVjaxF2ZXJpZmljYXRpb25fbW9kZXxzb3VyY2VfdmVyaWZpZWQ=",
+        "resultCode": 0,
+        "resultCodeName": "return",
+        "output": {
+          "activity_ends_at": "1788702261",
+          "activity_starts_at": "1788698661",
+          "fee_bps": "500",
+          "id": "human-wallet-20260906-122644",
+          "join_deadline": "1788698661",
+          "max_players": "2",
+          "min_players": "2",
+          "participant_count": "1",
+          "rounds_required": "1",
+          "stake_wei": "100",
+          "status": "refunding",
+          "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+          "title": "Human wallet test - public-page check",
+          "verification_mode": "source_verified"
+        },
+        "finalizedAtUnix": 1788699077.3344781
+      },
+      "pool": {
+        "activated_at": "",
+        "activation_failure": "minimum_cohort_not_met",
+        "activity_ends_at": 1788702261,
+        "activity_starts_at": 1788698661,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-09-06T12:29:21.028003+00:00",
+        "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "description": "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "human-wallet-20260906-122644",
+        "join_deadline": 1788698661,
+        "loser_count": 0,
+        "max_players": 2,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 1,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 3600,
+        "rounds_required": 1,
+        "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+        "settled_at": "",
+        "stake_wei": "100",
+        "status": "refunding",
+        "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+        "title": "Human wallet test - public-page check",
+        "total_staked_wei": "100",
+        "verification_mode": "source_verified",
+        "winner_count": 0
+      },
+      "creditA": {
+        "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "credit_wei": "0"
+      },
+      "stateAssertionsPassed": true,
+      "refundClaimStillRequired": true
+    },
+    "nextStep": "No recovery work remains for this pool; the full 100-wei stake reached A. The two-participant source/proof/settlement lifecycle still requires a separately approved new pool with a longer formation window.",
+    "claimVerified": true
+  },
+  "refundClaim": {
+    "preflightObservationTimeUtc": "2026-09-06 12:56:14 UTC",
+    "preflight": {
+      "poolId": "human-wallet-20260906-122644",
+      "poolStatus": "refunding",
+      "activationFailure": "minimum_cohort_not_met",
+      "participantCount": 1,
+      "refundCount": 0,
+      "participant": {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "joined_at": "2026-09-06T12:39:16.740331+00:00",
+        "last_attempt_id": "",
+        "refund_claimed": false,
+        "rounds_passed": 0,
+        "settlement_credit_wei": "0",
+        "stake_wei": "100",
+        "status": "active"
+      },
+      "credit": {
+        "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "credit_wei": "0"
+      }
+    },
+    "expectedClaimCreditWei": "100",
+    "expectedPoolStatusAfterClaim": "cancelled",
+    "requestObservedAtUtc": "2026-09-06 12:56:45 UTC",
+    "appAction": "Claim full refund credit",
+    "completed": true,
+    "withdrawalRequested": true,
+    "verification": {
+      "observationTimeUtc": "2026-09-06 13:00:08 UTC",
+      "userCompletionReply": "done",
+      "receipt": {
+        "hash": "0xe1163f498178095cd8990c6e1673fd41b7b2e67ef955c6afaf2d8d0cc3f0e2ea",
+        "method": "claim_formation_refund",
+        "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+        "valueWei": "0",
+        "createdAt": "2026-09-06T12:57:32.268180+00:00",
+        "status": "FINALIZED",
+        "execution": "success",
+        "calldataBase64": "FgRhcmdzDeQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZtZXRob2S0AWNsYWltX2Zvcm1hdGlvbl9yZWZ1bmQ=",
+        "decodedInput": {
+          "args": [
+            "human-wallet-20260906-122644"
+          ],
+          "method": "claim_formation_refund"
+        },
+        "resultBase64": "AB4KY3JlZGl0X3dlaRwxMDAHcG9vbF9pZOQBaHVtYW4td2FsbGV0LTIwMjYwOTA2LTEyMjY0NAZzdGF0dXNMY2FuY2VsbGVk",
+        "resultCode": 0,
+        "resultCodeName": "return",
+        "output": {
+          "credit_wei": "100",
+          "pool_id": "human-wallet-20260906-122644",
+          "status": "cancelled"
+        },
+        "finalizedAtUnix": 1788699485.8388634,
+        "exactInputVerificationPassed": true
+      },
+      "pool": {
+        "activated_at": "",
+        "activation_failure": "minimum_cohort_not_met",
+        "activity_ends_at": 1788702261,
+        "activity_starts_at": 1788698661,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-09-06T12:29:21.028003+00:00",
+        "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "description": "Check one public documentation page and submit a source-verified statement. This is a technical Studionet acceptance test, not a real-world work or identity claim.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "human-wallet-20260906-122644",
+        "join_deadline": 1788698661,
+        "loser_count": 0,
+        "max_players": 2,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 1,
+        "protocol_version": 3,
+        "refund_count": 1,
+        "round_window_seconds": 3600,
+        "rounds_required": 1,
+        "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+        "settled_at": "2026-09-06T12:57:32.268180+00:00",
+        "stake_wei": "100",
+        "status": "cancelled",
+        "terms_hash": "0eca7cbee51ea368a953650e726cdbf16008a1a67d2ca6bbaf00f4f48cb97e84",
+        "title": "Human wallet test - public-page check",
+        "total_staked_wei": "100",
+        "verification_mode": "source_verified",
+        "winner_count": 0
+      },
+      "participant": {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "joined_at": "2026-09-06T12:39:16.740331+00:00",
+        "last_attempt_id": "",
+        "refund_claimed": true,
+        "rounds_passed": 0,
+        "settlement_credit_wei": "100",
+        "stake_wei": "100",
+        "status": "refunded"
+      },
+      "creditA": {
+        "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "credit_wei": "100"
+      },
+      "nativeBalanceA": {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "method": "eth_getBalance(address, latest)",
+        "balanceHex": "0xde0b6b3a763fba0",
+        "balanceWei": "999999999999998880",
+        "expectedAfter100WeiDelivery": "999999999999998980"
+      },
+      "stateAssertionsPassed": true,
+      "withdrawalStillRequired": true
+    }
+  },
+  "withdrawal": {
+    "requestObservedAtUtc": "2026-09-06 13:00:30 UTC",
+    "appAction": "Withdraw credit",
+    "reviewedCreditWei": "100",
+    "reviewedCreditGen": "0.0000000000000001",
+    "expectedRecipient": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "transactionValueWei": "0",
+    "nativeBalanceBefore": {
+      "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+      "method": "eth_getBalance(address, latest)",
+      "balanceHex": "0xde0b6b3a763fba0",
+      "balanceWei": "999999999999998880",
+      "expectedAfter100WeiDelivery": "999999999999998980"
+    },
+    "completed": true,
+    "deliveryVerified": true,
+    "verification": {
+      "observationTimeUtc": "2026-09-06 13:03:54 UTC",
+      "userCompletionReply": "done",
+      "receipt": {
+        "hash": "0xdef3ccf4480417eb828847358a1edb3b48f5046e6b2baa57ebd3bc4204513e30",
+        "method": "withdraw",
+        "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+        "valueWei": "0",
+        "createdAt": "2026-09-06T13:00:52.129256+00:00",
+        "status": "FINALIZED",
+        "execution": "success",
+        "calldataBase64": "DgZtZXRob2REd2l0aGRyYXc=",
+        "decodedInput": {
+          "method": "withdraw"
+        },
+        "resultBase64": "ADYKYW1vdW50X3dlaRwxMDANZGVsaXZlcnlfbm90ZawERW1pc3Npb24gaXMgbm90IGNvbmZpcm1hdGlvbjsgdmVyaWZ5IHRoZSBmaW5hbGl6ZWQgY2hpbGQgdHJhbnNhY3Rpb24uCmVtaXR0ZWRfYXSEAjIwMjYtMDktMDZUMTM6MDA6NTIuMTI5MjU2KzAwOjAwAmlkfHBheW91dC0wMDAwMDAwNQlyZWNpcGllbnTUAjB4YWI5OWM3NDE0OTRiZWY5MWZhZTY2MTQ0ZGRhMzFiZTkzMTgwYmFkNAZzdGF0dXPEAWVtaXR0ZWRfZm9yX2ZpbmFsaXphdGlvbg==",
+        "resultCode": 0,
+        "resultCodeName": "return",
+        "output": {
+          "amount_wei": "100",
+          "delivery_note": "Emission is not confirmation; verify the finalized child transaction.",
+          "emitted_at": "2026-09-06T13:00:52.129256+00:00",
+          "id": "payout-00000005",
+          "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+          "status": "emitted_for_finalization"
+        },
+        "finalizedAtUnix": 1788699689.6005056,
+        "triggeredTransactions": [
+          "0x0597d839bcffe4d40c7701e3b65e7e49553febc26d8d48e4cab3426896922412"
+        ],
+        "exactInputVerificationPassed": true
+      },
+      "children": [
+        {
+          "hash": "0x0597d839bcffe4d40c7701e3b65e7e49553febc26d8d48e4cab3426896922412",
+          "from": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+          "to": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+          "type": 0,
+          "status": "FINALIZED",
+          "valueWei": "100",
+          "valueCredited": true,
+          "createdAt": "2026-09-06T13:01:29.612222+00:00",
+          "triggeredBy": "0xdef3ccf4480417eb828847358a1edb3b48f5046e6b2baa57ebd3bc4204513e30",
+          "triggeredOn": "finalized",
+          "delivered": true
+        }
+      ],
+      "payout": {
+        "amount_wei": "100",
+        "delivery_note": "Emission is not confirmation; verify the finalized child transaction.",
+        "emitted_at": "2026-09-06T13:00:52.129256+00:00",
+        "id": "payout-00000005",
+        "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "status": "emitted_for_finalization"
+      },
+      "creditA": {
+        "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "credit_wei": "0"
+      },
+      "nativeBalanceA": {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "method": "eth_getBalance(address, latest)",
+        "balanceHex": "0xde0b6b3a763fc04",
+        "balanceWei": "999999999999998980",
+        "deltaWei": "100",
+        "matchesPreStakeBalance": true
+      },
+      "stateAssertionsPassed": true,
+      "nativeDeliveryVerified": true
+    }
+  },
+  "completionSummary": {
+    "observationTimeUtc": "2026-09-06 13:03:54 UTC",
+    "poolId": "human-wallet-20260906-122644",
+    "poolStatus": "cancelled",
+    "recoveryReason": "minimum_cohort_not_met",
+    "verifiedHumanContractTransactions": 5,
+    "verifiedNativeChildren": 1,
+    "stakePaidWei": "100",
+    "refundCreditWei": "100",
+    "nativeRefundDeliveredWei": "100",
+    "refundFeeWei": "0",
+    "residualContractCreditWei": "0",
+    "nativeBalanceRestoredToPreStake": true,
+    "twoWayPrivateActivityUiIsolationObserved": true,
+    "mainTwoParticipantLifecycleComplete": false,
+    "repositoryAndPreviewAccessUnchanged": true
+  },
+  "remainingHumanChecks": [
+    "Agree a longer formation window and complete a new two-participant lifecycle: both funded joins, activation, both complete-source captures/proofs, actual verdicts, settlement, credits and native payouts.",
+    "Observe deliberate rejection of a creation transaction and a saved unsigned/cancelled request without a hash; the first creation was approved instead. Login rejection already passed.",
+    "Observe focus/refresh behavior for an actual evidence-review form and consent reset for changed pool/round/source state.",
+    "Record exact browser and wallet extension versions and retain scoped wallet/device coverage limits.",
+    "Keep public access, submission and any additional actor/stake/schedule changes subject to separate owner authority."
+  ]
+}
