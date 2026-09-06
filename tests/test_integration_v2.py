@@ -1,14 +1,12 @@
 """Opt-in full-consensus smoke test for CommitmentPoolV2."""
 
 import os
-import time
 
 import pytest
 
-from gltest import create_accounts, get_contract_factory, get_gl_client
+from gltest import create_accounts, get_contract_factory
 from gltest.assertions import tx_execution_succeeded
-from gltest.contracts import Contract
-from gltest.utils import extract_contract_address
+from integration_helpers import deploy_for_integration
 
 
 pytestmark = [
@@ -20,27 +18,9 @@ pytestmark = [
 ]
 
 
-def deploy_with_schema_retry(factory, wallet):
-    receipt = factory.deploy_contract_tx(
-        account=wallet,
-        args=[500],
-        consensus_max_rotations=5,
-    )
-    assert tx_execution_succeeded(receipt)
-    address = extract_contract_address(receipt)
-    for attempt in range(20):
-        try:
-            schema = get_gl_client().get_contract_schema(address)
-            return Contract.new(address, schema, account=wallet)
-        except Exception:
-            if attempt == 19:
-                raise
-            time.sleep(3)
-
-
 def test_commitment_pool_v2_full_consensus_creation():
     wallet = create_accounts(1)[0]
-    contract = deploy_with_schema_retry(get_contract_factory("CommitmentPoolV2"), wallet)
+    contract = deploy_for_integration(get_contract_factory("CommitmentPoolV2"), wallet)
     pool_id = f"integration-{wallet.address[-8:].lower()}"
     receipt = contract.create_pool(
         args=[
@@ -62,4 +42,3 @@ def test_commitment_pool_v2_full_consensus_creation():
     assert record["status"] == "forming"
     assert record["fee_bps"] == 500
     assert record["terms_hash"]
-

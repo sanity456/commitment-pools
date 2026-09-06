@@ -13,7 +13,7 @@ Scope: September implementation and local verification; not a human wallet trial
 
 ## Verified locally
 
-Windows; Node 24.18.0, pnpm 11.19.0, Python 3.12.13. Python checks used the existing sibling virtual environment containing the pinned tooling, with this repository as the working directory; no sibling source was changed. GitHub's clean Ubuntu install is the independent fresh-environment gate.
+Windows; Node 24.18.0, pnpm 11.19.0, Python 3.12.14. Python checks used the existing sibling virtual environment containing the pinned tooling, with this repository as the working directory; no sibling source was changed. GitHub's clean Ubuntu install pins Python 3.12.13 and is the independent fresh-environment gate.
 
 | Check | Observed result |
 | --- | --- |
@@ -31,6 +31,8 @@ Windows; Node 24.18.0, pnpm 11.19.0, Python 3.12.13. Python checks used the exis
 The wallet harness correctly cannot issue a challenge on an unrecognized local **production** host: without trusted hosting client identity, it returns `503 client_identity_unavailable`. No forwarding-header bypass or weaker production authentication was added. The development-loopback path is separately supported. Actual Vercel wallet authentication must still be checked on its trusted host.
 
 The direct chain-time tests print their creation inputs, stored chain records, boundary timestamps, observed output and asserted reason prefixes in the dedicated verbose CI step. Model/network responses are mocked; these are boundary proofs, not live consensus or human signatures. The historical public 1-wei value probe is intentionally not run by ordinary or isolated CI. The isolated v2/v3 deployment smoke tests do not cover live AI adjudication.
+
+The initial Ubuntu run exposed GLSim 0.29.2's schema-extraction incompatibility with this pinned runner: deployment succeeded but the SDK wrapper had no generated methods. The harness now supplies explicit read/write binding metadata while still executing the real source and asserting successful consensus receipts. This does not mock results or weaken the contract. A separate local Windows GLSim attempt hit upstream character-decoding and temporary-file locking errors; it is not reported as a passing integration run. The supported clean integration gate remains Ubuntu.
 
 Core SHA-256: `e17b75f5e172db9f123f8f96c1110525d626fefa9c5f5b3e5c977a08844a9dbb`.
 
