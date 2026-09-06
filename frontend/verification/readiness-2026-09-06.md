@@ -1,6 +1,6 @@
 # Commitment Pools readiness — 2026-09-06
 
-Scope: September implementation and local verification; not a human wallet trial or an independent audit. The working release preserves the deployed v3 source and the separate Dispute Court product. Hosted CI, deployment and immutable links are recorded below when verified.
+Scope: September implementation, local verification, clean Ubuntu CI and protected-preview HTTP acceptance; not a human wallet trial or an independent audit. This release preserves the deployed v3 source and the separate Dispute Court product.
 
 ## Changes
 
@@ -28,7 +28,7 @@ Windows; Node 24.18.0, pnpm 11.19.0, Python 3.12.14. Python checks used the exis
 | Production dependency audit | Zero reported vulnerabilities |
 | Full development dependency audit | Two high version-based `image-size@2.0.2` advisories; existing mitigation patches and parser regressions retained |
 
-The wallet harness correctly cannot issue a challenge on an unrecognized local **production** host: without trusted hosting client identity, it returns `503 client_identity_unavailable`. No forwarding-header bypass or weaker production authentication was added. The development-loopback path is separately supported. Actual Vercel wallet authentication must still be checked on its trusted host.
+The wallet harness correctly cannot issue a challenge on an unrecognized local **production** host: without trusted hosting client identity, it returns `503 client_identity_unavailable`. No forwarding-header bypass or weaker production authentication was added. The development-loopback path is separately supported. All 26 wallet checks were subsequently passed on the actual trusted Vercel host, as recorded below.
 
 The direct chain-time tests print their creation inputs, stored chain records, boundary timestamps, observed output and asserted reason prefixes in the dedicated verbose CI step. Model/network responses are mocked; these are boundary proofs, not live consensus or human signatures. The historical public 1-wei value probe is intentionally not run by ordinary or isolated CI. The isolated v2/v3 deployment smoke tests do not cover live AI adjudication.
 
@@ -40,10 +40,15 @@ Helper SHA-256: `8eaa893c58927830a307763138dba45a5f77e4d31ead90e8d3688e0c7a6b123
 
 ## External release gates
 
-- Tested implementation commit and Ubuntu CI: pending the private repository push/run.
-- September Vercel preview and hosted checks: pending deployment.
+- App implementation: [immutable commit `ace5d3f78968dc8bf06a333f2c65c1ee37baee6e`](https://github.com/sanity456/commitment-pools/tree/ace5d3f78968dc8bf06a333f2c65c1ee37baee6e).
+- Complete clean Ubuntu suite: [run 34028377487](https://github.com/sanity456/commitment-pools/actions/runs/34028377487), **success** at [`dfa4132d87a5a584ff35264730d7c8092a28eb73`](https://github.com/sanity456/commitment-pools/tree/dfa4132d87a5a584ff35264730d7c8092a28eb73). This includes 159 direct tests, 2 isolated simulator integration tests, 109 app tests, both builds and deployed source verification. Later commits must pass the same workflow; this link is not a claim about untested future changes.
+- September [private Vercel preview](https://commitment-pools-studionet-28cvvvtta-sanity3.vercel.app): `dpl_9LEadK7GttSxVi9CLDdbY5QpJAVM`, READY, preview target, deployed app commit `ace5d3f78968dc8bf06a333f2c65c1ee37baee6e`. Generated builds, local data and `.env.local` were excluded from the 167-file upload. Subsequent test-harness/documentation edits do not alter app runtime or contract bytes.
+- Hosted verification used authenticated `vercel curl` transport to run the checked-in `tests/hosted-wallet-checks.mjs` with synthetic, in-memory signers/cookies. All 26 checks pass, including secure host-only HttpOnly cookies, replay/wrong-signer/CSRF rejection, wallet isolation, session restore, logout and revocation. No transaction sent. Three hosted document responses passed fresh CSP nonces, executable-script matching and defensive headers.
+- Anonymous access checks: the September and historical August previews return 302 to Vercel authentication; the canonical demo and private GitHub repository return 404. Historical previews were not opened to the public.
 - Public repository/canonical demo: awaiting explicit owner approval; historical previews remain protected.
 - Signed-out evidence-link audit and concise final steward response: pending public access and immutable evidence.
 - Human two-wallet browser lifecycle: not yet run; see `HUMAN-WALLET-TEST.md` at the repository root.
+
+One final local read-only source check received an unexpected HTML RPC response and failed closed. The next bounded chain-ID/source check succeeded with the exact hashes above; the clean Ubuntu source-check step also passed. No failed read was replaced with sample data or interpreted as deployment success.
 
 The [August automated lifecycle](end-to-end-2026-08-30.md) remains valid historical evidence, not a fresh September human trial. No public contract write was made during this readiness pass. Studionet test assets only; no mainnet, guaranteed verdict accuracy, unsupported mobile wallet, or independent security certification is claimed.

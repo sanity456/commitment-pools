@@ -24,7 +24,7 @@
 - [ ] Complete a human two-wallet injected-browser trial: first sign-in, signature rejection, account/network change, reload/session restore, failure/retry, credit and withdrawal.
 - [ ] Test the supported injected EVM wallet/browser combination. Do not claim WalletConnect, mobile deep-link, or smart-contract-wallet support without implementing and testing it.
 
-The checked deployment/browser items above describe the August private release. A new September private preview must be verified before using it for the [human trial](HUMAN-WALLET-TEST.md).
+The browser-rendering observations above describe the August private release. The September preview is deployed and passed production-header checks and all 26 synthetic wallet HTTP checks. The actual extension UI remains part of the [human trial](HUMAN-WALLET-TEST.md).
 
 ## Submission access and program rules
 
@@ -36,6 +36,8 @@ The checked deployment/browser items above describe the August private release. 
 - [ ] Pin each source, test and report link to an immutable commit; compare both deployed source hashes from that checkout.
 - [ ] Open the demo, repository, CI run and every evidence link without a signed-in session. Record the result, not just the URL.
 - [ ] Finalize one concise `STEWARD-RESPONSE.md` answering the nine requested verification items without unresolved placeholders or invented results.
+
+The complete [private Ubuntu run at `dfa4132`](https://github.com/sanity456/commitment-pools/actions/runs/34028377487) passed. Keep the public-CI item unchecked until the reviewed final commit is green and signed-out evaluators can actually open it. Current anonymous checks return GitHub 404, protected-preview 302 to Vercel, and canonical-demo 404; public access has not been authorized.
 
 The published npm metadata still lists `image-size 2.0.2` as latest; the advisory's `2.0.3` fix is not published there as of this review. Existing parser patches and regression tests are retained. Full dependency scans therefore still flag two dev-tool advisories; do not suppress them or pretend the dependency scan is clean. If the submission requires a zero-advisory scan, resolve that policy with the program or wait for a verified compatible upstream release.
 

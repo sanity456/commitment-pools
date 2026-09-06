@@ -6,7 +6,7 @@ Updated: 2026-09-06
 
 Commitment Pools is a standalone, wallet-only Studionet product. Dispute Court remains a separate product and repository.
 
-- Private preview: [Commitment Pools](https://commitment-pools-studionet-28cw6910t-sanity3.vercel.app)
+- Private preview: [Commitment Pools](https://commitment-pools-studionet-28cvvvtta-sanity3.vercel.app)
 - Core v3: `0x7279B4A7821c96489c0b086021F3E6944d343bFB`
 - Evidence helper v3: `0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D`
 - Network: Studionet, chain ID `61999`
@@ -22,7 +22,7 @@ The preview is protected by Vercel Authentication and is not anonymously accessi
 
 The September readiness update preserves the deployed v3 contract bytes and improves the wallet workspace, evidence review, transaction recovery and formation-window input. Local verification now passes 159 direct contract tests, 109 application tests, lint, both TypeScript targets and both production builds. The production documents pass fresh-nonce/CSP checks; the local development server passes all 26 synthetic wallet HTTP checks. Neon isolation and exact deployed-source verification were repeated successfully. See [the September readiness record](frontend/verification/readiness-2026-09-06.md).
 
-A pinned Ubuntu clean workflow and stored-chain-timestamp evidence tests are included. Its hosted run, immutable release evidence, a new private preview, public reviewer access and the human wallet trial are tracked separately; adding a workflow is not evidence that it passed.
+The complete pinned [Ubuntu run](https://github.com/sanity456/commitment-pools/actions/runs/34028377487) passed at commit `dfa4132d87a5a584ff35264730d7c8092a28eb73`, including both five-validator simulator tests, both builds and deployed-source verification. The new protected preview also passed all 26 synthetic wallet HTTP checks and fresh-nonce production document checks. Its app source is commit `ace5d3f78968dc8bf06a333f2c65c1ee37baee6e`; only test tooling and documentation changed afterward. Every later commit must pass the same complete workflow before submission. Public reviewer access and the human wallet trial remain open gates.
 
 The historical 2026-08-30 release pass completed successfully:
 

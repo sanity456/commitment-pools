@@ -47,10 +47,10 @@ def test_formation_boundary_uses_stored_deadline(
     warp_stored(direct_vm, stored["join_deadline"] + offset)
     assert pool_v3.can_join("pool-1") is (offset < 0)
     if offset < 0:
-        with direct_vm.expect_revert("Formation remains open"):
+        with direct_vm.expect_revert("[EXPECTED] Formation remains open"):
             pool_v3.activate_pool("pool-1")
     else:
-        with direct_vm.expect_revert("Join window has closed"):
+        with direct_vm.expect_revert("[EXPECTED] Join window has closed"):
             join(pool_v3, direct_vm, direct_alice)
         assert pool_v3.activate_pool("pool-1")["status"] == "active"
     assert pool_v3.get_pool("pool-1")["terms_hash"] == stored["terms_hash"]
@@ -79,10 +79,10 @@ def test_round_close_is_exclusive_and_next_round_open_is_inclusive(
     warp_stored(direct_vm, first["closes_at"] - 1)
     mock_verdict(direct_vm)
     assert submit(pool_v3, direct_vm, direct_bob, "round-1")["rounds_passed"] == 1
-    with direct_vm.expect_revert("Round 2 opens at"):
+    with direct_vm.expect_revert("[EXPECTED] Round 2 opens at"):
         submit(pool_v3, direct_vm, direct_bob, "round-2")
     warp_stored(direct_vm, first["closes_at"])
-    with direct_vm.expect_revert("Round 1 has closed"):
+    with direct_vm.expect_revert("[EXPECTED] Round 1 has closed"):
         submit(pool_v3, direct_vm, direct_charlie, "too-late")
     assert submit(pool_v3, direct_vm, direct_bob, "round-2")["participant_status"] == "success"
     attempt = pool_v3.get_attempt("pool-1", addr(direct_bob), 2, 1)
@@ -114,17 +114,17 @@ def test_fixed_activity_deadline_always_allows_deterministic_settlement(
             warp_stored(direct_vm, stored["activity_starts_at"] + offset)
             direct_vm.clear_mocks()
             direct_vm.mock_llm(r"(?s).*", json.dumps({"verdict": "invalid-verdict"}))
-            with direct_vm.expect_revert("Invalid verdict value"):
+            with direct_vm.expect_revert("[LLM_ERROR] Invalid verdict value"):
                 submit(pool_v3, direct_vm, direct_bob, "reusable-after-error")
             assert pool_v3.get_participant("pool-1", addr(direct_bob))["last_attempt_id"] == ""
             assert pool_v3.get_pool("pool-1")["activity_ends_at"] == stored["activity_ends_at"]
     warp_stored(direct_vm, stored["activity_ends_at"] - 1)
     assert pool_v3.can_settle("pool-1") is False
-    with direct_vm.expect_revert("Settlement requires"):
+    with direct_vm.expect_revert("[EXPECTED] Settlement requires"):
         pool_v3.settle("pool-1")
     warp_stored(direct_vm, stored["activity_ends_at"])
     assert pool_v3.can_settle("pool-1") is True
-    with direct_vm.expect_revert("has closed"):
+    with direct_vm.expect_revert("[EXPECTED] Round 1 has closed"):
         submit(pool_v3, direct_vm, direct_bob, "expired")
     result = pool_v3.settle("pool-1")
     assert result == {
@@ -135,7 +135,7 @@ def test_fixed_activity_deadline_always_allows_deterministic_settlement(
     assert pool_v3.get_credit(addr(direct_bob))["credit_wei"] == "950"
     assert pool_v3.get_credit(addr(direct_charlie))["credit_wei"] == "950"
     assert pool_v3.get_credit(addr(direct_alice))["credit_wei"] == "100"
-    with direct_vm.expect_revert("Pool is not active"):
+    with direct_vm.expect_revert("[EXPECTED] Pool is not active"):
         pool_v3.settle("pool-1")
     emit_evidence(
         "settlement_with_model_errors" if broken_model else "settlement_without_checkins",
