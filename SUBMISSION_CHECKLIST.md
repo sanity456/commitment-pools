@@ -1,5 +1,7 @@
 # Submission and activation checklist
 
+Publication update, September 7: the owner approved making this repository public. The [public release checkpoint](PUBLIC-RELEASE.md) records 57/57 anonymous access checks and the actual GenLayer Builders → Projects form. Submission itself still requires the owner's final approval. Earlier private-access statements below are historical; broader coverage and operational limitations are not silently marked passed.
+
 ## Completed in this checkout
 
 - Versioned v3 core and evidence helper; deployed v2 source preserved.
@@ -29,13 +31,13 @@ The older browser-rendering observations describe the August private release. Th
 
 ## Submission access and program rules
 
-- [ ] Complete evaluator access to the demo and source. The owner-approved [public demo](https://commitment-pools-studionet.vercel.app/) now passes anonymous access checks; GitHub remains private until the owner approves publication.
+- [x] Publish the approved demo and source. GitHub is public; the canonical demo and current source/evidence/CI bundle passed the recorded anonymous access checks. Wallet sign-in is still required to browse pools.
 - [ ] Obtain the actual program rules and confirm network, eligibility, deadline, public-source/license, video and other required artifacts.
 - [ ] Include a concise walkthrough, contract addresses, tested commit, setup instructions and an honest limitations statement.
 - [x] Describe this as an implementation-assisted review, not an independent security certification.
 - [x] Pass the complete configured pinned Ubuntu pipeline on release/evidence candidate `b4ca7a4`: [run 34126789440](https://github.com/sanity456/commitment-pools/actions/runs/34126789440). Any follow-up commit must pass the full workflow too. The optional legacy v2 live-value probe is outside this pipeline; see the exact scope in [the release record](frontend/verification/release-ubuntu-2026-09-07.md).
 - [x] Pin the current source/test/human-evidence links to immutable candidate `b4ca7a409523d8063d1c19e99e690f98d2b3e75a` and compare both deployed source hashes from that Ubuntu checkout. Private links do not satisfy public access.
-- [ ] Make the passing CI and complete final source/evidence bundle publicly accessible after owner approval. Private green CI does not meet the public-evidence gate.
+- [x] Make the passing CI and enumerated current source/evidence bundle publicly accessible after owner approval. All 57 recorded link checks returned HTTP 200 without authentication. Protected historical preview URLs are not the reviewer entry point.
 - [ ] Open the demo, repository, CI run and every evidence link without a signed-in session. Record the result, not just the URL.
 - [x] Prepare one concise `STEWARD-RESPONSE.md` answering all nine items with actual evidence and explicit unmet gates, not invented results or a false ready-to-submit claim.
 

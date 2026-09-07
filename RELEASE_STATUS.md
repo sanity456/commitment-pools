@@ -1,15 +1,17 @@
-# Commitment Pools — public v3 Studionet demo, private source
+# Commitment Pools — public v3 Studionet demo and source
 
 Updated: 2026-09-07
 
 ## Current release
+
+The owner approved GitHub publication on September 7. The repository is now public; all 57 enumerated current source/CI/human-evidence/demo links passed anonymous HTTP access. See [the public release checkpoint](PUBLIC-RELEASE.md). The GenLayer portal application is being prepared and remains subject to the owner's final submission approval. Older private-access statements below describe historical checkpoints, not current repository visibility.
 
 Commitment Pools is a standalone, wallet-only Studionet product. Dispute Court remains a separate product and repository.
 
 - Public demo: [Commitment Pools](https://commitment-pools-studionet.vercel.app).
 - Protected wallet-test preview: [existing test origin](https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app).
 - Current UI source: [`363d79e1245725c57ec1c874f0b0675cf0dca1a6`](https://github.com/sanity456/commitment-pools/tree/363d79e1245725c57ec1c874f0b0675cf0dca1a6), directly uploaded to the existing Vercel project. This ancestor is now included in the private GitHub push; no new deployment was made.
-- Verified release/evidence candidate: [`b4ca7a409523d8063d1c19e99e690f98d2b3e75a`](https://github.com/sanity456/commitment-pools/tree/b4ca7a409523d8063d1c19e99e690f98d2b3e75a), with [passing full Ubuntu CI](https://github.com/sanity456/commitment-pools/actions/runs/34126789440). Source/CI visibility remains private.
+- Verified release/evidence candidate: [`c67890366cb01bc13107f4cfeaed31ce6991482d`](https://github.com/sanity456/commitment-pools/tree/c67890366cb01bc13107f4cfeaed31ce6991482d), with [passing full Ubuntu CI](https://github.com/sanity456/commitment-pools/actions/runs/34128109148). Source and CI are now public.
 - Core v3: `0x7279B4A7821c96489c0b086021F3E6944d343bFB`
 - Evidence helper v3: `0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D`
 - Network: Studionet, chain ID `61999`

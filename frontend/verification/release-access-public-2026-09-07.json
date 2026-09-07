@@ -1,0 +1,469 @@
+{
+  "product": "commitment-pools",
+  "checkedAtUtc": "2026-09-07T14:13:48.575Z",
+  "candidateCommit": "c67890366cb01bc13107f4cfeaed31ce6991482d",
+  "runId": "34128109148",
+  "transport": "Anonymous GET; no credentials, cookies or bypass headers; redirects not followed",
+  "scope": "Every file in the enumerated current two-round evidence bundle, its verification scripts and environment images, release documents, core/helper source, dependency pins, chain-time tests, CI run, repository and public demo/pool. Historical linked reports outside this bundle require their own publication-time audit.",
+  "allEnumeratedLinksAccessible": true,
+  "totals": {
+    "checked": 57,
+    "accessible": 57,
+    "inaccessible": 0
+  },
+  "verificationScriptSha256": "d6511d1e460a4975e7cf461a9385cc0ade379e6768ffd17e4f3d39da7c97788d",
+  "results": [
+    {
+      "kind": "repository",
+      "url": "https://github.com/sanity456/commitment-pools",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable checkout",
+      "url": "https://github.com/sanity456/commitment-pools/tree/c67890366cb01bc13107f4cfeaed31ce6991482d",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "CI run",
+      "url": "https://github.com/sanity456/commitment-pools/actions/runs/34128109148",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": ".github/workflows/ubuntu-clean-suite.yml",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/.github/workflows/ubuntu-clean-suite.yml",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "HUMAN-WALLET-TEST.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/HUMAN-WALLET-TEST.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "RELEASE_STATUS.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/RELEASE_STATUS.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "STEWARD-RESPONSE.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/STEWARD-RESPONSE.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "SUBMISSION_CHECKLIST.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/SUBMISSION_CHECKLIST.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "contracts/commitment_pool_v3.py",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/contracts/commitment_pool_v3.py",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "contracts/evidence_capture_v3.py",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/contracts/evidence_capture_v3.py",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/lib/deployment.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/lib/deployment.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/lib/evidence-deployment.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/lib/evidence-deployment.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/package.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/package.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/pnpm-lock.yaml",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/pnpm-lock.yaml",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/scripts/verify-security-release.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/scripts/verify-security-release.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/tests/human-evidence.test.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/tests/human-evidence.test.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/environment/chrome-after-update.png",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/environment/chrome-after-update.png",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/environment/chrome-before-update.png",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/environment/chrome-before-update.png",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/environment/metamask-about.png",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/environment/metamask-about.png",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-activation-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-activation-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-completion-2026-09-07.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-completion-2026-09-07.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-creation-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-creation-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-join-a-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-join-a-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-join-b-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-join-b-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-live-2026-09-07.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-live-2026-09-07.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-prejoin-consent-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-prejoin-consent-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-1-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-1-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-1-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-1-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-2-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-2-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-2-canceled-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-2-canceled-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-2-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-2-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-a-round-2-retry-1-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-a-round-2-retry-1-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-b-round-1-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-b-round-1-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-b-round-1-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-b-round-1-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-b-round-2-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-b-round-2-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-proof-b-round-2-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-proof-b-round-2-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-settlement-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-settlement-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-settlement-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-settlement-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-wallet-b-prejoin-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-wallet-b-prejoin-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-withdraw-a-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-withdraw-a-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-withdraw-a-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-withdraw-a-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-withdraw-b-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-withdraw-b-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/human-consent-2r-withdraw-b-request-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/human-consent-2r-withdraw-b-request-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/public-demo-access-2026-09-07.json",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/public-demo-access-2026-09-07.json",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/public-demo-access-2026-09-07.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/public-demo-access-2026-09-07.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-activation-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-activation-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-creation-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-creation-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-join-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-join-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-proof-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-proof-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-settlement-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-settlement-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/verify-human-consent-2r-withdraw-2026-09-07.mjs",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/verify-human-consent-2r-withdraw-2026-09-07.mjs",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "frontend/verification/wallet-environment-2026-09-07.md",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/frontend/verification/wallet-environment-2026-09-07.md",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "requirements-dev.txt",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/requirements-dev.txt",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "scripts/check_reproducibility.py",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/scripts/check_reproducibility.py",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "immutable evidence/source",
+      "path": "tests/test_chain_timestamps_v3.py",
+      "url": "https://github.com/sanity456/commitment-pools/blob/c67890366cb01bc13107f4cfeaed31ce6991482d/tests/test_chain_timestamps_v3.py",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "public demo",
+      "url": "https://commitment-pools-studionet.vercel.app/",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    },
+    {
+      "kind": "public pool view",
+      "url": "https://commitment-pools-studionet.vercel.app/pools/human-consent-2r-20260907-093128",
+      "status": 200,
+      "accessibleWithoutSignIn": true,
+      "redirectWithoutQuery": null
+    }
+  ],
+  "limits": "HTTP reachability is not browser rendering or a wallet test. An anonymous GitHub 404 does not independently distinguish a private file from a nonexistent one; enumerated file existence is established separately by the exact local Git tree. This audit does not publish the repository and does not pass the public-evidence gate when any required link is inaccessible."
+}

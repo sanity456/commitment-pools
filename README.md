@@ -2,7 +2,12 @@
 
 Commitment Pools is an independent GenLayer accountability product. Participants join an immutable pool with an exact stake, complete scheduled rounds, and settle according to a predeclared verification and all-fail policy.
 
-The repository includes the contracts, their tests, and the complete app in `frontend/`. For the private Vercel test link, Git import setup and remaining acceptance checks, see [Release status](RELEASE_STATUS.md).
+The repository includes the contracts, their tests, and the complete app in `frontend/`.
+
+- [Live Studionet demo](https://commitment-pools-studionet.vercel.app/) — Chrome/MetaMask wallet sign-in is required to browse pools; sign-in does not transfer funds.
+- [Completed two-wallet, two-round human test](frontend/verification/human-consent-2r-completion-2026-09-07.md) — exact proof inputs, chain timestamps, settlement and two delivered 100-wei payouts.
+- [Passing full Ubuntu CI](https://github.com/sanity456/commitment-pools/actions/runs/34128109148) at immutable commit `c67890366cb01bc13107f4cfeaed31ce6991482d`.
+- [Public release and reviewer access](PUBLIC-RELEASE.md), [steward response](STEWARD-RESPONSE.md) and [deployment/operations status](RELEASE_STATUS.md).
 
 ## Security-fixed v3 Studionet contracts
 
@@ -70,4 +75,4 @@ This explicitly opt-in harness creates labeled Studionet-only test records with 
 
 The source-backed cohort harness honors a real 15-minute formation window before activation; it does not alter the node clock. Tests may take longer than the UI checks.
 
-See [Release status](RELEASE_STATUS.md) and [the latest end-to-end verification record](frontend/verification/end-to-end-2026-08-30.md) for verified scope and remaining product work.
+See [Release status](RELEASE_STATUS.md), [the completed human test](frontend/verification/human-consent-2r-completion-2026-09-07.md) and the separate [August automated lifecycle](frontend/verification/end-to-end-2026-08-30.md) for exact scope and limitations.
