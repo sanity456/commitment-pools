@@ -6,6 +6,8 @@ Human login/rejection, account/network resets, two-way populated Activity isolat
 
 ## Release and actors
 
+September 7 follow-up: the [human creation-rejection test](frontend/verification/human-wallet-rejection-2026-09-07.md) passed. The exact request was saved as cancelled without a hash or linked transaction, survived refresh/reload, and left the prospective pool absent and tested balances/credits/statistics unchanged. This closes the rejection gap noted in the earlier immutable lifecycle snapshot, but does not claim a successful retry after cancellation or completion of the other checks.
+
 - Record the tested commit, exact Vercel URL, browser/extension versions and UTC start time.
 - Confirm chain 61999, core `0x7279B4A7821c96489c0b086021F3E6944d343bFB` and helper `0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D`.
 - Confirm two distinct participant wallets A and B with enough test GEN. Prior Dispute Court approvals are not approvals for this product.
@@ -32,6 +34,6 @@ Human login/rejection, account/network resets, two-way populated Activity isolat
 
 ## Completion record
 
-Remaining at the September 7 checkpoint: creation-transaction rejection; the unobserved changed-pool/round/terms consent combinations; exact browser/extension versions; and A's final post-withdrawal Activity reload/export. Stored-time early-activation simulations passed, but no live early rejection transaction is claimed. Low-priority UI follow-up `CP-HUMAN-UX-01`: the next-step guide still prompts withdrawal after verified delivery and zero credit, although withdrawal is correctly disabled. Keep these gaps distinct from the passed lifecycle. No automated suite rerun or public CI result is claimed for this local evidence-only checkpoint.
+Remaining after the September 7 rejection follow-up: the unobserved changed-pool/round/terms consent combinations; exact browser/extension versions; and A's final post-withdrawal Activity reload/export. The cancellation path passed, but a deliberate successful retry after that cancellation was not requested or attempted; earlier successful creations are separate evidence. Stored-time early-activation simulations passed, but no live early rejection transaction is claimed. Low-priority UI follow-up `CP-HUMAN-UX-01`: the next-step guide still prompts withdrawal after verified delivery and zero credit, although withdrawal is correctly disabled. Keep these gaps distinct from the passed lifecycle and rejection test. No automated suite rerun or public CI result is claimed for these local evidence-only checkpoints.
 
 Save the exact inputs, stored timestamps, transaction hashes, output payloads, expected versus actual errors/verdicts and independent payout checks at an immutable private commit. Public access and submission remain deferred until the owner separately approves them; keeping the repository and preview private does not make on-chain records private. Record rejected prompts as human observations, never fabricate rejected transaction hashes. Retain honest notes for unsupported wallet types and failed/retried steps. Do not mark this checklist passed until every required step is actually observed.

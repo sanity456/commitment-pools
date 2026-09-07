@@ -1,0 +1,457 @@
+{
+  "product": "commitment-pools",
+  "test": "Human rejection of a zero-value create_pool transaction",
+  "status": "human_creation_rejection_verified",
+  "priorHappyPathEvidenceCommit": "f8c64aaa688bb2c9ebf3eae56badfd84de0b5c85",
+  "testedAppSourceCommit": "ace5d3f78968dc8bf06a333f2c65c1ee37baee6e",
+  "preview": "https://commitment-pools-studionet-28cvvvtta-sanity3.vercel.app/",
+  "authorization": {
+    "userRequest": "Let's get rejection test started",
+    "intent": "Prepare a creation request for the human to reject in MetaMask, then verify cancellation without a transaction hash or new pool.",
+    "approvalOfPoolCreation": false,
+    "approvalOfJoiningOrStaking": false,
+    "publicationDeploymentOrGitPushAuthorized": false,
+    "uiEditingDeferredUntilRejectionTestingComplete": true
+  },
+  "privacy": {
+    "repository": "private",
+    "preview": "protected",
+    "onChainData": "public",
+    "submissionAuthorized": false
+  },
+  "actor": {
+    "label": "B",
+    "intendedAddress": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "observedSignedInLabel": "0xe6e7…5c43"
+  },
+  "fixture": {
+    "poolId": "human-wallet-reject-20260907-043503",
+    "title": "Wallet rejection test - DO NOT APPROVE",
+    "description": "Cancellation-only human wallet test. Reject this creation request in MetaMask. No pool creation, joining, staking, source capture or payout is intended.",
+    "rules": "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+    "verificationMode": "source_verified",
+    "stakeWei": "100",
+    "stakeGEN": "0.0000000000000001",
+    "rounds": 1,
+    "minimumCohort": 2,
+    "maximumCohort": 2,
+    "formationSeconds": 3600,
+    "roundSeconds": 3600,
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "actor": "B",
+    "intendedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "transactionValueWei": "0",
+    "args": [
+      "human-wallet-reject-20260907-043503",
+      "Wallet rejection test - DO NOT APPROVE",
+      "Cancellation-only human wallet test. Reject this creation request in MetaMask. No pool creation, joining, staking, source capture or payout is intended.",
+      "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+      "source_verified",
+      "100",
+      1,
+      2,
+      2,
+      3600,
+      3600
+    ]
+  },
+  "preflight": {
+    "passed": true,
+    "observationTimeUtc": "2026-09-07T04:37:08.023Z",
+    "rpc": "https://studio.genlayer.com/api",
+    "chainId": 61999,
+    "core": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "actorB": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "prospectivePoolId": "human-wallet-reject-20260907-043503",
+    "poolIdAbsent": true,
+    "completePoolEnumeration": true,
+    "totalPools": 5,
+    "poolIds": [
+      "verified-source-mtddlgoj",
+      "verified-source-v3-retry-mteudgci",
+      "verified-source-mtfk2b51",
+      "human-wallet-20260906-122644",
+      "human-wallet-60m-20260906-131207"
+    ],
+    "creditA": {
+      "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "credit_wei": "0"
+    },
+    "creditB": {
+      "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "credit_wei": "0"
+    },
+    "nativeBalances": [
+      {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "balanceWei": "999999999999998980",
+        "balanceHex": "0xde0b6b3a763fc04"
+      },
+      {
+        "address": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "balanceWei": "980",
+        "balanceHex": "0x3d4"
+      },
+      {
+        "address": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+        "balanceWei": "2000",
+        "balanceHex": "0x7d0"
+      }
+    ],
+    "config": {
+      "protocol_version": 3,
+      "fee_bps": 500,
+      "owner": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0"
+    },
+    "stats": {
+      "checkins_failed": 0,
+      "checkins_passed": 6,
+      "checkins_unclear": 0,
+      "fees_accrued_wei": "0",
+      "joins": 9,
+      "payouts_emitted": 7,
+      "pools_activated": 3,
+      "pools_cancelled": 1,
+      "pools_created": 5,
+      "pools_refunding": 1,
+      "pools_settled": 3
+    },
+    "noTransactionSubmitted": true
+  },
+  "baselineActivity": {
+    "observedThisTurnBeforeCreateForm": true,
+    "savedRequests": 6,
+    "currentWalletOnlyFilterChecked": false,
+    "onlyBRequestsVisible": true,
+    "transactionHashes": [
+      "0xc3cab67b9d832724e2c7b9a054f5641321864b907381a93f846a594e80f7b6ce",
+      "0x3c28fa2643b48421dcaacd73cf044299fcb9645406399523d076cd7474899d06",
+      "0x8aac5ec758655b2a31a82b5e22c5db293534e23e782b90719d0ffeab283301cb",
+      "0x2f2a97fb91e1ecad2d780ac641b8fe33d9441a51a3cf0f19719603b4335dbad5",
+      "0x14f4d61114fcdf8400b2ca2e8848b7c18feac86a5d5a2cec9716fb318fc98f7d",
+      "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327"
+    ],
+    "pendingRequestVisible": false,
+    "mostRecentRequestIsAlreadyDeliveredBWithdrawal": true
+  },
+  "review": {
+    "observationTimeUtc": "2026-09-07 04:37:43 UTC",
+    "exactPoolIdTitlePromiseRulesModeStakeCohortAndScheduleVisible": true,
+    "feeBps": 500,
+    "allFailPolicy": "refund_minus_fee",
+    "creationMovesNoFundsNoticeVisible": true,
+    "confirmationConsentInitiallyUnchecked": true,
+    "confirmButtonInitiallyDisabled": true,
+    "noWalletRequestOpenedYet": false,
+    "consentCheckedAtUtc": "2026-09-07 04:39:07 UTC",
+    "confirmBecameEnabledAfterConsent": true
+  },
+  "pendingRequest": null,
+  "expectedAfterHumanRejection": {
+    "humanAction": "reject",
+    "completionReply": "done",
+    "providerRejectionCode": 4001,
+    "savedIntentState": "cancelled",
+    "confirmedUnsigned": true,
+    "transactionHash": null,
+    "poolExists": false,
+    "nativeBalancesAndCreditsUnchanged": true,
+    "noRetryOrBroadcast": true,
+    "scopeNote": "These are expectations only. Provider code is not independently observed until evidence supports it; do not invent a rejected transaction receipt or hash."
+  },
+  "observedOutcome": {
+    "humanCompletionReply": "done",
+    "humanReportedAction": "Rejected the pending wallet B creation request as instructed.",
+    "appObservationTimeUtc": "2026-09-07 04:40:58 UTC",
+    "appMessage": "Wallet request cancelled. Nothing was sent. Open Activity to review the saved request before submitting again.",
+    "draftFieldsPreserved": true,
+    "reviewDialogRetained": true,
+    "reviewConsentRemainedCheckedForUnchangedDraft": true,
+    "accountRefreshCloseEditAndConfirmControlsReenabled": true,
+    "noConfirmOrRetryClickedAfterRejection": true,
+    "savedActivity": {
+      "savedRequestCount": 7,
+      "newEntryCount": 1,
+      "title": "Create pool",
+      "recordId": "human-wallet-reject-20260907-043503",
+      "statusLabel": "Wallet request cancelled",
+      "noHashRecorded": true,
+      "confirmationText": "User confirmed the wallet request was rejected or never submitted.",
+      "absenceWarning": "No hash recorded. Do not assume that means no transaction was broadcast.",
+      "optionalCurrentWalletFilterChecked": false,
+      "onlyBRequestsVisible": true
+    },
+    "providerCode": {
+      "expected": 4001,
+      "directlyObserved": false,
+      "explanation": "The shipped app maps rejection code 4001 in up to five nested causes to this cancellation message and unsigned-cancellation update. This is code-supported inference plus the human report, not a captured raw provider response."
+    },
+    "transactionHash": null,
+    "transactionReceipt": null,
+    "chainExecutionTimestamp": null,
+    "chainPostcondition": {
+      "passed": true,
+      "observationTimeUtc": "2026-09-07T04:41:53.788Z",
+      "chainId": 61999,
+      "core": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+      "prospectivePoolId": "human-wallet-reject-20260907-043503",
+      "poolIdAbsent": true,
+      "completePoolEnumeration": true,
+      "totalPools": 5,
+      "poolIds": [
+        "verified-source-mtddlgoj",
+        "verified-source-v3-retry-mteudgci",
+        "verified-source-mtfk2b51",
+        "human-wallet-20260906-122644",
+        "human-wallet-60m-20260906-131207"
+      ],
+      "creditA": {
+        "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+        "credit_wei": "0"
+      },
+      "creditB": {
+        "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+        "credit_wei": "0"
+      },
+      "nativeBalances": [
+        {
+          "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+          "balanceWei": "999999999999998980",
+          "balanceHex": "0xde0b6b3a763fc04"
+        },
+        {
+          "address": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+          "balanceWei": "980",
+          "balanceHex": "0x3d4"
+        },
+        {
+          "address": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+          "balanceWei": "2000",
+          "balanceHex": "0x7d0"
+        }
+      ],
+      "stats": {
+        "checkins_failed": 0,
+        "checkins_passed": 6,
+        "checkins_unclear": 0,
+        "fees_accrued_wei": "0",
+        "joins": 9,
+        "payouts_emitted": 7,
+        "pools_activated": 3,
+        "pools_cancelled": 1,
+        "pools_created": 5,
+        "pools_refunding": 1,
+        "pools_settled": 3
+      },
+      "verification": {
+        "prospectivePoolStillAbsent": true,
+        "allFivePoolIdsUnchanged": true,
+        "allContractStatsUnchanged": true,
+        "bothCreditsUnchangedAndZero": true,
+        "bothWalletNativeBalancesUnchanged": true,
+        "coreNativeBalanceUnchanged": true
+      },
+      "noTransactionSubmittedByVerifier": true,
+      "scopeNote": "Finalized public state is unchanged and the test pool does not exist. Rejection/cancellation and absence of a transaction hash must also be verified from the human report and saved request; no chain receipt or chain execution timestamp is fabricated."
+    },
+    "savedIntent": {
+      "id": "04d07291-0690-42c8-b5a8-11f7ab8b0cc6",
+      "wallet": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "target": "0x7279b4a7821c96489c0b086021f3e6944d343bfb",
+      "method": "create_pool",
+      "title": "Create pool",
+      "recordId": "human-wallet-reject-20260907-043503",
+      "args": [
+        "human-wallet-reject-20260907-043503",
+        "Wallet rejection test - DO NOT APPROVE",
+        "Cancellation-only human wallet test. Reject this creation request in MetaMask. No pool creation, joining, staking, source capture or payout is intended.",
+        "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+        "source_verified",
+        "100",
+        1,
+        2,
+        2,
+        3600,
+        3600
+      ],
+      "valueWei": "0",
+      "status": "cancelled",
+      "transactionHash": null,
+      "transaction": null,
+      "error": "User confirmed the wallet request was rejected or never submitted.",
+      "createdAtStored": 1788755956074,
+      "createdAtUtc": "2026-09-07T04:39:16.074Z",
+      "updatedAtStored": 1788756008251,
+      "updatedAtUtc": "2026-09-07T04:40:08.251Z"
+    },
+    "rejectionTestPassed": true,
+    "savedCancellationExactInputsVerified": true,
+    "cancelledEntryPersistsAfterRefreshAndReload": true
+  },
+  "observations": [
+    {
+      "kind": "rejection_test_request_opened",
+      "observationTimeUtc": "2026-09-07 04:39:12 UTC",
+      "exactReviewedDraftUnchanged": true,
+      "appState": "Clicked Confirm & open wallet once after checking review consent. Modal shows Waiting for wallet / finality; account, Refresh, consent, close and edit controls are disabled. No creation hash or cancellation result is yet observed.",
+      "humanActionRequired": "reject",
+      "metaMaskExtensionInspectedOrControlled": false,
+      "noWalletRejectionClaimedYet": true
+    },
+    {
+      "kind": "rejection_feedback_and_unchanged_finalized_state_verified",
+      "observationTimeUtc": "2026-09-07T04:41:53.788Z",
+      "savedRequestCount": 7,
+      "newRequestLabel": "Wallet request cancelled",
+      "noHashRecorded": true,
+      "noPoolCreated": true,
+      "balancesCreditsAndStatsUnchanged": true,
+      "noRequestResent": true
+    },
+    {
+      "kind": "saved_cancellation_exact_inputs_and_recovery_verified",
+      "observationTimeUtc": "2026-09-07 04:45:00 UTC",
+      "cancelledIntentId": "04d07291-0690-42c8-b5a8-11f7ab8b0cc6",
+      "exactReviewedArgumentsAndZeroValueMatch": true,
+      "savedIntentStatus": "cancelled",
+      "transactionHash": null,
+      "linkedTransaction": null,
+      "cancelledSavedAtUtc": "2026-09-07T04:40:08.251Z",
+      "timesAreApplicationJournalNotChainExecution": true,
+      "exportSha256": "4bb46b8d06cb7017555130d30812883f85cac47123622319d858d9b4e3512d2c",
+      "survivedSavedHistoryRefreshAndFullReload": true,
+      "successfulRetryPerformed": false,
+      "sourceUiDeploymentAndGitRemoteUnchanged": true
+    }
+  ],
+  "safety": {
+    "metaMaskExtensionInspectedOrControlled": false,
+    "signerOrProviderCalledOutsideUserFacingApp": false,
+    "walletSecretsInspectedOrRecorded": false,
+    "sourceCodeChanged": false,
+    "disputeCourtTouched": false,
+    "completedHappyPathEvidenceLeftUnchanged": true
+  },
+  "humanInteraction": {
+    "currentRequest": "No wallet action pending. Rejection test passed. Ask the owner which Commitment Pools UI changes they want; do not repeat the rejected request.",
+    "completionReply": "done",
+    "meaning": "The human reports only the requested rejection. Verify the app, saved journal and chain state before marking the test passed.",
+    "noWalletApprovalPerformedByAssistant": true
+  },
+  "completedRequest": {
+    "method": "create_pool",
+    "args": [
+      "human-wallet-reject-20260907-043503",
+      "Wallet rejection test - DO NOT APPROVE",
+      "Cancellation-only human wallet test. Reject this creation request in MetaMask. No pool creation, joining, staking, source capture or payout is intended.",
+      "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+      "source_verified",
+      "100",
+      1,
+      2,
+      2,
+      3600,
+      3600
+    ],
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "intendedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "valueWei": "0",
+    "humanAction": "reject",
+    "appRequestOpened": true,
+    "requestObservedAtUtc": "2026-09-07 04:39:12 UTC",
+    "transactionHash": null,
+    "observedOutcome": "human_reported_rejection_app_and_saved_activity_cancelled_no_hash",
+    "warning": "Reject this request in MetaMask. Do not approve creation. No additional transaction or stake is authorized.",
+    "expectedSavedIntentStatus": "cancelled"
+  },
+  "verificationCompletedAtUtc": "2026-09-07 04:45:00 UTC",
+  "exportVerification": {
+    "passed": true,
+    "verificationObservationTimeUtc": "2026-09-07T04:44:19.559Z",
+    "download": {
+      "path": "C:/Users/user/Downloads/activity-page (1).json",
+      "sha256": "4bb46b8d06cb7017555130d30812883f85cac47123622319d858d9b4e3512d2c",
+      "byteCount": 14300,
+      "exportedAt": "2026-09-07T04:43:26.658Z",
+      "scope": "This page only",
+      "total": 7,
+      "offset": 0
+    },
+    "cancelledIntent": {
+      "id": "04d07291-0690-42c8-b5a8-11f7ab8b0cc6",
+      "wallet": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "target": "0x7279b4a7821c96489c0b086021f3e6944d343bfb",
+      "method": "create_pool",
+      "title": "Create pool",
+      "recordId": "human-wallet-reject-20260907-043503",
+      "args": [
+        "human-wallet-reject-20260907-043503",
+        "Wallet rejection test - DO NOT APPROVE",
+        "Cancellation-only human wallet test. Reject this creation request in MetaMask. No pool creation, joining, staking, source capture or payout is intended.",
+        "This is a sandbox public-page verification exercise, not a real-world activity or identity claim. For this one round, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear.",
+        "source_verified",
+        "100",
+        1,
+        2,
+        2,
+        3600,
+        3600
+      ],
+      "valueWei": "0",
+      "status": "cancelled",
+      "transactionHash": null,
+      "transaction": null,
+      "error": "User confirmed the wallet request was rejected or never submitted.",
+      "createdAtStored": 1788755956074,
+      "createdAtUtc": "2026-09-07T04:39:16.074Z",
+      "updatedAtStored": 1788756008251,
+      "updatedAtUtc": "2026-09-07T04:40:08.251Z"
+    },
+    "verification": {
+      "exactElevenReviewedArgumentsMatch": true,
+      "exactWalletBAndCoreMatch": true,
+      "zeroAdditionalValue": true,
+      "oneCancelledIntentAndNoDuplicate": true,
+      "noTransactionHashRecorded": true,
+      "noLinkedTransaction": true,
+      "sixPriorSuccessfulHashesPreserved": true,
+      "onlyBRequestsInExport": true
+    },
+    "reasonCodeEvidence": {
+      "expectedWalletProviderCode": 4001,
+      "rawProviderCodeCaptured": false,
+      "chainReasonCode": null,
+      "note": "Actual saved intent status is cancelled; no chain execution or reason code exists in this record. Provider 4001 is inferred from the reviewed app classifier and matching cancellation UI, not a captured provider payload."
+    }
+  },
+  "recoveryVerification": {
+    "refreshRequestedAtUtc": "2026-09-07 04:42:43 UTC",
+    "refreshCompleted": true,
+    "refreshMessage": "Activity refreshed. This did not resend any transaction.",
+    "afterRefreshSameSevenRequests": true,
+    "afterRefreshCancellationPreservedWithoutHash": true,
+    "fullReloadRequestedAtUtc": "2026-09-07 04:43:26 UTC",
+    "reloadedKnownSettledPoolRatherThanProspectiveUncreatedPool": true,
+    "bSessionRestoredWithoutSignature": true,
+    "finalActivityObservedAtUtc": "2026-09-07 04:45:00 UTC",
+    "afterReloadSameSevenRequests": true,
+    "afterReloadSameCancelledProspectivePoolEntry": true,
+    "noHashAndNoReconcileTransactionActionForCancelledEntry": true,
+    "sixPriorSuccessfulRequestsPreserved": true,
+    "onlyBRequestsVisibleWithOptionalWalletFilterUnchecked": true,
+    "noPendingRequestVisible": true,
+    "noTransactionResent": true
+  },
+  "scope": {
+    "currentRejectionTest": "passed",
+    "walletRejectionAndUnsignedSavedCancellationObserved": true,
+    "noChainExecutionObservedForThisRequest": true,
+    "chainReceiptOrExecutionReasonCodeAvailable": false,
+    "provider4001DirectlyCaptured": false,
+    "successfulRetryAfterThisCancellation": "not_requested_or_attempted",
+    "fullHumanAcceptance": "partial",
+    "priorSuccessfulCreationAndTwoWalletLifecycle": "separately_verified_at_prior_immutable_local_commit",
+    "uiEditing": "No UI/source edit in this test. Ask the owner which visual or wording changes they want next.",
+    "otherAcceptanceCoverage": "Changed-pool/round/terms consent combinations, exact browser/extension versions and final A post-withdrawal Activity export/reload remain outside this rejection checkpoint. Stored-time early-activation simulations passed; no live early rejection is claimed."
+  }
+}
