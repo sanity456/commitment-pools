@@ -1,0 +1,98 @@
+{
+  "product": "commitment-pools",
+  "observedAtUtc": "2026-09-07T08:35:12.676Z",
+  "origin": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app",
+  "deploymentId": "dpl_8sg1gVsskHqgtnyo2WQqcp8PEL9L",
+  "sourceCommit": "363d79e1245725c57ec1c874f0b0675cf0dca1a6",
+  "passed": true,
+  "transport": "Anonymous fetch for external protection; authorized Vercel CLI for deployed HTTP checks, without an application wallet session",
+  "noNewWalletOrTransaction": true,
+  "results": [
+    {
+      "check": "anonymous deployment protection",
+      "path": "/",
+      "status": 302,
+      "redirectWithoutQuery": "https://vercel.com/sso-api"
+    },
+    {
+      "check": "anonymous deployment protection",
+      "path": "/pools/human-wallet-60m-20260906-131207",
+      "status": 302,
+      "redirectWithoutQuery": "https://vercel.com/sso-api"
+    },
+    {
+      "check": "production document and wallet-only form",
+      "path": "/",
+      "status": 200,
+      "nonceFresh": true,
+      "executableScriptCount": 16,
+      "allScriptNoncesMatch": true,
+      "strictPolicy": true,
+      "mascotReferenced": true
+    },
+    {
+      "check": "production document and wallet-only form",
+      "path": "/",
+      "status": 200,
+      "nonceFresh": true,
+      "executableScriptCount": 16,
+      "allScriptNoncesMatch": true,
+      "strictPolicy": true,
+      "mascotReferenced": true
+    },
+    {
+      "check": "production document and wallet-only form",
+      "path": "/auth/sign-in",
+      "status": 200,
+      "nonceFresh": true,
+      "executableScriptCount": 15,
+      "allScriptNoncesMatch": true,
+      "strictPolicy": true,
+      "mascotReferenced": true
+    },
+    {
+      "check": "platform authentication does not create an app wallet session",
+      "status": 200,
+      "authenticated": false
+    },
+    {
+      "check": "app wallet authorization enforced",
+      "path": "/api/product/session",
+      "spoofedHeaders": false,
+      "status": 401
+    },
+    {
+      "check": "app wallet authorization enforced",
+      "path": "/api/product/session",
+      "spoofedHeaders": true,
+      "status": 401
+    },
+    {
+      "check": "app wallet authorization enforced",
+      "path": "/api/product/activity?offset=0",
+      "spoofedHeaders": false,
+      "status": 401
+    },
+    {
+      "check": "app wallet authorization enforced",
+      "path": "/api/product/activity?offset=0",
+      "spoofedHeaders": true,
+      "status": 401
+    },
+    {
+      "check": "deployed brand asset",
+      "path": "/brand/emperor-vortex.png",
+      "status": 200,
+      "byteCount": 1409385,
+      "sha256": "6c4a5507e3db1ab580a041c8fe55ef29a12b7a5a4489aa350375b7474e588a64"
+    },
+    {
+      "check": "deployed brand asset",
+      "path": "/favicon.svg",
+      "status": 200,
+      "byteCount": 503,
+      "sha256": "4821e9875c5b046718c539b51e3a7d1111bbb287a169f3ac0d92f7486a459db6"
+    }
+  ],
+  "limits": "Not a new human wallet sign-in or a browser/mobile/consent lifecycle on this deployed origin. No full hosted synthetic-wallet suite or public CI was run here."
+}
