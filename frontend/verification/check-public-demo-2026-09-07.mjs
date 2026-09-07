@@ -3,6 +3,11 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 
+// A new checkpoint must use a new filename; historical evidence is never replaced.
+const reportName = process.argv[2] ?? "public-demo-access-2026-09-07.json";
+assert(process.argv.length <= 3, "Specify at most one report filename");
+assert.match(reportName, /^public-demo-access-[a-z0-9-]+\.json$/);
+
 const origin = "https://commitment-pools-studionet.vercel.app";
 const preview =
   "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app";
@@ -156,7 +161,7 @@ const report = {
     "Scoped access and HTTP checks, not a new full suite, wallet signing flow, public CI pass or independent security certification. Existing wallet-test origin and historical checkpoints are preserved.",
 };
 writeFileSync(
-  new URL("public-demo-access-2026-09-07.json", import.meta.url),
+  new URL(reportName, import.meta.url),
   JSON.stringify(report, null, 2) + "\n",
   { flag: "wx" },
 );

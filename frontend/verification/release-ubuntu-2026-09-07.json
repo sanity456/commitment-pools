@@ -1,0 +1,836 @@
+{
+  "product": "commitment-pools",
+  "capturedAtUtc": "2026-09-07T13:32:14.473Z",
+  "candidateCommit": "b4ca7a409523d8063d1c19e99e690f98d2b3e75a",
+  "ci": {
+    "conclusion": "success",
+    "createdAt": "2026-09-07T13:19:50Z",
+    "databaseId": 34126789440,
+    "headSha": "b4ca7a409523d8063d1c19e99e690f98d2b3e75a",
+    "jobs": [
+      {
+        "completedAt": "2026-09-07T13:24:08Z",
+        "conclusion": "success",
+        "databaseId": 101757234505,
+        "name": "Full repository suite",
+        "startedAt": "2026-09-07T13:19:54Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-09-07T13:19:57Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-09-07T13:19:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:19:58Z",
+            "conclusion": "success",
+            "name": "Check out the complete repository",
+            "number": 2,
+            "startedAt": "2026-09-07T13:19:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:20:06Z",
+            "conclusion": "success",
+            "name": "Set up pinned Python",
+            "number": 3,
+            "startedAt": "2026-09-07T13:19:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:20:06Z",
+            "conclusion": "success",
+            "name": "Verify dependency, action, runtime, and GenVM pins",
+            "number": 4,
+            "startedAt": "2026-09-07T13:20:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:20:22Z",
+            "conclusion": "success",
+            "name": "Install pinned contract tooling",
+            "number": 5,
+            "startedAt": "2026-09-07T13:20:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:19Z",
+            "conclusion": "success",
+            "name": "Lint submitted GenVM contracts and run every direct test",
+            "number": 6,
+            "startedAt": "2026-09-07T13:20:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:20Z",
+            "conclusion": "success",
+            "name": "Prove formation, check-in and settlement boundaries from chain timestamps",
+            "number": 7,
+            "startedAt": "2026-09-07T13:22:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:22Z",
+            "conclusion": "success",
+            "name": "Run v2/v3 consensus acceptance tests against isolated GLSim",
+            "number": 8,
+            "startedAt": "2026-09-07T13:22:20Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:28Z",
+            "conclusion": "success",
+            "name": "Set up pinned Node.js",
+            "number": 9,
+            "startedAt": "2026-09-07T13:22:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:30Z",
+            "conclusion": "success",
+            "name": "Activate pinned pnpm",
+            "number": 10,
+            "startedAt": "2026-09-07T13:22:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:47Z",
+            "conclusion": "success",
+            "name": "Install the frozen frontend dependency graph",
+            "number": 11,
+            "startedAt": "2026-09-07T13:22:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:51Z",
+            "conclusion": "success",
+            "name": "Check frontend formatting",
+            "number": 12,
+            "startedAt": "2026-09-07T13:22:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:22:59Z",
+            "conclusion": "success",
+            "name": "Lint frontend with zero warnings",
+            "number": 13,
+            "startedAt": "2026-09-07T13:22:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:23:06Z",
+            "conclusion": "success",
+            "name": "Type-check frontend",
+            "number": 14,
+            "startedAt": "2026-09-07T13:22:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:23:12Z",
+            "conclusion": "success",
+            "name": "Run every frontend test",
+            "number": 15,
+            "startedAt": "2026-09-07T13:23:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:23:23Z",
+            "conclusion": "success",
+            "name": "Build the Sites target",
+            "number": 16,
+            "startedAt": "2026-09-07T13:23:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:23:57Z",
+            "conclusion": "success",
+            "name": "Build the Vercel target",
+            "number": 17,
+            "startedAt": "2026-09-07T13:23:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:03Z",
+            "conclusion": "success",
+            "name": "Type-check the generated Vercel target",
+            "number": 18,
+            "startedAt": "2026-09-07T13:23:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:06Z",
+            "conclusion": "success",
+            "name": "Match deployed contract source to this checkout",
+            "number": 19,
+            "startedAt": "2026-09-07T13:24:03Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:06Z",
+            "conclusion": "success",
+            "name": "Confirm tests did not change tracked source",
+            "number": 20,
+            "startedAt": "2026-09-07T13:24:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:06Z",
+            "conclusion": "success",
+            "name": "Post Set up pinned Node.js",
+            "number": 38,
+            "startedAt": "2026-09-07T13:24:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:06Z",
+            "conclusion": "success",
+            "name": "Post Set up pinned Python",
+            "number": 39,
+            "startedAt": "2026-09-07T13:24:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:07Z",
+            "conclusion": "success",
+            "name": "Post Check out the complete repository",
+            "number": 40,
+            "startedAt": "2026-09-07T13:24:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-09-07T13:24:07Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 41,
+            "startedAt": "2026-09-07T13:24:07Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/sanity456/commitment-pools/actions/runs/34126789440/job/101757234505"
+      }
+    ],
+    "startedAt": "2026-09-07T13:19:50Z",
+    "status": "completed",
+    "updatedAt": "2026-09-07T13:24:09Z",
+    "url": "https://github.com/sanity456/commitment-pools/actions/runs/34126789440"
+  },
+  "counts": {
+    "directPassed": 159,
+    "integrationDeselectedDuringDirect": 3,
+    "isolatedIntegrationPassed": 2,
+    "storedTimestampCases": 6,
+    "appTests": 158,
+    "appPassed": 158,
+    "appFailed": 0
+  },
+  "timestampCases": [
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Formation remains open"
+      ],
+      "case": "formation_boundary_-1",
+      "chain_timestamps": {
+        "formation_check": 1767311999
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1"
+        ],
+        "method": "activate_pool",
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    },
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Join window has closed"
+      ],
+      "case": "formation_boundary_+0",
+      "chain_timestamps": {
+        "formation_check": 1767312000
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1"
+        ],
+        "method": "activate_pool",
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "activated_at": "2026-01-02T00:00:00+00:00",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "active",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    },
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Join window has closed"
+      ],
+      "case": "formation_boundary_+1",
+      "chain_timestamps": {
+        "formation_check": 1767312001
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1"
+        ],
+        "method": "activate_pool",
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "activated_at": "2026-01-02T00:00:01+00:00",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "active",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    },
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Round 2 opens at",
+        "[EXPECTED] Round 1 has closed"
+      ],
+      "case": "round_boundary",
+      "chain_timestamps": {
+        "round_1_last_second": 1767398399,
+        "round_2_first_second": 1767398400
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 2,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1",
+          "Done",
+          "",
+          "",
+          "round-2"
+        ],
+        "method": "submit_checkin",
+        "mock_model": {
+          "confidence": 90,
+          "reasoning": "Rules met",
+          "verdict": "pass"
+        },
+        "sender": "0x81b637d8fcd2c6da6359e6963113a1170de795e4",
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "first_round": {
+          "closes_at": 1767398400,
+          "opens_at": 1767312000,
+          "round": 1
+        },
+        "second_attempt": {
+          "attempt": 1,
+          "confidence": 90,
+          "evidence_url": "",
+          "expected_evidence_digest": "",
+          "id": "pool-1:0x81b637d8fcd2c6da6359e6963113a1170de795e4:2:1",
+          "observed_evidence_digest": "",
+          "player": "0x81b637d8fCD2C6da6359E6963113a1170de795e4",
+          "proof_digest": "11a6767d5674c7e45f7e00dc525762275b3a48491ad6045427d2609cc496c516",
+          "reasoning": "Rules met",
+          "reasoning_provenance": "leader_output_non_authoritative",
+          "round": 2,
+          "submitted_at": "2026-01-03T00:00:00+00:00",
+          "verdict": "pass"
+        },
+        "second_round": {
+          "closes_at": 1767484800,
+          "opens_at": 1767398400,
+          "round": 2
+        }
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767484800,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 2,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "928a3dd0f572f8b4808020fd61bac3b39c9ecb168e963f9e489eb06c8f58c92e",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    },
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Settlement requires",
+        "[EXPECTED] Pool is not active"
+      ],
+      "case": "settlement_without_checkins",
+      "chain_timestamps": {
+        "model_retries": [],
+        "settlement_at_deadline": 1767398400,
+        "settlement_before_deadline": 1767398399
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1"
+        ],
+        "invalid_model_payload": null,
+        "method": "settle",
+        "retry_args": [],
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "all_fail_refund": true,
+        "conservation_wei": "2000",
+        "fee_wei": "100",
+        "forfeited_pot_wei": "2000",
+        "loser_count": 2,
+        "pool_id": "pool-1",
+        "share_wei": "950",
+        "winner_count": 0
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    },
+    {
+      "asserted_expected_reasons": [
+        "[EXPECTED] Settlement requires",
+        "[EXPECTED] Pool is not active",
+        "[LLM_ERROR] Invalid verdict value"
+      ],
+      "case": "settlement_with_model_errors",
+      "chain_timestamps": {
+        "model_retries": [
+          1767312001,
+          1767312060,
+          1767312120
+        ],
+        "settlement_at_deadline": 1767398400,
+        "settlement_before_deadline": 1767398399
+      },
+      "creation_input": {
+        "constructor_fee_bps": 500,
+        "description": "Complete one distraction-free focus block each day.",
+        "join_window_seconds": 86400,
+        "max_players": 10,
+        "min_players": 2,
+        "pool_id": "pool-1",
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "stake_wei": "1000",
+        "title": "Thirty focused minutes",
+        "verification_mode": "self_attested"
+      },
+      "inputs": {
+        "args": [
+          "pool-1"
+        ],
+        "invalid_model_payload": {
+          "verdict": "invalid-verdict"
+        },
+        "method": "settle",
+        "retry_args": [
+          "pool-1",
+          "Done",
+          "",
+          "",
+          "reusable-after-error"
+        ],
+        "value_wei": "0"
+      },
+      "observed_payload": {
+        "all_fail_refund": true,
+        "conservation_wei": "2000",
+        "fee_wei": "100",
+        "forfeited_pot_wei": "2000",
+        "loser_count": 2,
+        "pool_id": "pool-1",
+        "share_wei": "950",
+        "winner_count": 0
+      },
+      "scope": "direct-mode; network and model mocked; not human wallet evidence",
+      "stored_chain_state": {
+        "activated_at": "",
+        "activation_failure": "",
+        "activity_ends_at": 1767398400,
+        "activity_starts_at": 1767312000,
+        "all_fail_policy": "refund_minus_fee",
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "creator": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "description": "Complete one distraction-free focus block each day.",
+        "evidence_policy": "complete_verified_source_no_truncation",
+        "fee_bps": 500,
+        "fee_recipient": "0x2bd806c97F0e00aF1a1fC3328fA763a9269723C8",
+        "fee_wei": "0",
+        "forfeited_pot_wei": "0",
+        "id": "pool-1",
+        "join_deadline": 1767312000,
+        "loser_count": 0,
+        "max_players": 10,
+        "max_source_bytes": 6000,
+        "min_players": 2,
+        "participant_count": 2,
+        "protocol_version": 3,
+        "refund_count": 0,
+        "round_window_seconds": 86400,
+        "rounds_required": 1,
+        "rules": "Pass only when the submission clearly confirms a thirty-minute focus block.",
+        "settled_at": "",
+        "stake_wei": "1000",
+        "status": "forming",
+        "terms_hash": "a0b1a55f2f8b59e974c56b1e16a9b63594965808d38b8f5f13c068b1c5839a64",
+        "title": "Thirty focused minutes",
+        "total_staked_wei": "2000",
+        "verification_mode": "self_attested",
+        "winner_count": 0
+      }
+    }
+  ],
+  "deployedSourceVerification": {
+    "product": "commitment-pools",
+    "protocolVersion": 3,
+    "chainId": 61999,
+    "owner": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+    "feeBps": 500,
+    "verified": [
+      {
+        "kind": "core",
+        "address": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+        "sourceSha256": "e17b75f5e172db9f123f8f96c1110525d626fefa9c5f5b3e5c977a08844a9dbb"
+      },
+      {
+        "kind": "helper",
+        "address": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+        "sourceSha256": "8eaa893c58927830a307763138dba45a5f77e4d31ead90e8d3688e0c7a6b123c"
+      }
+    ]
+  },
+  "logSha256": "dca7a106882d035c5fe93ea4f1aafc8e9685f22ab893bc33b44d8dea4eac54a3",
+  "verificationScriptSha256": "b6ab747665109bf66b7e1faf7f316ce4ddd169370dfc9dac396d399cb2ae28d4",
+  "limits": "Selected payloads copied from the exact successful Ubuntu run; metadata/log retrieval uses existing GitHub CLI authorization, not anonymous access. Six verbose timestamp cases are included in the 159 direct tests. The third deselected integration test is a separate opt-in legacy v2 live-value probe, not run here. Simulator/direct cases are not human or live network evidence. Raw logs are not republished."
+}
