@@ -1,0 +1,92 @@
+{
+  "product": "commitment-pools",
+  "kind": "withdrawal-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T12:48:29Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "A",
+  "expectedSender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+  "valueWei": "0",
+  "intendedMethod": "withdraw",
+  "intendedArgs": [],
+  "priorCheckpoint": "human-consent-2r-withdraw-b-2026-09-07.json",
+  "baselineVerifiedAtUtc": "2026-09-07T12:43:16.435Z",
+  "readOnlyPreflight": {
+    "passed": true,
+    "observedAtUtc": "2026-09-07T12:48:12.934Z",
+    "baseline": "human-consent-2r-withdraw-b-2026-09-07.json",
+    "baselineVerifiedAtUtc": "2026-09-07T12:43:16.435Z",
+    "poolAndCohortUnchangedFromBaseline": true,
+    "creditA": {
+      "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "credit_wei": "100"
+    },
+    "creditB": {
+      "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "credit_wei": "0"
+    },
+    "feeRecipientCredit": {
+      "account": "0x91b1b2d1f2de66400fcbeaebadb8a5330eb28dc0",
+      "credit_wei": "0"
+    },
+    "limits": "Accountless latest-final reads only. No wallet, signing, simulation, new payout or change to the completed B checkpoint."
+  },
+  "preWithdrawalCreditWei": "100",
+  "expectedPayoutAmountWei": "100",
+  "expectedRecipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+  "expectedOutput": {
+    "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+    "amount_wei": "100",
+    "status": "emitted_for_finalization",
+    "delivery_note": "Emission is not confirmation; verify the finalized child transaction."
+  },
+  "dynamicOutputFields": [
+    "id: actual next global payout ID, not assumed in advance",
+    "emitted_at: actual stored execution-context timestamp"
+  ],
+  "expectedNativeChild": {
+    "sender": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "recipient": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "valueWei": "100",
+    "type": 0,
+    "status": "FINALIZED",
+    "valueCredited": true,
+    "linkedToActualWithdrawalParent": true
+  },
+  "expectedStateChanges": {
+    "walletACurrentCreditWei": "0",
+    "walletBCurrentCreditWei": "0",
+    "feeRecipientCreditWei": "0",
+    "storedPoolAndCohortUnchanged": true,
+    "participantSettlementAllocationsRemainHistorical100Wei": true,
+    "combinedDeliveredWeiAfterVerification": "200"
+  },
+  "uiPreflight": {
+    "authenticatedAObservedAtUtc": "2026-09-07T12:47:34Z",
+    "signedInLabel": "Signed in · 0xab99…bad4",
+    "walletAMarkedYou": true,
+    "walletBNotMarkedYou": true,
+    "noBPayoutToastCarriedIntoFreshASession": true,
+    "correctSettledPoolSelected": true
+  },
+  "uiRequest": {
+    "walletASignedIn": true,
+    "availableCreditDisplayed": "0.0000000000000001 GEN",
+    "bothWalletsTwoOfTwoSuccess": true,
+    "noProofOrSettlementControl": true,
+    "withdrawEnabledBeforeRequest": true,
+    "withdrawClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "walletRefreshAndWithdrawDisabledAfterRequest": true,
+    "selectedPoolUnchanged": true
+  },
+  "unverifiedAtThisCheckpoint": [
+    "A withdrawal transaction hash and actual signed sender, target, value and calldata",
+    "Finality and successful execution, exact payout output and VM result",
+    "Actual payout ID, stored payout timestamp, zero A credit and unchanged zero B credit",
+    "Linked native child hash, finality, correct A recipient and 100-wei value_credited delivery",
+    "Complete 200-wei return across both independently verified native payouts"
+  ],
+  "limits": "The outer withdraw call sends zero value and requests return of A's entire verified 100-wei credit to A. A payout emission or zero remaining credit alone is not native delivery evidence. B's completed payout is the preserved baseline, not a repeated action. The agent did not approve MetaMask."
+}

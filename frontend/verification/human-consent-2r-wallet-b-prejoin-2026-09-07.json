@@ -1,0 +1,43 @@
+{
+  "product": "commitment-pools",
+  "scope": "Live UI after the human-approved B login, before initiating B's join",
+  "observedByUtc": "2026-09-07T10:20:34Z",
+  "preview": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app/",
+  "expectedWallet": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+  "visibleSignInLabel": "Signed in · 0xe6e7…5c43",
+  "visibleChainLabel": "Studionet · sandbox",
+  "poolId": "human-consent-2r-20260907-093128",
+  "privateActivity": {
+    "optionalCurrentWalletOnlyCheckboxChecked": false,
+    "savedRequestCount": 7,
+    "allCardsLabelWalletB": true,
+    "newPoolAbsent": true,
+    "cardsIdenticalAfterSavedHistoryRefresh": true,
+    "historicalPayoutRecipientShown": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+    "historicalRequestParentHashes": [
+      "0xc3cab67b9d832724e2c7b9a054f5641321864b907381a93f846a594e80f7b6ce",
+      "0x3c28fa2643b48421dcaacd73cf044299fcb9645406399523d076cd7474899d06",
+      "0x8aac5ec758655b2a31a82b5e22c5db293534e23e782b90719d0ffeab283301cb",
+      "0x2f2a97fb91e1ecad2d780ac641b8fe33d9441a51a3cf0f19719603b4335dbad5",
+      "0x14f4d61114fcdf8400b2ca2e8848b7c18feac86a5d5a2cec9716fb318fc98f7d",
+      "0x5e3e2c2afdabcc2be134aa68f586f7cf85ed542dde6fc6fa19c15bb191e6c327"
+    ],
+    "historicalCancelledRequestWithoutHash": "human-wallet-reject-20260907-043503"
+  },
+  "workspace": {
+    "status": "forming",
+    "cohortCount": 1,
+    "cohortShowsWalletAAsAnotherParticipant": true,
+    "currentPosition": "Not a participant",
+    "termsSha256": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+    "stakeWei": "100",
+    "roundsRequired": 2,
+    "roundWindowSeconds": 3600,
+    "feeBps": 500,
+    "consentChecked": false,
+    "joinEnabled": false,
+    "creditGenDisplayed": "0",
+    "withdrawEnabled": false
+  },
+  "limits": "Bounded visible UI observations, not a new full suite or independent cryptographic inspection of the login signature. The historical payout belongs to the earlier pool. No B join has been initiated at this checkpoint; its exact sender, chain, input and execution must be verified from its future receipt. Public cohort data is distinct from private Activity."
+}

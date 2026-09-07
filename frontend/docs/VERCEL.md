@@ -33,6 +33,8 @@ Vercel Authentication is a separate private-preview gate, not product authentica
 
 The 2026-08-28 wallet release removed this project's two automatic production aliases after they failed that check. Those aliases return 404; the immutable test URL in `RELEASE_STATUS.md` remains gated. No app, database or user record was deleted, and aliases can be reassigned if deliberately approved. Use `vercel deploy` (preview) for future private tests; do not use `--prod`, add domains, disable protection or upgrade a plan without explicit approval. A Vercel production label does not make a product mainnet-ready.
 
+On September 7 the owner clarified that privacy applied to GitHub, and explicitly approved a public demo. The existing `commitment-pools-studionet.vercel.app` domain was therefore assigned to the current validated `ekkkup2y3` deployment without a rebuild or promotion. That domain now loads publicly, while Standard Protection continues to gate generated previews. The earlier 404 observation is historical. The repository remains private, and the ongoing human wallet trial stays on its original protected host. See [the access verification](../verification/public-demo-access-2026-09-07.md). Future alias changes and production deployments still require their own appropriate authorization.
+
 ## Validation and operations
 
 - `pnpm test`: lifecycle, journal, hosting, signature, session, wallet-switch and UI regression tests.

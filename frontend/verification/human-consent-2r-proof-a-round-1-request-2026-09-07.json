@@ -1,0 +1,54 @@
+{
+  "product": "commitment-pools",
+  "kind": "proof-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T11:22:22Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "A",
+  "expectedSender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+  "valueWei": "0",
+  "round": 1,
+  "storedRoundOpensAt": 1788778487,
+  "storedRoundClosesAt": 1788782087,
+  "termsHash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "intendedMethod": "submit_checkin",
+  "proofText": "Round 1 sandbox check: https://example.com has the heading Example Domain and states that this domain is for use in documentation examples without needing permission. This is a technical public-page check, not a claim of real-world work or identity.",
+  "capture": {
+    "reusedHistoricalCapture": true,
+    "newCaptureTransactionSent": false,
+    "helper": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+    "requestId": "8b6ed2c4-fb65-4c1d-8389-e90defbaba1a",
+    "originalTransactionHash": "0x36849798ec1bf247e2bb6a9a742205dd1f17674fc18ef2adadb8de91ce8103ed",
+    "originalCapturedAtUnix": 1788706687,
+    "url": "https://example.com",
+    "fullText": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+    "byteLength": 127,
+    "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+    "recoveryUiInitiallyUnchecked": true,
+    "fullTextReviewedAgain": true
+  },
+  "uiPreflight": {
+    "signedInLabel": "Signed in · 0xab99…bad4",
+    "ownProgress": "0/2 rounds passed · active",
+    "otherWalletProgress": "1/2 rounds passed · active",
+    "initialStatementAndSourceEmptyAfterAccountSwitch": true,
+    "termsHashMatchedVerifiedCreation": true,
+    "submissionDisabledBeforeFreshReview": true,
+    "submissionEnabledAfterFreshReview": true
+  },
+  "uiRequest": {
+    "submitClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "reviewCheckedAndDisabledAfterRequest": true,
+    "walletActionsAndSubmitDisabledAfterRequest": true,
+    "note": "The enabled proof button was observed after fresh review and checked again before one standard click. The retained exact statement and A-owned historical capture are not evidence of a successful proof until the signed receipt and stored attempt are verified."
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Transaction hash and app-generated attempt nonce",
+    "Actual sender, target, calldata and value of the signed proof",
+    "Finality, execution, exact output, VM return code and verdict",
+    "Stored attempt timestamp within the original round interval",
+    "Round-one outcome and fresh review when round two opens"
+  ]
+}

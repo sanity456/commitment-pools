@@ -1,0 +1,241 @@
+{
+  "product": "commitment-pools",
+  "passed": true,
+  "verifiedAtUtc": "2026-09-07T12:36:22.299Z",
+  "scope": "Accountless independent settlement verification before either withdrawal",
+  "priorCheckpoint": "human-consent-2r-proof-b-round-2-2026-09-07.json",
+  "requestCheckpoint": "human-consent-2r-settlement-request-2026-09-07.json",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "poolId": "human-consent-2r-20260907-093128",
+  "transaction": {
+    "hash": "0x55f935adf8124a650733474f3c1da9623a10eb8f5055e5b297190679e2dd4534",
+    "sender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "valueWei": "0",
+    "status": "FINALIZED",
+    "execution": "success",
+    "receiptCreatedAt": "2026-09-07T12:33:07.256741+00:00",
+    "resultCode": 0,
+    "expectedResultCode": 0,
+    "resultCodeName": "return",
+    "decodedInput": {
+      "args": ["human-consent-2r-20260907-093128"],
+      "method": "settle"
+    },
+    "output": {
+      "all_fail_refund": false,
+      "conservation_wei": "200",
+      "fee_wei": "0",
+      "forfeited_pot_wei": "0",
+      "loser_count": "0",
+      "pool_id": "human-consent-2r-20260907-093128",
+      "share_wei": "0",
+      "winner_count": "2"
+    }
+  },
+  "expectedOutput": {
+    "pool_id": "human-consent-2r-20260907-093128",
+    "winner_count": "2",
+    "loser_count": "0",
+    "forfeited_pot_wei": "0",
+    "fee_wei": "0",
+    "share_wei": "0",
+    "all_fail_refund": false,
+    "conservation_wei": "200"
+  },
+  "storedPool": {
+    "activated_at": "2026-09-07T11:03:53.041736+00:00",
+    "activation_failure": "",
+    "activity_ends_at": 1788785687,
+    "activity_starts_at": 1788778487,
+    "all_fail_policy": "refund_minus_fee",
+    "created_at": "2026-09-07T09:54:47.004041+00:00",
+    "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "description": "A Studionet interface test of fresh consent and scheduled public-source check-ins. This is not a real-world work, identity or investment claim.",
+    "evidence_policy": "complete_verified_source_no_truncation",
+    "fee_bps": 500,
+    "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+    "fee_wei": "0",
+    "forfeited_pot_wei": "0",
+    "id": "human-consent-2r-20260907-093128",
+    "join_deadline": 1788778487,
+    "loser_count": 0,
+    "max_players": 2,
+    "max_source_bytes": 6000,
+    "min_players": 2,
+    "participant_count": 2,
+    "protocol_version": 3,
+    "refund_count": 0,
+    "round_window_seconds": 3600,
+    "rounds_required": 2,
+    "rules": "For each round of this sandbox public-page verification test, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear. This is a technical source-content test, not independent verification of a real person or real-world work. The same two public-page facts are checked in each scheduled round.",
+    "settled_at": "2026-09-07T12:33:07.256741+00:00",
+    "stake_wei": "100",
+    "status": "settled",
+    "terms_hash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+    "title": "Human consent test - two scheduled rounds",
+    "total_staked_wei": "200",
+    "verification_mode": "source_verified",
+    "winner_count": 2
+  },
+  "cohort": {
+    "items": [
+      {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "joined_at": "2026-09-07T10:09:01.200999+00:00",
+        "last_attempt_id": "human-consent-2r-20260907-093128:0xab99c741494bef91fae66144dda31be93180bad4:2:1",
+        "refund_claimed": false,
+        "rounds_passed": 2,
+        "settlement_credit_wei": "100",
+        "stake_wei": "100",
+        "status": "success"
+      },
+      {
+        "address": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "joined_at": "2026-09-07T10:22:46.899390+00:00",
+        "last_attempt_id": "human-consent-2r-20260907-093128:0xe6e7bffa242d2900fad7067012564d441f735c43:2:1",
+        "refund_claimed": false,
+        "rounds_passed": 2,
+        "settlement_credit_wei": "100",
+        "stake_wei": "100",
+        "status": "success"
+      }
+    ],
+    "limit": 2,
+    "offset": 0,
+    "total": 2
+  },
+  "credits": {
+    "A": {
+      "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "credit_wei": "100"
+    },
+    "B": {
+      "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "credit_wei": "100"
+    },
+    "feeRecipient": {
+      "account": "0x91b1b2d1f2de66400fcbeaebadb8a5330eb28dc0",
+      "credit_wei": "0"
+    }
+  },
+  "unchangedProofs": [
+    {
+      "checkpoint": "human-consent-2r-proof-a-round-1-2026-09-07.json",
+      "attempt": {
+        "attempt": 1,
+        "confidence": 97,
+        "evidence_url": "https://example.com",
+        "expected_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "id": "human-consent-2r-20260907-093128:0xab99c741494bef91fae66144dda31be93180bad4:1:1",
+        "observed_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "player": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "proof_digest": "b021ce7bdd7dfa991f7dc0a9add6dacf4f65eb0488ae274486512f1f2b234270",
+        "reasoning": "The participant statement explicitly claims both required facts: the page has the heading 'Example Domain' and says the domain is for use in documentation examples without needing permission. The fetched source content supports both facts with 'Example Domain' and 'This domain is for use in documentation examples without needing permission.' No contradiction is present.",
+        "reasoning_provenance": "leader_output_non_authoritative",
+        "round": 1,
+        "submitted_at": "2026-09-07T11:24:53.378177+00:00",
+        "verdict": "pass"
+      }
+    },
+    {
+      "checkpoint": "human-consent-2r-proof-b-round-1-2026-09-07.json",
+      "attempt": {
+        "attempt": 1,
+        "confidence": 100,
+        "evidence_url": "https://example.com",
+        "expected_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "id": "human-consent-2r-20260907-093128:0xe6e7bffa242d2900fad7067012564d441f735c43:1:1",
+        "observed_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "player": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "proof_digest": "b021ce7bdd7dfa991f7dc0a9add6dacf4f65eb0488ae274486512f1f2b234270",
+        "reasoning": "The participant statement confirms the required facts regarding the heading and permission-free use for documentation. The source content from example.com supports both facts as required by the source_verified policy.",
+        "reasoning_provenance": "leader_output_non_authoritative",
+        "round": 1,
+        "submitted_at": "2026-09-07T11:11:06.065803+00:00",
+        "verdict": "pass"
+      }
+    },
+    {
+      "checkpoint": "human-consent-2r-proof-a-round-2-2026-09-07.json",
+      "attempt": {
+        "attempt": 1,
+        "confidence": 98,
+        "evidence_url": "https://example.com",
+        "expected_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "id": "human-consent-2r-20260907-093128:0xab99c741494bef91fae66144dda31be93180bad4:2:1",
+        "observed_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "player": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "proof_digest": "4da831e14297bdc01e5d5bb52573ac4a77309c5d07791a981cfbfd8e115ffa07",
+        "reasoning": "Participant statement clearly claims both required facts: the heading is \"Example Domain\" and the domain is for use in documentation examples without needing permission. The provided source content supports both facts. No contradiction is present, so this scheduled round passes under source_verified mode.",
+        "reasoning_provenance": "leader_output_non_authoritative",
+        "round": 2,
+        "submitted_at": "2026-09-07T12:13:08.958794+00:00",
+        "verdict": "pass"
+      }
+    },
+    {
+      "checkpoint": "human-consent-2r-proof-b-round-2-2026-09-07.json",
+      "attempt": {
+        "attempt": 1,
+        "confidence": 97,
+        "evidence_url": "https://example.com",
+        "expected_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "id": "human-consent-2r-20260907-093128:0xe6e7bffa242d2900fad7067012564d441f735c43:2:1",
+        "observed_evidence_digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "player": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "proof_digest": "4da831e14297bdc01e5d5bb52573ac4a77309c5d07791a981cfbfd8e115ffa07",
+        "reasoning": "The participant statement claims https://example.com has the heading 'Example Domain' and states the domain is for use in documentation examples without needing permission. The fetched source_content confirms both facts: 'Example Domain' appears as the heading, and 'This domain is for use in documentation examples without needing permission' is present verbatim. Both material rules from the policy are satisfied by the statement and the fetched evidence, with no contradictions detected.",
+        "reasoning_provenance": "leader_output_non_authoritative",
+        "round": 2,
+        "submitted_at": "2026-09-07T12:27:34.621314+00:00",
+        "verdict": "pass"
+      }
+    }
+  ],
+  "eligibility": {
+    "basis": "Both participants were terminal success in the independently verified pre-settlement state.",
+    "settledAt": "2026-09-07T12:33:07.256741+00:00",
+    "settledAtUnixMicroseconds": "1788784387256741",
+    "activityEndsAt": 1788785687,
+    "settledBeforeActivityEnd": true,
+    "usedLocalClockForEligibility": false
+  },
+  "conservation": {
+    "totalStakedWei": "200",
+    "allocatedWei": "200",
+    "feeWei": "0"
+  },
+  "checks": {
+    "exactSenderTargetZeroValueAndInput": true,
+    "finalizedAndSuccessfulExecution": true,
+    "exactExpectedReturnPayload": true,
+    "bothParticipantsTerminalBeforeSettlement": true,
+    "storedSettlementAndReceiptTimestampsEqualAtMicrosecondPrecision": true,
+    "settlementAfterAllFourStoredProofTimestamps": true,
+    "allFourProofRecordsUnchanged": true,
+    "onlyExpectedPoolAndParticipantAllocationFieldsChanged": true,
+    "originalTermsScheduleAndStakesUnchanged": true,
+    "bothCurrentCreditsExactly100Wei": true,
+    "zeroFeeAndFeeRecipientCreditUnchanged": true,
+    "total200WeiConserved": true,
+    "repeatSettlementUnavailable": true
+  },
+  "evidenceSha256": {
+    "human-consent-2r-settlement-request-2026-09-07.json": "f503dbaacfc692b0fc731a61d47d78fe7d9f595b31a020de8118567324bccf76",
+    "human-consent-2r-proof-a-round-1-2026-09-07.json": "dd2683f2b5c3b13425a388a2fed0f5714af1ae642dbb0cf53a03e79e653f8ea5",
+    "human-consent-2r-proof-b-round-1-2026-09-07.json": "54af9361a616fd59f55f0692752a3eadff854714841dabfd9eb4ce2ca50df288",
+    "human-consent-2r-proof-a-round-2-2026-09-07.json": "cbc4ecbfb90620c0d1d1bca58feb5a2e708af7b3c2adad68b0ab2cb2c54c753f",
+    "human-consent-2r-proof-b-round-2-2026-09-07.json": "47994af00ff1f1a61a33cd043382d11affd4a611a62d1de668fc2514402b8ac6"
+  },
+  "verificationScriptSha256": "3cf2ddefd27e8f58873cf71d1ec07ab9fcff2552123414f522e995dee7fc5352",
+  "limits": [
+    "No wallet, account, key, signing, write simulation or on-chain write used by this verifier.",
+    "Settlement allocates credits only; neither wallet payout is proven by this receipt. Verify each withdrawal's linked finalized native child and value_credited separately.",
+    "Receipt created_at and contract settled_at are stored execution-context timestamps, not an independently recorded finalization-completion timestamp.",
+    "No separate success reason_code exists in this method. VM return code 0 and the exact output/state above are the checked result.",
+    "This is a new local checkpoint, not a GitHub-published immutable-commit submission or a rerun of the Ubuntu suite."
+  ]
+}

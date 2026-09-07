@@ -1,0 +1,68 @@
+{
+  "product": "commitment-pools",
+  "kind": "proof-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T12:00:00Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "A",
+  "expectedSender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+  "valueWei": "0",
+  "round": 2,
+  "storedRoundOpensAt": 1788782087,
+  "storedRoundClosesAt": 1788785687,
+  "termsHash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "intendedMethod": "submit_checkin",
+  "proofText": "Round 2 sandbox check: https://example.com has the heading Example Domain and states that this domain is for use in documentation examples without needing permission. This is a technical public-page check, not a claim of real-world work or identity.",
+  "readOnlyPreflight": {
+    "observedAtUtc": "2026-09-07T11:58:43.017Z",
+    "passed": true,
+    "baseline": "human-consent-2r-proof-a-round-1-2026-09-07.json",
+    "poolAndCohortUnchangedFromBaseline": true,
+    "bothParticipantsActiveAtOneOfTwo": true,
+    "totalStakedWei": "200",
+    "storedRoundTwoBoundariesMatchOriginalSchedule": true,
+    "limits": "Accountless view calls only. Observation time schedules the request; actual execution eligibility must be checked from the signed receipt and stored attempt timestamp."
+  },
+  "capture": {
+    "reusedHistoricalCapture": true,
+    "newCaptureTransactionSent": false,
+    "helper": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+    "requestId": "8b6ed2c4-fb65-4c1d-8389-e90defbaba1a",
+    "originalTransactionHash": "0x36849798ec1bf247e2bb6a9a742205dd1f17674fc18ef2adadb8de91ce8103ed",
+    "originalCapturedAtUnix": 1788706687,
+    "url": "https://example.com",
+    "fullText": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+    "byteLength": 127,
+    "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+    "recoveryUiInitiallyUnchecked": true,
+    "fullTextReviewedAgain": true
+  },
+  "uiRoundTransition": {
+    "firstRoundTwoFormObservedAtUtc": "2026-09-07T11:57:18Z",
+    "signedInLabel": "Signed in · 0xab99…bad4",
+    "agentReloadNavigationOrAccountSwitchBeforeObservation": false,
+    "originalPoolStillSelected": true,
+    "oldRoundOneStatementAndSourceNotCarriedOver": true,
+    "freshRoundTwoFormInitiallyEmpty": true,
+    "recoveredSameCaptureRequiredUncheckedFreshReview": true,
+    "submissionDisabledWithCompleteStatementAndUnreviewedCapture": true,
+    "submissionEnabledAfterFreshReview": true,
+    "initialRoundTwoAttemptsUsed": "0/3",
+    "limits": "Observed on return after the stored opening time, not continuously at the exact boundary. No device-clock override or early round-two transaction was used."
+  },
+  "uiRequest": {
+    "submitClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "reviewCheckedAndDisabledAfterRequest": true,
+    "walletActionsAndSubmitDisabledAfterRequest": true,
+    "note": "The enabled round-two button was confirmed after fresh review before one standard click. The still-visible round-one success toast and hash are not evidence of a round-two result."
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Transaction hash and app-generated attempt nonce",
+    "Actual sender, target, calldata and value of the signed round-two proof",
+    "Finality, execution, exact output, VM return code and verdict",
+    "Stored attempt timestamp within the original second-round interval",
+    "A's terminal two-of-two outcome, B's final proof, settlement and payouts"
+  ]
+}

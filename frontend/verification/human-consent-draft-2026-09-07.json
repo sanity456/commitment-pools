@@ -1,0 +1,76 @@
+{
+  "product": "commitment-pools",
+  "scope": "Real Chrome checks of the unsigned creation-review dialog; live pool consent and round transitions are not yet tested",
+  "observedCompleteAtUtc": "2026-09-07T09:36:19Z",
+  "origin": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app",
+  "deployedSourceCommit": "363d79e1245725c57ec1c874f0b0675cf0dca1a6",
+  "walletLabel": "0xab99…bad4",
+  "draftChecksPassed": true,
+  "checks": [
+    {
+      "name": "Initial review",
+      "checked": false,
+      "confirmEnabled": false
+    },
+    {
+      "name": "Explicitly checking the review acknowledgement",
+      "checked": true,
+      "confirmEnabled": true
+    },
+    {
+      "name": "Back to edit, change one round to two, reopen review",
+      "checked": false,
+      "confirmEnabled": false,
+      "updatedScheduleVisible": true
+    },
+    {
+      "name": "Acknowledge, go back, change rule text, reopen review",
+      "checked": false,
+      "confirmEnabled": false,
+      "updatedRulesVisible": true
+    },
+    {
+      "name": "Acknowledge, go back, change pool ID and title together, reopen review",
+      "checked": false,
+      "confirmEnabled": false,
+      "updatedPoolIdVisible": true
+    },
+    {
+      "name": "Explicitly uncheck a checked review acknowledgement",
+      "checked": false,
+      "confirmEnabled": false
+    }
+  ],
+  "proposal": {
+    "status": "unsigned_draft_awaiting_owner_approval",
+    "poolId": "human-consent-2r-20260907-093128",
+    "title": "Human consent test - two scheduled rounds",
+    "description": "A Studionet interface test of fresh consent and scheduled public-source check-ins. This is not a real-world work, identity or investment claim.",
+    "rules": "For each round of this sandbox public-page verification test, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear. This is a technical source-content test, not independent verification of a real person or real-world work. The same two public-page facts are checked in each scheduled round.",
+    "verificationMode": "source_verified",
+    "stakeWeiPerParticipant": "100",
+    "stakeGenPerParticipant": "0.0000000000000001",
+    "roundsRequired": 2,
+    "minimumPlayers": 2,
+    "maximumPlayers": 2,
+    "joinWindowSeconds": 3600,
+    "roundWindowSeconds": 3600,
+    "creationValueWei": "0",
+    "displayedFeeBps": 500,
+    "timing": "Stored creation timestamp determines the join deadline, round boundaries and terms hash only after a successful finalized creation; none exist for this unsigned draft"
+  },
+  "walletPromptOpened": false,
+  "newTransactionHash": null,
+  "publishedPoolOrTermsHash": null,
+  "appOrContractSourceChanged": false,
+  "githubPushOrDeploymentChanged": false,
+  "toolWarnings": [
+    "A scoped checkbox evaluation timed out before any checkbox mutation. A fresh DOM snapshot still showed the initial unchecked review; the supported directly named checkbox control subsequently worked. Checked state was then observed from DOM snapshots, and confirmation enabled state from the documented control API."
+  ],
+  "limits": [
+    "These are creation-draft checks, not tests of modifying published terms; published terms are immutable.",
+    "Going back to edit remounts the review dialog. These observations do not isolate per-field invalidation logic independently of that remount.",
+    "No new live join/proof-consent, wallet/network switch, round transition or chain-time boundary test has completed here.",
+    "No full automated suite, source-hash verification, live receipt verification or public CI was rerun."
+  ]
+}

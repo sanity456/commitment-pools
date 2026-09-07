@@ -1,0 +1,62 @@
+{
+  "product": "commitment-pools",
+  "kind": "network-cancellation-reconciliation-not-a-passing-proof",
+  "reconciliationPassed": true,
+  "proofVerdict": null,
+  "receiptObservedAtUtc": "2026-09-07T12:02:49.629Z",
+  "stateVerifiedAtUtc": "2026-09-07T12:05:09.530Z",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "poolId": "human-consent-2r-20260907-093128",
+  "walletLabel": "A",
+  "round": 2,
+  "requestCheckpoint": "human-consent-2r-proof-a-round-2-request-2026-09-07.json",
+  "baselineCheckpoint": "human-consent-2r-proof-a-round-1-2026-09-07.json",
+  "transaction": {
+    "hash": "0xb287c6ae8b8f7f1303ef78a8caa38782c927eb50707e458fb6f382a8067e34e5",
+    "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "valueWei": "0",
+    "status": "CANCELED",
+    "execution": "unknown",
+    "receiptCreatedAt": "2026-09-07T12:00:33.868816+00:00",
+    "decodedInput": {
+      "args": [
+        "human-consent-2r-20260907-093128",
+        "Round 2 sandbox check: https://example.com has the heading Example Domain and states that this domain is for use in documentation examples without needing permission. This is a technical public-page check, not a claim of real-world work or identity.",
+        "https://example.com",
+        "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+        "3edb0b02-9ee8-4f5e-b1d5-f6e02015e9ee"
+      ],
+      "method": "submit_checkin"
+    },
+    "appGeneratedAttemptNonce": "3edb0b02-9ee8-4f5e-b1d5-f6e02015e9ee",
+    "vmResultCode": null,
+    "vmOutputPayload": null,
+    "leaderReceiptPresent": false,
+    "recoveryCount": 3,
+    "maxRecoveryExhaustedAtUnix": 1788782468,
+    "maxRecoveryExhaustedAtUtc": "2026-09-07T12:01:08Z",
+    "errorDetailPolicy": "Raw consensus error and validator diagnostics are not retained. Safe cancellation status and recovery metadata are recorded without inferring a proof verdict or an underlying runner/provider root cause."
+  },
+  "stateReconciliation": {
+    "poolViewExactlyMatchedBaseline": true,
+    "completeParticipantListExactlyMatchedBaseline": true,
+    "bothParticipantsStillActiveAtOneOfTwo": true,
+    "bothStakesWei": "100",
+    "totalStakedWei": "200",
+    "lastAttemptIdsStillRoundOne": true,
+    "termsScheduleFeeRefundAndSettlementFieldsUnchanged": true,
+    "uiRoundTwoAttemptsUsed": "0/3",
+    "scope": "Read-only latest-final get_pool and list_participants results were deep-compared with the complete baseline checkpoint. No successful second-round state was inferred from the submitted hash."
+  },
+  "uiReconciliation": {
+    "savedRequestFoundInActivity": true,
+    "savedStatus": "Cancelled by the network · check wallet history before retrying",
+    "savedHashMatchesReceipt": true,
+    "displayedAsSuccessful": false,
+    "agentResubmittedBeforeReconciliation": false
+  },
+  "limits": "This is a canceled signed network request, not a passing or failing contract proof, and not an agent-observed MetaMask rejection. The network reports exhausted recovery attempts; its deeper cause is not established. Original request and earlier successful checkpoints remain unchanged. A replacement requires a fresh human approval and independently checked receipt."
+}

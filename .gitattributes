@@ -1,2 +1,5 @@
 # Source verification compares exact deployed contract bytes on every platform.
 contracts/*.py text eol=lf
+# Recorded evidence includes byte hashes; preserve LF on Windows and Ubuntu.
+frontend/verification/*.json text eol=lf
+frontend/verification/*.mjs text eol=lf

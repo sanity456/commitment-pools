@@ -1,0 +1,81 @@
+{
+  "product": "commitment-pools",
+  "kind": "settlement-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T12:30:22Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "B",
+  "expectedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+  "valueWei": "0",
+  "intendedMethod": "settle",
+  "intendedArgs": ["human-consent-2r-20260907-093128"],
+  "priorCheckpoint": "human-consent-2r-proof-b-round-2-2026-09-07.json",
+  "termsHash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "readOnlyPreflight": {
+    "passed": true,
+    "observedAtUtc": "2026-09-07T12:30:08.578Z",
+    "baseline": "human-consent-2r-proof-b-round-2-2026-09-07.json",
+    "bothParticipantsTerminalSuccess": true,
+    "creditA": {
+      "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "credit_wei": "0"
+    },
+    "creditB": {
+      "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "credit_wei": "0"
+    },
+    "feeRecipientCredit": {
+      "account": "0x91b1b2d1f2de66400fcbeaebadb8a5330eb28dc0",
+      "credit_wei": "0"
+    },
+    "canSettle": true,
+    "eligibilityBasis": "Both participants are stored as terminal success with two rounds passed. This branch permits settlement without waiting for the activity deadline; no local clock assumption or write simulation is used."
+  },
+  "expectedOutput": {
+    "pool_id": "human-consent-2r-20260907-093128",
+    "winner_count": "2",
+    "loser_count": "0",
+    "forfeited_pot_wei": "0",
+    "fee_wei": "0",
+    "share_wei": "0",
+    "all_fail_refund": false,
+    "conservation_wei": "200"
+  },
+  "expectedStateChanges": {
+    "poolStatus": "settled",
+    "winnerCount": 2,
+    "loserCount": 0,
+    "totalStakedWei": "200",
+    "forfeitedPotWei": "0",
+    "feeWei": "0",
+    "eachParticipantSettlementCreditWei": "100",
+    "walletACurrentCreditWei": "100",
+    "walletBCurrentCreditWei": "100",
+    "feeRecipientCreditUnchanged": true,
+    "participantProofProgressAndStatusesUnchanged": true,
+    "termsAndOriginalScheduleUnchanged": true,
+    "settledAtMustMatchStoredReceiptTimestamp": true,
+    "noWithdrawalOrNativePayoutRequested": true
+  },
+  "uiRequest": {
+    "walletBSignedIn": true,
+    "correctPoolSelected": true,
+    "bothWalletsTwoOfTwoSuccess": true,
+    "proofFormRemovedForTerminalParticipant": true,
+    "settlementEnabledBeforeRequest": true,
+    "settleClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "walletRefreshAndSettleDisabledAfterRequest": true,
+    "withdrawDisabledAtZeroCredit": true,
+    "priorProofSuccessToastNotTreatedAsSettlementResult": true,
+    "browserErrorsBeforeRequest": []
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Settlement transaction hash and actual signed sender, target, value and calldata",
+    "Finality and successful execution, exact VM output and return code",
+    "Stored settlement timestamp, credits and conservation after settlement",
+    "Native payout delivery; settlement allocates credit only, and neither withdrawal has been requested"
+  ],
+  "expectedReasonCode": "This method has no separate success reason_code. Expected VM result is 0 (return), with the exact settlement payload and state transitions above; all-terminal eligibility is established by the stored successful cohort."
+}

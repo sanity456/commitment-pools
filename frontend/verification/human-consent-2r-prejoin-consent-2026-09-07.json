@@ -1,0 +1,58 @@
+{
+  "product": "commitment-pools",
+  "scope": "Live browser consent checks before initiating the first join",
+  "observedByUtc": "2026-09-07T10:06:13Z",
+  "preview": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app/",
+  "wallet": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+  "poolId": "human-consent-2r-20260907-093128",
+  "termsSha256": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "creationEvidence": "human-consent-2r-creation-2026-09-07.json",
+  "tests": [
+    {
+      "name": "Explicit acknowledgement enables the exact-stake join",
+      "checked": true,
+      "joinEnabled": true,
+      "joinClicked": false,
+      "passed": true
+    },
+    {
+      "name": "Unchanged refresh retains consent and blocks writes during fresh reads",
+      "duringRefresh": {
+        "checked": true,
+        "checkboxDisabled": true,
+        "joinEnabled": false
+      },
+      "afterRefresh": {
+        "checked": true,
+        "joinEnabled": true,
+        "termsHashUnchanged": true
+      },
+      "joinClicked": false,
+      "passed": true
+    },
+    {
+      "name": "Pool switch clears stale consent and requires fresh acknowledgement on return",
+      "switchedToPoolId": "human-wallet-60m-20260906-131207",
+      "switchLoading": {
+        "previousPoolDetailsVisible": false,
+        "joinControlsVisible": false
+      },
+      "otherPool": {
+        "status": "settled",
+        "roundsRequired": 1
+      },
+      "returnedPool": {
+        "poolId": "human-consent-2r-20260907-093128",
+        "status": "forming",
+        "roundsRequired": 2,
+        "checked": false,
+        "joinEnabled": false,
+        "termsHashUnchanged": true
+      },
+      "joinClicked": false,
+      "passed": true
+    }
+  ],
+  "toolingNotes": "A selector evaluation and a bounded locator wait timed out. Fresh DOM snapshots established the loaded state; no transaction was sent or retried by these checks.",
+  "limits": "Live browser observations only. Creation was independently verified separately. Joining, wallet-switch consent, activation, round transition, proof verification and payouts for this new pool remain unverified at this checkpoint. No signature or transaction approval was performed by the agent."
+}

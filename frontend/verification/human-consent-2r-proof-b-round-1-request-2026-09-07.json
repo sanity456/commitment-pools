@@ -1,0 +1,45 @@
+{
+  "product": "commitment-pools",
+  "kind": "proof-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T11:08:31Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "B",
+  "expectedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+  "valueWei": "0",
+  "round": 1,
+  "storedRoundOpensAt": 1788778487,
+  "storedRoundClosesAt": 1788782087,
+  "termsHash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "intendedMethod": "submit_checkin",
+  "proofText": "Round 1 sandbox check: https://example.com has the heading Example Domain and states that this domain is for use in documentation examples without needing permission. This is a technical public-page check, not a claim of real-world work or identity.",
+  "capture": {
+    "reusedHistoricalCapture": true,
+    "newCaptureTransactionSent": false,
+    "helper": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+    "requestId": "2ed13b21-2dfe-4c23-a61e-506e3e5638b5",
+    "originalTransactionHash": "0x8aac5ec758655b2a31a82b5e22c5db293534e23e782b90719d0ffeab283301cb",
+    "originalCapturedAtUnix": 1788705240,
+    "url": "https://example.com",
+    "fullText": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+    "byteLength": 127,
+    "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+    "recoveryUiInitiallyUnchecked": true,
+    "fullTextReviewedAgain": true
+  },
+  "uiRequest": {
+    "submitClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "reviewCheckedAndDisabledAfterRequest": true,
+    "walletActionsAndSubmitDisabledAfterRequest": true,
+    "note": "The immediate isEnabled read after checking review returned false; the standard locator click subsequently completed without force. No separately observed enabled-state assertion is claimed. The old activation-success toast is not proof evidence."
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Transaction hash and app-generated attempt nonce",
+    "Actual sender, target, calldata and value of the signed proof",
+    "Finality, execution, exact output and expected reason code",
+    "Stored attempt timestamp within the original round interval",
+    "Round-one outcome and round-two fresh-review reset"
+  ]
+}

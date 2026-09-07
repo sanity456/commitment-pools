@@ -1,0 +1,95 @@
+{
+  "product": "commitment-pools",
+  "passed": true,
+  "verifiedAtUtc": "2026-09-07T10:53:29.425Z",
+  "origin": "https://commitment-pools-studionet.vercel.app",
+  "deploymentId": "dpl_8sg1gVsskHqgtnyo2WQqcp8PEL9L",
+  "deployedSourceCommit": "363d79e1245725c57ec1c874f0b0675cf0dca1a6",
+  "transport": "Independent anonymous fetch, without cookies, Vercel credentials or bypass headers",
+  "results": [
+    {
+      "check": "anonymous public document with preserved security headers",
+      "path": "/",
+      "status": 200,
+      "nonceFresh": true,
+      "scriptNoncesMatch": true
+    },
+    {
+      "check": "anonymous public document with preserved security headers",
+      "path": "/",
+      "status": 200,
+      "nonceFresh": true,
+      "scriptNoncesMatch": true
+    },
+    {
+      "check": "anonymous public document with preserved security headers",
+      "path": "/auth/sign-in",
+      "status": 200,
+      "nonceFresh": true,
+      "scriptNoncesMatch": true
+    },
+    {
+      "check": "anonymous public document with preserved security headers",
+      "path": "/pools/human-consent-2r-20260907-093128",
+      "status": 200,
+      "nonceFresh": true,
+      "scriptNoncesMatch": true
+    },
+    {
+      "check": "public access does not create a wallet session",
+      "status": 200,
+      "authenticated": false
+    },
+    {
+      "check": "wallet authorization required for private API",
+      "path": "/api/product/session",
+      "spoofedHeaders": false,
+      "status": 401
+    },
+    {
+      "check": "wallet authorization required for private API",
+      "path": "/api/product/session",
+      "spoofedHeaders": true,
+      "status": 401
+    },
+    {
+      "check": "wallet authorization required for private API",
+      "path": "/api/product/activity?offset=0",
+      "spoofedHeaders": false,
+      "status": 401
+    },
+    {
+      "check": "wallet authorization required for private API",
+      "path": "/api/product/activity?offset=0",
+      "spoofedHeaders": true,
+      "status": 401
+    },
+    {
+      "check": "exact current brand asset",
+      "path": "/brand/emperor-vortex.png",
+      "status": 200,
+      "byteCount": 1409385,
+      "sha256": "6c4a5507e3db1ab580a041c8fe55ef29a12b7a5a4489aa350375b7474e588a64"
+    },
+    {
+      "check": "exact current brand asset",
+      "path": "/favicon.svg",
+      "status": 200,
+      "byteCount": 503,
+      "sha256": "4821e9875c5b046718c539b51e3a7d1111bbb287a169f3ac0d92f7486a459db6"
+    },
+    {
+      "check": "generated preview remains protected",
+      "origin": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app",
+      "status": 302,
+      "redirectWithoutQuery": "https://vercel.com/sso-api"
+    },
+    {
+      "check": "generated preview remains protected",
+      "origin": "https://commitment-pools-studionet-28cvvvtta-sanity3.vercel.app",
+      "status": 302,
+      "redirectWithoutQuery": "https://vercel.com/sso-api"
+    }
+  ],
+  "limits": "Scoped access and HTTP checks, not a new full suite, wallet signing flow, public CI pass or independent security certification. Existing wallet-test origin and historical checkpoints are preserved."
+}

@@ -1,0 +1,127 @@
+{
+  "product": "commitment-pools",
+  "scope": "Owner-approved human Wallet A sign-in, reload recovery and read-only saved Activity/pool checks on the updated protected preview",
+  "passed": true,
+  "origin": "https://commitment-pools-studionet-ekkkup2y3-sanity3.vercel.app",
+  "deployedSourceCommit": "363d79e1245725c57ec1c874f0b0675cf0dca1a6",
+  "deploymentEvidence": "private-preview-2026-09-07.json",
+  "repositoryHeadBeforeDocumentation": "cf878b77c98f9893496302e632f679cf8b335141",
+  "environment": {
+    "chrome": "152.0.7977.83",
+    "chromeArchitecture": "64-bit",
+    "metamask": "13.46.1",
+    "source": "Owner-supplied About screenshots recorded before this sign-in check in wallet-environment-2026-09-07.md; not a fresh automated version query"
+  },
+  "observationTimesUtc": {
+    "loginStarted": "2026-09-07T09:10:27Z",
+    "firstAuthenticatedObservation": "2026-09-07T09:12:03Z",
+    "homeReloadAuthenticated": "2026-09-07T09:13:23Z",
+    "poolLoaded": "2026-09-07T09:14:42Z",
+    "poolReloadVerified": "2026-09-07T09:15:46Z"
+  },
+  "timeScope": "Tool-clock observation checkpoints, not chain timestamps or exact signature time",
+  "wallet": "0xab99c741494bef91fae66144dda31be93180bad4",
+  "visibleWalletLabel": "0xab99…bad4",
+  "uiNetworkLabel": "Studionet · sandbox",
+  "userReportedLoginApproval": true,
+  "agentSignedMessage": false,
+  "checks": {
+    "authenticatedHomeRendered": true,
+    "directoryLoadedBothHistoricalPools": true,
+    "authenticatedSessionRecoveredAfterHomeReload": true,
+    "activityLoadedTenWalletARequests": true,
+    "allActivityCardTextExactlyMatchedAfterReload": true,
+    "allActivityCardTextExactlyMatchedAfterSavedHistoryRefresh": true,
+    "currentTrialPayoutDisplayedAsDelivered": true,
+    "completedPoolLoadedFromActivity": true,
+    "authenticatedSessionRecoveredAfterPoolReload": true,
+    "zeroCreditGuidanceVisibleBeforeAndAfterPoolReload": true,
+    "withdrawButtonDisabledBeforeAndAfterPoolReload": true
+  },
+  "activityCounts": {
+    "beforeReload": 10,
+    "afterReload": 10,
+    "afterSavedHistoryRefresh": 10
+  },
+  "currentWalletOnlyFilterChecked": false,
+  "visibleActivityRows": [
+    {
+      "title": "Withdraw credit",
+      "parentHash": "0xba12f18e690c8429025cd34eca00082d6a02c47aa3cc4e24e271d90b2ee57efc"
+    },
+    {
+      "title": "Settle pool",
+      "parentHash": "0x5de046a70caed366bec2e4e8ecc69ae23c448128e4ba63fa09566f4e2e2ada34"
+    },
+    {
+      "title": "Submit check-in",
+      "parentHash": "0xcc642df0c1ca3e9c6a99ec5183e6ad7b26eddfd9dd0525b65ec5579c5fc72c0b"
+    },
+    {
+      "title": "Capture public evidence",
+      "parentHash": "0x36849798ec1bf247e2bb6a9a742205dd1f17674fc18ef2adadb8de91ce8103ed"
+    },
+    {
+      "title": "Join pool",
+      "parentHash": "0xb32db97ed088c0c0ac82d56c43465fbbfefbb1d8a8adcd8779c175dccbfaf4b1"
+    },
+    {
+      "title": "Create pool",
+      "parentHash": "0x3975f7f6ce89745a89678bb40394849062ea7627daa090b172301513bb547e3c"
+    },
+    {
+      "title": "Withdraw credit",
+      "parentHash": "0xdef3ccf4480417eb828847358a1edb3b48f5046e6b2baa57ebd3bc4204513e30"
+    },
+    {
+      "title": "Claim formation refund",
+      "parentHash": "0xe1163f498178095cd8990c6e1673fd41b7b2e67ef955c6afaf2d8d0cc3f0e2ea"
+    },
+    {
+      "title": "Join pool",
+      "parentHash": "0xb57be739701dd784e2d2d2afb5492f2d9e77ab0e370abf648a0367fe40e4d51f"
+    },
+    {
+      "title": "Create pool",
+      "parentHash": "0x7d2fae96b129225e617226007823cc71b6147ea11fdd34a68039fe2b58100763"
+    }
+  ],
+  "displayedCurrentTrialPayout": {
+    "parentHash": "0xba12f18e690c8429025cd34eca00082d6a02c47aa3cc4e24e271d90b2ee57efc",
+    "childHash": "0xa5eaa5fcf74a3e5b44d085b0eb7b296df1ba70d4350868140aa8187cf376f118",
+    "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+    "amountGen": "0.0000000000000001",
+    "labels": ["Payout delivered", "Credited & finalized"],
+    "scope": "Saved UI evidence, not a new independent payout RPC check"
+  },
+  "pool": {
+    "id": "human-wallet-60m-20260906-131207",
+    "status": "settled",
+    "cohort": "2 joined · minimum 2 · max 2",
+    "walletAPosition": "success",
+    "walletARoundsPassed": "1/1",
+    "currentCreditGen": "0",
+    "guideHeading": "No credit to withdraw",
+    "withdrawDisabled": true
+  },
+  "capturedBrowserErrorLogs": {
+    "levels": ["error"],
+    "limit": 20,
+    "returnedEntries": 0,
+    "lastCheckedAtUtc": "2026-09-07T09:15:46Z",
+    "scope": "Captured logs on this reconnected Chrome tab only, not server logs or a guarantee of no errors elsewhere"
+  },
+  "toolWarnings": [
+    "Chrome's old browser handle was unavailable after its restart. Reconnected to the current Chrome instance using the supported runtime; no alternate browser or profile-file workaround was used.",
+    "A heading wait after the pool reload reported a deadline failure even though its diagnostic showed the target visible. A subsequent direct DOM snapshot and visibility/enabled-state checks verified the loaded authenticated pool without another reload."
+  ],
+  "noNewOnChainActionInitiated": true,
+  "noAppCodeOrDeploymentChanged": true,
+  "noGithubPushOrPublicAccessChange": true,
+  "limits": [
+    "Wallet A only; no new Wallet B sign-in, two-way account-switch or network-switch trial on this origin.",
+    "No new lifecycle, live consent/round transition, cancellation retry, early-activation rejection or all-fail branch.",
+    "No new export download, direct contract suite, full application suite or public Ubuntu CI run.",
+    "No cookies, session tokens, raw login signature or private keys were read or saved."
+  ]
+}

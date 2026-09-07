@@ -1,0 +1,82 @@
+{
+  "product": "commitment-pools",
+  "kind": "proof-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T12:26:05Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "B",
+  "expectedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+  "valueWei": "0",
+  "round": 2,
+  "storedRoundOpensAt": 1788782087,
+  "storedRoundClosesAt": 1788785687,
+  "termsHash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "intendedMethod": "submit_checkin",
+  "proofText": "Round 2 sandbox check: https://example.com has the heading Example Domain and states that this domain is for use in documentation examples without needing permission. This is a technical public-page check, not a claim of real-world work or identity.",
+  "readOnlyPreflight": {
+    "passed": true,
+    "observedAtUtc": "2026-09-07T12:25:45.390Z",
+    "poolId": "human-consent-2r-20260907-093128",
+    "baseline": "human-consent-2r-proof-a-round-2-2026-09-07.json",
+    "poolAndCohortUnchangedFromBaseline": true,
+    "walletAStatus": "success",
+    "walletARoundsPassed": 2,
+    "walletBStatus": "active",
+    "walletBRoundsPassed": 1,
+    "totalStakedWei": "200",
+    "schedule": {
+      "closes_at": 1788785687,
+      "opens_at": 1788782087,
+      "round": 2
+    },
+    "diagnosticCorrection": "An initial inline preflight expected the wei string as a number; corrected the diagnostic assertion to the documented string type. No product or chain state change.",
+    "limits": "Accountless finalized-state reads only; no write or simulation. Actual proof eligibility remains to be checked from stored attempt time."
+  },
+  "capture": {
+    "reusedHistoricalCapture": true,
+    "newCaptureTransactionSent": false,
+    "helper": "0xb21aa001F13B3c0f3940CC2352988D28b4E40f1D",
+    "requestId": "2ed13b21-2dfe-4c23-a61e-506e3e5638b5",
+    "originalTransactionHash": "0x8aac5ec758655b2a31a82b5e22c5db293534e23e782b90719d0ffeab283301cb",
+    "originalCapturedAtUnix": 1788705240,
+    "url": "https://example.com",
+    "fullText": "Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+    "byteLength": 127,
+    "digest": "8c1e8564424fdb68b8b7bdff3e16173a2e3599e9b71620637251486c5c4d5ed6",
+    "recoveryUiInitiallyUnchecked": true,
+    "fullTextReviewedAgain": true
+  },
+  "uiPreflight": {
+    "authenticatedBSessionObservedAtUtc": "2026-09-07T12:23:47Z",
+    "signedInLabel": "Signed in · 0xe6e7…5c43",
+    "poolIdMatched": true,
+    "walletBMarkedYou": true,
+    "walletARoundsPassed": 2,
+    "walletBRoundsPassed": 1,
+    "roundTwoAttemptsUsed": "0/3",
+    "formInitiallyEmptyAfterFreshBLogin": true,
+    "noAStatementOrCaptureCarriedIntoBSession": true,
+    "availableCreditDisplayed": "0 GEN",
+    "withdrawDisabled": true,
+    "recoveredHistoricalBCaptureRequiredUncheckedFreshReview": true,
+    "submissionDisabledWithCompleteStatementAndUnreviewedCapture": true,
+    "submissionEnabledAfterFreshReview": true,
+    "limits": "B was observed after fresh login, not continuously across the scheduled round boundary. A's natural round-transition check is separately recorded."
+  },
+  "uiRequest": {
+    "submitClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "reviewCheckedAndDisabledAfterRequest": true,
+    "walletActionsAndSubmitDisabledAfterRequest": true,
+    "selectedPoolUnchanged": true,
+    "note": "The enabled round-two button was explicitly confirmed after reviewing the full public text, then clicked once. No new capture, stake, settlement or withdrawal was requested."
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Transaction hash and app-generated attempt nonce",
+    "Actual sender, target, calldata and value of the signed round-two proof",
+    "Finality, execution, exact output, VM return code and verdict",
+    "Stored attempt timestamp within the original second-round interval",
+    "B's terminal two-of-two outcome, settlement and payouts"
+  ]
+}

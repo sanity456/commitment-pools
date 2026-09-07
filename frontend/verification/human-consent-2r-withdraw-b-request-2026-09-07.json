@@ -1,0 +1,63 @@
+{
+  "product": "commitment-pools",
+  "kind": "withdrawal-request-checkpoint-not-execution-result",
+  "observedRequestAtUtc": "2026-09-07T12:37:05Z",
+  "poolId": "human-consent-2r-20260907-093128",
+  "chainId": 61999,
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "walletLabel": "B",
+  "expectedSender": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+  "valueWei": "0",
+  "intendedMethod": "withdraw",
+  "intendedArgs": [],
+  "priorCheckpoint": "human-consent-2r-settlement-2026-09-07.json",
+  "baselineVerifiedAtUtc": "2026-09-07T12:36:22.299Z",
+  "preWithdrawalCreditWei": "100",
+  "expectedPayoutAmountWei": "100",
+  "expectedRecipient": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+  "expectedOutput": {
+    "recipient": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+    "amount_wei": "100",
+    "status": "emitted_for_finalization",
+    "delivery_note": "Emission is not confirmation; verify the finalized child transaction."
+  },
+  "dynamicOutputFields": [
+    "id: actual next global payout ID, not assumed in advance",
+    "emitted_at: actual stored execution-context timestamp"
+  ],
+  "expectedNativeChild": {
+    "sender": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "recipient": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+    "valueWei": "100",
+    "type": 0,
+    "status": "FINALIZED",
+    "valueCredited": true,
+    "linkedToActualWithdrawalParent": true
+  },
+  "expectedStateChanges": {
+    "walletBCurrentCreditWei": "0",
+    "walletACurrentCreditWei": "100",
+    "feeRecipientCreditWei": "0",
+    "storedPoolAndCohortUnchanged": true,
+    "participantSettlementAllocationsRemainHistorical100Wei": true
+  },
+  "uiRequest": {
+    "walletBSignedIn": true,
+    "correctSettledPoolSelected": true,
+    "availableCreditDisplayed": "0.0000000000000001 GEN",
+    "bothWalletsTwoOfTwoSuccess": true,
+    "settlementControlRemoved": true,
+    "withdrawEnabledBeforeRequest": true,
+    "withdrawClickedOnce": true,
+    "agentApprovedMetaMask": false,
+    "walletRefreshAndWithdrawDisabledAfterRequest": true,
+    "priorSettlementSuccessToastNotTreatedAsWithdrawalResult": true
+  },
+  "unverifiedAtThisCheckpoint": [
+    "Withdrawal transaction hash and actual signed sender, target, value and calldata",
+    "Finality and successful execution, exact payout output and VM result",
+    "Actual payout ID, stored payout timestamp, zero B credit and unchanged A credit",
+    "Linked native child hash, finality, correct recipient and 100-wei value_credited delivery"
+  ],
+  "limits": "The outer withdraw call sends zero value. It requests return of B's entire verified 100-wei credit to B, not a new deposit. A payout emission or zero remaining credit alone is not evidence that the native transfer was delivered. The agent did not approve MetaMask."
+}

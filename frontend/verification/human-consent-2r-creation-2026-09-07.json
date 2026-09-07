@@ -1,0 +1,109 @@
+{
+  "product": "commitment-pools",
+  "passed": true,
+  "verifiedAtUtc": "2026-09-07T09:59:52.114Z",
+  "scope": "Read-only independent verification of human-approved creation before any join",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "creation": {
+    "hash": "0xeb5a03b84e781ece582a8861f6b85518604bfe4359d36022c18dcdbf0945cc44",
+    "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "valueWei": "0",
+    "status": "FINALIZED",
+    "execution": "success",
+    "receiptCreatedAt": "2026-09-07T09:54:47.004041+00:00",
+    "resultCode": 0,
+    "resultCodeName": "return",
+    "decodedInput": {
+      "args": [
+        "human-consent-2r-20260907-093128",
+        "Human consent test - two scheduled rounds",
+        "A Studionet interface test of fresh consent and scheduled public-source check-ins. This is not a real-world work, identity or investment claim.",
+        "For each round of this sandbox public-page verification test, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear. This is a technical source-content test, not independent verification of a real person or real-world work. The same two public-page facts are checked in each scheduled round.",
+        "source_verified",
+        "100",
+        "2",
+        "2",
+        "2",
+        "3600",
+        "3600"
+      ],
+      "method": "create_pool"
+    },
+    "output": {
+      "activity_ends_at": "1788785687",
+      "activity_starts_at": "1788778487",
+      "fee_bps": "500",
+      "id": "human-consent-2r-20260907-093128",
+      "join_deadline": "1788778487",
+      "max_players": "2",
+      "min_players": "2",
+      "participant_count": "0",
+      "rounds_required": "2",
+      "stake_wei": "100",
+      "status": "forming",
+      "terms_hash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+      "title": "Human consent test - two scheduled rounds",
+      "verification_mode": "source_verified"
+    }
+  },
+  "storedPool": {
+    "activated_at": "",
+    "activation_failure": "",
+    "activity_ends_at": 1788785687,
+    "activity_starts_at": 1788778487,
+    "all_fail_policy": "refund_minus_fee",
+    "created_at": "2026-09-07T09:54:47.004041+00:00",
+    "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "description": "A Studionet interface test of fresh consent and scheduled public-source check-ins. This is not a real-world work, identity or investment claim.",
+    "evidence_policy": "complete_verified_source_no_truncation",
+    "fee_bps": 500,
+    "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+    "fee_wei": "0",
+    "forfeited_pot_wei": "0",
+    "id": "human-consent-2r-20260907-093128",
+    "join_deadline": 1788778487,
+    "loser_count": 0,
+    "max_players": 2,
+    "max_source_bytes": 6000,
+    "min_players": 2,
+    "participant_count": 0,
+    "protocol_version": 3,
+    "refund_count": 0,
+    "round_window_seconds": 3600,
+    "rounds_required": 2,
+    "rules": "For each round of this sandbox public-page verification test, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear. This is a technical source-content test, not independent verification of a real person or real-world work. The same two public-page facts are checked in each scheduled round.",
+    "settled_at": "",
+    "stake_wei": "100",
+    "status": "forming",
+    "terms_hash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+    "title": "Human consent test - two scheduled rounds",
+    "total_staked_wei": "0",
+    "verification_mode": "source_verified",
+    "winner_count": 0
+  },
+  "rounds": [
+    {
+      "closes_at": 1788782087,
+      "opens_at": 1788778487,
+      "round": 1
+    },
+    {
+      "closes_at": 1788785687,
+      "opens_at": 1788782087,
+      "round": 2
+    }
+  ],
+  "verifiedTermsSha256": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+  "scheduleUtc": {
+    "storedCreatedAt": "2026-09-07T09:54:47.004041+00:00",
+    "joinDeadline": "2026-09-07T10:54:47.000Z",
+    "round1Opens": "2026-09-07T10:54:47.000Z",
+    "round1Closes": "2026-09-07T11:54:47.000Z",
+    "round2Opens": "2026-09-07T11:54:47.000Z",
+    "round2Closes": "2026-09-07T12:54:47.000Z"
+  },
+  "limits": "No wallet, signature or write used by this verifier. Creation is not proof of joins, activation, round transition or payout. Stored contract timestamps, not local clock eligibility assumptions, determine this schedule."
+}

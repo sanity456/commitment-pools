@@ -1,0 +1,191 @@
+{
+  "product": "commitment-pools",
+  "passed": true,
+  "verifiedAtUtc": "2026-09-07T12:50:44.137Z",
+  "scope": "Accountless independent Wallet A withdrawal and finalized native delivery verification",
+  "priorCheckpoint": "human-consent-2r-withdraw-b-2026-09-07.json",
+  "requestCheckpoint": "human-consent-2r-withdraw-a-request-2026-09-07.json",
+  "chainId": 61999,
+  "rpc": "https://studio.genlayer.com/api",
+  "contract": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+  "poolId": "human-consent-2r-20260907-093128",
+  "walletLabel": "A",
+  "transaction": {
+    "hash": "0xeb6785b64028deb2d3fda9ec9eaf41ba7f179e98ddb589bdea9e92bb069dce98",
+    "sender": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "target": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "valueWei": "0",
+    "status": "FINALIZED",
+    "execution": "success",
+    "receiptCreatedAt": "2026-09-07T12:49:13.154945+00:00",
+    "resultCode": 0,
+    "expectedResultCode": 0,
+    "resultCodeName": "return",
+    "decodedInput": { "method": "withdraw" },
+    "output": {
+      "amount_wei": "100",
+      "delivery_note": "Emission is not confirmation; verify the finalized child transaction.",
+      "emitted_at": "2026-09-07T12:49:13.154945+00:00",
+      "id": "payout-00000009",
+      "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "status": "emitted_for_finalization"
+    },
+    "triggeredTransactionIds": [
+      "0x37fa18816bd59f5d7890d5a5be5f8526fddfdf5cf824a2f217adf26ce27d6693"
+    ]
+  },
+  "expectedOutput": {
+    "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+    "amount_wei": "100",
+    "status": "emitted_for_finalization",
+    "delivery_note": "Emission is not confirmation; verify the finalized child transaction."
+  },
+  "payout": {
+    "amount_wei": "100",
+    "delivery_note": "Emission is not confirmation; verify the finalized child transaction.",
+    "emitted_at": "2026-09-07T12:49:13.154945+00:00",
+    "id": "payout-00000009",
+    "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+    "status": "emitted_for_finalization"
+  },
+  "nativeChild": {
+    "hash": "0x37fa18816bd59f5d7890d5a5be5f8526fddfdf5cf824a2f217adf26ce27d6693",
+    "parentHash": "0xeb6785b64028deb2d3fda9ec9eaf41ba7f179e98ddb589bdea9e92bb069dce98",
+    "sender": "0x7279B4A7821c96489c0b086021F3E6944d343bFB",
+    "recipient": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "type": 0,
+    "valueWei": "100",
+    "status": "FINALIZED",
+    "valueCredited": true,
+    "receiptCreatedAt": "2026-09-07T12:49:49.041731+00:00",
+    "delivered": true
+  },
+  "storedPool": {
+    "activated_at": "2026-09-07T11:03:53.041736+00:00",
+    "activation_failure": "",
+    "activity_ends_at": 1788785687,
+    "activity_starts_at": 1788778487,
+    "all_fail_policy": "refund_minus_fee",
+    "created_at": "2026-09-07T09:54:47.004041+00:00",
+    "creator": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+    "description": "A Studionet interface test of fresh consent and scheduled public-source check-ins. This is not a real-world work, identity or investment claim.",
+    "evidence_policy": "complete_verified_source_no_truncation",
+    "fee_bps": 500,
+    "fee_recipient": "0x91B1b2D1f2De66400fcbeAEbadB8a5330eB28DC0",
+    "fee_wei": "0",
+    "forfeited_pot_wei": "0",
+    "id": "human-consent-2r-20260907-093128",
+    "join_deadline": 1788778487,
+    "loser_count": 0,
+    "max_players": 2,
+    "max_source_bytes": 6000,
+    "min_players": 2,
+    "participant_count": 2,
+    "protocol_version": 3,
+    "refund_count": 0,
+    "round_window_seconds": 3600,
+    "rounds_required": 2,
+    "rules": "For each round of this sandbox public-page verification test, pass only if the participant statement confirms that https://example.com has the heading Example Domain and says the domain is for use in documentation examples without needing permission, and the fetched public page supports both facts. Fail for a clear contradiction; otherwise return unclear. This is a technical source-content test, not independent verification of a real person or real-world work. The same two public-page facts are checked in each scheduled round.",
+    "settled_at": "2026-09-07T12:33:07.256741+00:00",
+    "stake_wei": "100",
+    "status": "settled",
+    "terms_hash": "bcfe61d8c235494c4f85bb37cbceb612897c08dd1e9d9c33bd9c78d68f0bed10",
+    "title": "Human consent test - two scheduled rounds",
+    "total_staked_wei": "200",
+    "verification_mode": "source_verified",
+    "winner_count": 2
+  },
+  "cohort": {
+    "items": [
+      {
+        "address": "0xAb99c741494bEF91FAE66144dda31Be93180baD4",
+        "joined_at": "2026-09-07T10:09:01.200999+00:00",
+        "last_attempt_id": "human-consent-2r-20260907-093128:0xab99c741494bef91fae66144dda31be93180bad4:2:1",
+        "refund_claimed": false,
+        "rounds_passed": 2,
+        "settlement_credit_wei": "100",
+        "stake_wei": "100",
+        "status": "success"
+      },
+      {
+        "address": "0xE6E7bfFA242d2900fad7067012564d441F735c43",
+        "joined_at": "2026-09-07T10:22:46.899390+00:00",
+        "last_attempt_id": "human-consent-2r-20260907-093128:0xe6e7bffa242d2900fad7067012564d441f735c43:2:1",
+        "refund_claimed": false,
+        "rounds_passed": 2,
+        "settlement_credit_wei": "100",
+        "stake_wei": "100",
+        "status": "success"
+      }
+    ],
+    "limit": 2,
+    "offset": 0,
+    "total": 2
+  },
+  "credits": {
+    "A": {
+      "account": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "credit_wei": "0"
+    },
+    "B": {
+      "account": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "credit_wei": "0"
+    },
+    "feeRecipient": {
+      "account": "0x91b1b2d1f2de66400fcbeaebadb8a5330eb28dc0",
+      "credit_wei": "0"
+    }
+  },
+  "deliveredPayouts": [
+    {
+      "walletLabel": "B",
+      "parentHash": "0x678f73c9f7b57554cbe672e83a63cbe56da707afd535147de731a1fe15956356",
+      "childHash": "0x80bfe41e82abc983ef82615df2300a63e8e635a1a3e0a8db0f46b4ea73ffc629",
+      "payoutId": "payout-00000008",
+      "amountWei": "100",
+      "recipient": "0xe6e7bffa242d2900fad7067012564d441f735c43",
+      "delivered": true
+    },
+    {
+      "walletLabel": "A",
+      "parentHash": "0xeb6785b64028deb2d3fda9ec9eaf41ba7f179e98ddb589bdea9e92bb069dce98",
+      "childHash": "0x37fa18816bd59f5d7890d5a5be5f8526fddfdf5cf824a2f217adf26ce27d6693",
+      "payoutId": "payout-00000009",
+      "amountWei": "100",
+      "recipient": "0xab99c741494bef91fae66144dda31be93180bad4",
+      "delivered": true
+    }
+  ],
+  "conservation": {
+    "totalStakedWei": "200",
+    "deliveredWei": "200",
+    "remainingParticipantCreditWei": "0",
+    "feeWei": "0"
+  },
+  "checks": {
+    "exactSenderTargetZeroValueAndNoArguments": true,
+    "parentFinalizedAndSuccessfulExecution": true,
+    "exactPayoutReturnAndStoredRecordMatch": true,
+    "emissionTimestampMatchesReceiptAtMicrosecondPrecision": true,
+    "withdrawalAfterStoredSettlementTimestamp": true,
+    "exactlyOneNativeChildLinkedInBothDirections": true,
+    "correctCoreSenderWalletRecipientAnd100Wei": true,
+    "nativeChildFinalizedAndValueCredited": true,
+    "currentWalletCreditZeroAndOtherWalletCreditUnchanged": true,
+    "settledPoolCohortAllocationsAndFeeRecipientCreditUnchanged": true,
+    "deliveredPlusRemainingCreditsConserve200Wei": true
+  },
+  "evidenceSha256": {
+    "human-consent-2r-withdraw-a-request-2026-09-07.json": "24c7015603d325ede63180a415890fe69b92badda2f83638449ae4e06d2a68ed",
+    "human-consent-2r-withdraw-b-2026-09-07.json": "ede6ee844cf695178ccafe5bd5b4cf95d02a906b2aefb52ca32660725564d4eb"
+  },
+  "verificationScriptSha256": "a67df1b1d1014498f4121e3286ecdbd3a0bafc707428df28e613ce96f8721f9d",
+  "limits": [
+    "No wallet, account, key, signing, simulation or on-chain write used by this verifier.",
+    "Delivery is proven by the separately linked FINALIZED native child with value_credited=true, not merely the emitted payout status or zero credit.",
+    "Stored parent/child creation and payout emission timestamps are retained; none is mislabeled as an exact finalization-completion timestamp.",
+    "No separate success reason_code exists for withdraw. VM return code 0 and the exact payout/native-delivery fields are checked instead.",
+    "The earlier payout in an A checkpoint is preserved from its prior independently verified checkpoint; this does not request or repeat either withdrawal.",
+    "This local record does not claim publication to an immutable GitHub commit, a new Ubuntu suite run, or completion of all submission requirements."
+  ]
+}
