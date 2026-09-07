@@ -1,0 +1,24 @@
+{
+  "product": "Commitment Pools",
+  "font": "Great Vibes",
+  "artworkSha256": "6c4a5507e3db1ab580a041c8fe55ef29a12b7a5a4489aa350375b7474e588a64",
+  "mode": "Deterministic export of existing logo components; no image generation or artwork repainting.",
+  "files": [
+    {
+      "file": "commitment-pools-logo-black-1024.png",
+      "width": 1024,
+      "height": 1024,
+      "background": "black",
+      "bytes": 592528,
+      "sha256": "d01ac33f7b6d646f555ee263377ff07137b8fb8ef55910ea17f444b0fa78bd70"
+    },
+    {
+      "file": "commitment-pools-logo-transparent-1024.png",
+      "width": 1024,
+      "height": 1024,
+      "background": "transparent",
+      "bytes": 648385,
+      "sha256": "68ddd1f49e7d2719fdde186ecfe9e3212fb93d6a3692cb2ec88c9aabd382a3c8"
+    }
+  ]
+}

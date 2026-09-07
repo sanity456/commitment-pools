@@ -6,6 +6,7 @@ import { product } from "../lib/product";
 import { readContract, shortAddress } from "../lib/genlayer";
 import { errorMessage, type Protocol } from "../lib/useProtocol";
 import { calendarFile, formatDeadline, nextStep } from "../lib/reminders";
+import { freshWalletCredit } from "../lib/credit-guidance";
 import { downloadFile, exportJson } from "../lib/export";
 type History = {
   moderation: { hidden: number; moderation_reason: string } | null;
@@ -17,14 +18,22 @@ export function RecordTools({
   participant,
   protocol,
   onSupport,
+  fresh = true,
 }: {
   record: Record<string, unknown>;
   participant?: Record<string, unknown> | null;
   protocol: Protocol;
   onSupport: (hash: string, id: string) => void;
+  fresh?: boolean;
 }) {
   const id = String(record.id),
-    guide = nextStep(record, protocol.wallet, protocol.now, participant);
+    guide = nextStep(
+      record,
+      protocol.wallet,
+      protocol.now,
+      participant,
+      fresh ? freshWalletCredit(protocol) : null,
+    );
   const [message, setMessage] = useState(""),
     [error, setError] = useState(""),
     [working, setWorking] = useState(false);

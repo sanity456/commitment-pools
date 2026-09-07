@@ -137,15 +137,33 @@ export function ActivityPanel({
       );
     });
   }
+  if (!protocol.session?.signedIn)
+    return (
+      <div className="product-stack">
+        <h1 className="product-title">Activity</h1>
+        <div className="product-panel">
+          <h2>Sign in to view activity</h2>
+          <p className="product-muted">
+            Use your wallet to see saved requests and payout delivery.
+          </p>
+          <button
+            className="product-button mt-4"
+            disabled={Boolean(protocol.busy)}
+            onClick={() => void protocol.connect()}
+          >
+            Sign in with wallet
+          </button>
+        </div>
+      </div>
+    );
   return (
     <div className="product-stack">
       <header>
         <p className="product-kicker">Your saved activity</p>
-        <h1 className="product-title">Every request has a trail.</h1>
+        <h1 className="product-title">Activity</h1>
         <p className="product-muted">
-          Saved to your signed-in account, across devices. A wallet
-          confirmation, successful contract execution and delivered payout are
-          three different events.
+          Track requests and payouts. A successful contract call does not
+          confirm payout delivery.
         </p>
       </header>
       <div className="product-toolbar">

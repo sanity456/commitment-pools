@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { productApi } from "../lib/client";
 import { product } from "../lib/product";
 import { nextStep, formatDeadline } from "../lib/reminders";
+import { freshWalletCredit } from "../lib/credit-guidance";
 import { formatGen, shortAddress } from "../lib/genlayer";
 import { errorMessage, type Protocol } from "../lib/useProtocol";
 type Coverage = {
@@ -39,24 +40,36 @@ export function DirectoryPanel({
   const [offset, setOffset] = useState(0),
     [result, setResult] = useState<Result | null>(null),
     [error, setError] = useState(""),
+    [loading, setLoading] = useState(false),
     [working, setWorking] = useState(false);
   const [indexRevision, setIndexRevision] = useState(0);
   const requests = useRef({ version: 0 });
   const load = useCallback(async () => {
     const version = ++requests.current.version;
-    if (!protocol.session?.signedIn) return;
-    if (mine && !protocol.wallet) {
+    if (!protocol.session?.signedIn || (mine && !protocol.wallet)) {
       setResult(null);
+      setLoading(false);
       return;
     }
+    setLoading(true);
+    setError("");
     const params = new URLSearchParams({
       q: query,
       status,
       offset: String(offset),
     });
     if (mine) params.set("wallet", protocol.wallet);
-    const next = await productApi<Result>("directory?" + params);
-    if (version === requests.current.version) setResult(next);
+    try {
+      const next = await productApi<Result>("directory?" + params);
+      if (version === requests.current.version) setResult(next);
+    } catch (failure) {
+      if (version === requests.current.version) {
+        setResult(null);
+        setError(errorMessage(failure));
+      }
+    } finally {
+      if (version === requests.current.version) setLoading(false);
+    }
   }, [
     query,
     status,
@@ -67,14 +80,10 @@ export function DirectoryPanel({
   ]);
   useEffect(() => {
     const requestState = requests.current;
-    let stopped = false;
     const task = window.setTimeout(() => {
-      void load().catch((e) => {
-        if (!stopped) setError(errorMessage(e));
-      });
+      void load();
     }, 0);
     return () => {
-      stopped = true;
       requestState.version++;
       window.clearTimeout(task);
     };
@@ -120,67 +129,75 @@ export function DirectoryPanel({
           "resolved",
           "cancelled",
         ];
+  const signedIn = Boolean(protocol.session?.signedIn);
+  const canBrowse = signedIn && (!mine || Boolean(protocol.wallet));
+  const visibleResult = canBrowse && !loading ? result : null;
+  const credit = freshWalletCredit(protocol);
   return (
     <div className="product-stack">
       <div className="product-toolbar">
         <div>
-          <p className="product-kicker">
-            {onlyMine ? "Wallet workspace" : "Search the public directory"}
-          </p>
-          <h2>
-            {onlyMine ? "The work connected to you." : "Find the right record."}
+          <h2 className="text-2xl font-black tracking-tight">
+            {onlyMine ? "My pools" : "Explore pools"}
           </h2>
         </div>
-        <button
-          className="product-button-secondary"
-          disabled={working || !protocol.session?.signedIn}
-          onClick={() => void sync()}
-        >
-          {working ? "Refreshing index…" : "Refresh directory"}
-        </button>
-      </div>
-      <form
-        className="product-filter-grid"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setQuery(draft);
-          setOffset(0);
-          setError("");
-        }}
-      >
-        <label className="product-field">
-          <span>Search title or ID</span>
-          <input
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            maxLength={120}
-            placeholder={
-              onlyMine ? "Search your work" : "Search public records"
-            }
-          />
-        </label>
-        <label className="product-field">
-          <span>Stage</span>
-          <select
-            value={status}
-            onChange={(e) => {
-              setStatus(e.target.value);
-              setOffset(0);
-            }}
+        {signedIn && (
+          <button
+            className="product-button-secondary"
+            disabled={working || loading || !signedIn}
+            onClick={() => void sync()}
           >
-            <option value="">Every stage</option>
-            {statuses.map((s) => (
-              <option key={s} value={s}>
-                {s.replaceAll("_", " ")}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button className="product-button self-end" type="submit">
-          Search
-        </button>
-      </form>
-      {!onlyMine && (
+            {working ? "Refreshing index…" : "Refresh directory"}
+          </button>
+        )}
+      </div>
+      {canBrowse && (
+        <form
+          className="product-filter-grid"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setQuery(draft);
+            setOffset(0);
+            setError("");
+            setIndexRevision((value) => value + 1);
+          }}
+        >
+          <label className="product-field">
+            <span>Search title or ID</span>
+            <input
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              maxLength={120}
+              placeholder={onlyMine ? "Search your pools" : "Search pools"}
+            />
+          </label>
+          <label className="product-field">
+            <span>Stage</span>
+            <select
+              value={status}
+              onChange={(e) => {
+                setStatus(e.target.value);
+                setOffset(0);
+              }}
+            >
+              <option value="">Every stage</option>
+              {statuses.map((s) => (
+                <option key={s} value={s}>
+                  {s.replaceAll("_", " ")}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            className="product-button self-end"
+            type="submit"
+            disabled={loading}
+          >
+            Search
+          </button>
+        </form>
+      )}
+      {!onlyMine && signedIn && (
         <label className="product-check">
           <input
             type="checkbox"
@@ -191,123 +208,147 @@ export function DirectoryPanel({
               setOffset(0);
             }}
           />
-          <span>Only records linked to my connected wallet</span>
+          <span>Only my pools</span>
         </label>
       )}
-      {mine && !protocol.wallet && (
+      {!canBrowse && (
         <div className="product-panel">
-          <h3>Connect to find your work</h3>
+          <h3 className="text-lg font-bold">
+            {onlyMine
+              ? "Sign in to see your pools"
+              : "Sign in to explore pools"}
+          </h3>
           <p className="product-muted">
-            Wallet addresses are matched against public creator, participant or
-            party records. Connecting does not move funds.
+            Use your wallet. Signing in does not move funds.
           </p>
           <button
-            className="product-button"
+            className="product-button mt-4"
             disabled={Boolean(protocol.busy)}
             onClick={() => void protocol.connect()}
           >
-            Connect wallet
+            Sign in with wallet
           </button>
         </div>
       )}
       {error && (
-        <p role="alert" className="product-error">
-          {error}
+        <div role="alert" className="product-error">
+          <p>{error}</p>
+          <button
+            className="product-text-button"
+            disabled={loading || !canBrowse}
+            onClick={() => setIndexRevision((value) => value + 1)}
+          >
+            Retry loading pools
+          </button>
+        </div>
+      )}
+      {canBrowse && loading && (
+        <p className="product-muted" role="status">
+          Loading pools…
         </p>
       )}
-      {result && (
-        <p className="product-muted">
-          {result.total} matching records · indexed {result.coverage.indexed}/
-          {result.coverage.total}.{" "}
-          {!result.coverage.complete
-            ? "Index coverage is still partial; refresh to continue. Open a shared ID directly if it is missing."
-            : "Coverage reflects the last index refresh, not every blockchain transaction."}{" "}
-          Test fixtures are{" "}
-          {protocol.session?.preferences.includeFixtures
-            ? "included"
-            : "hidden"}
-          ; change this in Help & settings.
-        </p>
+      {visibleResult && (
+        <div>
+          <p className="product-muted">
+            {visibleResult.total} matching{" "}
+            {visibleResult.total === 1 ? "pool" : "pools"}
+          </p>
+          {!visibleResult.coverage.complete && (
+            <p className="product-muted">
+              Some pools are not indexed yet. Refresh the directory or open a
+              shared pool ID.
+            </p>
+          )}
+          <details className="directory-details">
+            <summary>Directory details</summary>
+            <p className="product-muted">
+              Indexed {visibleResult.coverage.indexed}/
+              {visibleResult.coverage.total}. Results reflect the last refresh,
+              not every transaction. Test pools are{" "}
+              {protocol.session?.preferences.includeFixtures
+                ? "included"
+                : "hidden"}
+              ; change this in Help & settings.
+            </p>
+          </details>
+        </div>
       )}
-      {result && !result.items.length && (
+      {visibleResult && !visibleResult.items.length && (
         <div className="product-panel">
-          <h3>No matching records</h3>
+          <h3 className="text-lg font-bold">No matching pools</h3>
           <p className="product-muted">
             Try another filter, refresh the index, or open an invitation by its
-            ID. No sample records are presented as user activity.
+            ID.
           </p>
         </div>
       )}
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {result?.items.map((r) => (
-          <article className="product-panel" key={String(r.id)}>
-            <span className="product-state">
-              {String(r.status).replaceAll("_", " ")}
-            </span>
-            <h3 className="mt-4 text-xl font-black break-words">
-              {String(r.title)}
-            </h3>
-            <p className="product-muted break-all">{String(r.id)}</p>
-            <p className="mt-4 font-bold">
-              {formatGen(String(r.stake_wei ?? r.amount_wei ?? "0"))} GEN{" "}
-              <span className="product-muted">
-                {product.id === "commitment-pools"
-                  ? "per participant"
-                  : "test escrow"}
-              </span>
-            </p>
-            {product.id === "commitment-pools" ? (
-              <p className="product-muted">
-                {String(r.participant_count ?? 0)}/{String(r.max_players ?? 0)}{" "}
-                participants · {String(r.rounds_required ?? 0)} rounds ·{" "}
-                {String(r.verification_mode ?? "").replaceAll("_", " ")}
-              </p>
-            ) : (
-              <p className="product-muted">
-                A {shortAddress(String(r.party_a ?? ""))} · B{" "}
-                {shortAddress(String(r.party_b ?? ""))}
-              </p>
-            )}
-            {onlyMine && (
-              <div className="mt-4">
-                <h4 className="font-bold text-sm">
-                  {
-                    nextStep(r, protocol.wallet, protocol.now, participantOf(r))
-                      .title
-                  }
-                </h4>
-                <p className="product-muted">
-                  {
-                    nextStep(r, protocol.wallet, protocol.now, participantOf(r))
-                      .detail
-                  }
-                </p>
-                {nextStep(r, protocol.wallet, protocol.now, participantOf(r))
-                  .deadline > 0 && (
-                  <p className="product-muted">
-                    {formatDeadline(
-                      nextStep(
-                        r,
-                        protocol.wallet,
-                        protocol.now,
-                        participantOf(r),
-                      ).deadline,
-                      protocol.session?.preferences.timezone ?? "UTC",
-                    )}
-                  </p>
-                )}
-              </div>
-            )}
-            <button
-              className="product-button-secondary mt-5 w-full"
-              onClick={() => onOpen(String(r.id))}
+        {visibleResult?.items.map((r) => {
+          const guide = nextStep(
+            r,
+            protocol.wallet,
+            protocol.now,
+            participantOf(r),
+            credit,
+          );
+          return (
+            <article
+              className="product-panel directory-card"
+              key={String(r.id)}
             >
-              Review record & next step →
-            </button>
-          </article>
-        ))}
+              <span className="product-state">
+                {String(r.status).replaceAll("_", " ")}
+              </span>
+              <h3 className="mt-4 text-xl font-black break-words">
+                {String(r.title)}
+              </h3>
+              <p className="product-muted break-all">{String(r.id)}</p>
+              <p className="mt-4 font-bold">
+                {formatGen(String(r.stake_wei ?? r.amount_wei ?? "0"))} GEN{" "}
+                <span className="product-muted">
+                  {product.id === "commitment-pools"
+                    ? "per participant"
+                    : "test escrow"}
+                </span>
+              </p>
+              {product.id === "commitment-pools" ? (
+                <p className="product-muted">
+                  {String(r.participant_count ?? 0)}/
+                  {String(r.max_players ?? 0)} participants ·{" "}
+                  {String(r.rounds_required ?? 0)} rounds ·{" "}
+                  {String(r.verification_mode ?? "").replaceAll("_", " ")}
+                </p>
+              ) : (
+                <p className="product-muted">
+                  A {shortAddress(String(r.party_a ?? ""))} · B{" "}
+                  {shortAddress(String(r.party_b ?? ""))}
+                </p>
+              )}
+              {onlyMine && (
+                <div className="mt-4">
+                  <h4 className="font-bold text-sm">{guide.title}</h4>
+                  <p className="product-muted">{guide.detail}</p>
+                  {guide.deadline > 0 && (
+                    <p className="product-muted">
+                      {formatDeadline(
+                        guide.deadline,
+                        protocol.session?.preferences.timezone ?? "UTC",
+                      )}
+                    </p>
+                  )}
+                </div>
+              )}
+              <button
+                className="product-button-secondary mt-5 w-full"
+                onClick={() => onOpen(String(r.id))}
+              >
+                Open pool →
+              </button>
+            </article>
+          );
+        })}
       </div>
-      {result && result.total > 24 && (
+      {visibleResult && visibleResult.total > 24 && (
         <div className="product-toolbar">
           <button
             className="product-button-secondary"
@@ -317,11 +358,12 @@ export function DirectoryPanel({
             Previous
           </button>
           <p className="product-muted">
-            {offset + 1}–{Math.min(offset + 24, result.total)} of {result.total}
+            {offset + 1}–{Math.min(offset + 24, visibleResult.total)} of{" "}
+            {visibleResult.total}
           </p>
           <button
             className="product-button-secondary"
-            disabled={offset + 24 >= result.total}
+            disabled={offset + 24 >= visibleResult.total}
             onClick={() => setOffset(offset + 24)}
           >
             Next

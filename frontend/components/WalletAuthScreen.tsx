@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { BrandLockup } from "./Brand";
 import { product } from "../lib/product";
 import { loginWithWallet, logoutWallet } from "../lib/wallet-auth-client";
 import { userFacingError } from "../lib/recovery";
@@ -38,7 +39,7 @@ export default function WalletAuthScreen({
         aria-labelledby="wallet-title"
       >
         <Link className="auth-brand" href="/">
-          {product.name}
+          <BrandLockup />
         </Link>
         <p className="product-muted">Studionet · Test network</p>
         <h1 id="wallet-title">

@@ -1,7 +1,7 @@
 :root {
-  --product-ink: #173c2d;
-  --product-muted: #586c60;
-  --product-soft: #e9efdf;
+  --product-ink: var(--gold);
+  --product-muted: var(--muted);
+  --product-soft: var(--surface-raised);
 }
 
 /* Durable product workflows: keyboard-first, responsive and independently themed. */
@@ -14,10 +14,10 @@
 .product-panel {
   min-width: 0;
   padding: 1.5rem;
-  border: 1px solid color-mix(in srgb, var(--product-ink) 14%, transparent);
+  border: 1px solid var(--line);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.74);
-  box-shadow: 0 10px 30px #163d3a06;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 .product-panel h2 {
   font-size: 1.3rem;
@@ -27,7 +27,7 @@
 }
 .product-kicker {
   color: var(--product-muted);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 850;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -41,7 +41,7 @@
 }
 .product-muted {
   color: var(--product-muted);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.75;
   margin-top: 0.45rem;
   overflow-wrap: anywhere;
@@ -57,30 +57,32 @@
   min-width: 12rem;
 }
 .product-button,
+.product-button-primary,
 .product-button-secondary {
   min-height: 44px;
   padding: 0.7rem 1.1rem;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 800;
   border: 1px solid var(--product-ink);
   align-self: flex-start;
 }
-.product-button {
-  color: white;
+.product-button,
+.product-button-primary {
+  color: var(--on-gold);
   background: var(--product-ink);
 }
 .product-button-secondary {
   color: var(--product-ink);
-  background: rgba(255, 255, 255, 0.8);
-  border-color: color-mix(in srgb, var(--product-ink) 22%, transparent);
+  background: var(--surface-raised);
+  border-color: var(--control-line);
 }
 .product-text-button {
   min-height: 44px;
   text-align: left;
   text-decoration: underline;
   text-underline-offset: 3px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--product-ink);
 }
@@ -89,7 +91,7 @@
   min-width: 0;
   flex-direction: column;
   gap: 0.5rem;
-  font-size: 0.76rem;
+  font-size: 0.875rem;
   font-weight: 750;
 }
 .product-field input,
@@ -97,12 +99,12 @@
 .product-field select {
   width: 100%;
   min-width: 0;
-  border: 1px solid #b8c4bc;
+  border: 1px solid var(--control-line);
   border-radius: 12px;
   padding: 0.8rem 0.85rem;
-  background: #fff;
-  color: var(--product-ink);
-  font-size: 0.875rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 1rem;
   font-weight: 450;
   min-height: 44px;
 }
@@ -119,7 +121,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.65rem;
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   line-height: 1.75;
 }
 .product-check input {
@@ -133,29 +135,29 @@
   display: inline-block;
   padding: 0.3rem 0.65rem;
   border-radius: 12px;
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   line-height: 1.7;
   font-weight: 800;
   color: var(--product-ink);
   background: var(--product-soft);
 }
 .product-state-warning {
-  color: #773c1f;
-  background: #f7e8cd;
+  color: var(--gold-bright);
+  background: var(--warning-surface);
 }
 .product-error {
-  color: #883c2c;
-  background: #fbece6;
+  color: var(--danger);
+  background: var(--danger-surface);
   border-radius: 12px;
   padding: 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.7;
   overflow-wrap: anywhere;
 }
 .product-hash {
   display: block;
   margin: 0.8rem 0;
-  font-size: 0.67rem;
+  font-size: 0.75rem;
   line-height: 1.8;
   overflow-wrap: anywhere;
   white-space: normal;
@@ -164,7 +166,7 @@
 .product-evidence summary {
   min-height: 44px;
   padding: 0.6rem 0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 800;
   cursor: pointer;
 }
@@ -174,7 +176,7 @@
   margin-top: 0.7rem;
   padding: 1rem;
   border-radius: 12px;
-  border: 1px solid #b8c4bc;
+  border: 1px solid var(--line);
   background: var(--product-soft);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -183,7 +185,7 @@
 }
 .product-evidence {
   padding: 1rem;
-  border: 1px solid #bacbb9;
+  border: 1px solid var(--line);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -192,7 +194,7 @@
 }
 .product-evidence legend {
   padding: 0 0.3rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 800;
 }
 .product-capture-result,
@@ -200,7 +202,7 @@
   padding: 1rem;
   border-radius: 14px;
   background: var(--product-soft);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
 .product-deadline {
@@ -208,13 +210,13 @@
   background: var(--product-soft);
   border-left: 3px solid var(--product-ink);
   border-radius: 0 12px 12px 0;
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   line-height: 1.8;
 }
 .product-record-link {
   display: block;
   overflow-wrap: anywhere;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -223,18 +225,18 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .product-timeline li {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  border-left: 2px solid #98af9f;
+  border-left: 2px solid var(--line);
   padding-left: 1rem;
 }
 .product-timeline span {
   color: var(--product-muted);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 .product-session {
   display: flex;
@@ -243,7 +245,7 @@
   justify-content: space-between;
   padding: 0.75rem 0.25rem;
   color: var(--product-muted);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   line-height: 1.7;
 }
 .product-session a {
@@ -252,9 +254,9 @@
   text-decoration: underline;
 }
 .product-ticket {
-  border-top: 1px solid #d4ddd5;
+  border-top: 1px solid var(--line);
   padding: 1.2rem 0;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.75;
   overflow-wrap: anywhere;
 }
@@ -269,15 +271,15 @@
   max-height: 85dvh;
   margin: auto;
   padding: 1.5rem;
-  border: 1px solid #bbc7be;
+  border: 1px solid var(--line);
   border-radius: 24px;
   background: var(--background);
   color: var(--foreground);
-  box-shadow: 0 24px 100px #0005;
+  box-shadow: 0 24px 100px rgba(0, 0, 0, 0.65);
   overflow: auto;
 }
 .product-dialog::backdrop {
-  background: #102d2580;
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(5px);
 }
 .product-review-fields {
@@ -286,7 +288,7 @@
   gap: 1rem;
 }
 .product-review-fields dt {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--product-muted);
@@ -294,7 +296,7 @@
 }
 .product-review-fields dd {
   margin-top: 0.35rem;
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   line-height: 1.75;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -306,15 +308,15 @@
   transform: translateY(-150%);
   z-index: 100;
   border-radius: 8px;
-  background: white;
-  color: #163d3a;
+  background: var(--gold);
+  color: var(--on-gold);
   padding: 12px;
 }
 .skip-link:focus {
   transform: none;
 }
 :focus-visible {
-  outline: 3px solid #5273b1;
+  outline: 3px solid var(--gold-bright);
   outline-offset: 4px;
 }
 @media (max-width: 640px) {
@@ -329,6 +331,7 @@
     gap: 0.6rem;
   }
   .product-button,
+  .product-button-primary,
   .product-button-secondary {
     max-width: 100%;
   }
@@ -361,8 +364,12 @@
   letter-spacing: -0.04em;
 }
 .auth-brand {
-  font-size: 1.1rem;
-  font-weight: 700;
+  justify-self: center;
+  border-radius: 8px;
+}
+.auth-brand .brand-emblem-compact {
+  width: 96px;
+  height: 96px;
 }
 .auth-links {
   display: flex;

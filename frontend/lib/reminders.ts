@@ -13,6 +13,7 @@ export function nextStep(
   wallet: string,
   now: number,
   participant?: Record<string, unknown> | null,
+  credit?: string | null,
 ): Guide {
   const status = String(r.status ?? ""),
     same = (a: unknown) =>
@@ -75,24 +76,43 @@ export function nextStep(
         deadlineLabel: "Activity ends",
       };
     }
-    if (status === "refunding")
+    if (status === "refunding" && participant && !participant.refund_claimed)
       return {
-        title:
-          participant && !participant.refund_claimed
-            ? "Claim your formation refund"
-            : "Formation refunds are available",
+        title: "Claim your formation refund",
         detail:
-          "Each participant claims full refund credit, then withdraws it. Activity verifies the separate native payout.",
+          "Claim your full stake as credit, then withdraw it. Check payout delivery in Activity.",
         deadline: 0,
         deadlineLabel: "",
       };
+    if (["settled", "refunding"].includes(status) && wallet && participant) {
+      const knownCredit =
+        typeof credit === "string" && /^(0|[1-9]\d*)$/.test(credit);
+      return {
+        title: !knownCredit
+          ? "Check your available credit"
+          : credit === "0"
+            ? "No credit to withdraw"
+            : "Withdraw available credit",
+        detail: !knownCredit
+          ? "Refresh your wallet credit. Review allocations and payout delivery in Activity."
+          : credit === "0"
+            ? "Your wallet has no remaining contract credit. Check Activity to confirm any payout was delivered."
+            : "The balance covers all your pools. Review your allocation, then withdraw and check delivery in Activity.",
+        deadline: 0,
+        deadlineLabel: "",
+      };
+    }
     return {
       title:
         status === "settled"
-          ? "Review your allocation, then withdraw"
-          : "This pool is closed",
+          ? "Pool settled"
+          : status === "refunding"
+            ? "Formation refunds are available"
+            : "This pool is closed",
       detail:
-        "The public terms and history remain available. A finalized withdrawal still needs its native child transfer checked.",
+        status === "refunding"
+          ? "Participants can claim their full stake as refund credit."
+          : "Review the final allocations, terms and pool history.",
       deadline: 0,
       deadlineLabel: "",
     };

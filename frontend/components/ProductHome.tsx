@@ -21,6 +21,7 @@ import {
 } from "../lib/lifecycle";
 import { errorMessage, useProtocol, type Protocol } from "../lib/useProtocol";
 import { EvidenceCapture } from "./EvidenceCapture";
+import { BrandLockup } from "./Brand";
 import { ActivityPanel } from "./ActivityPanel";
 import { DirectoryPanel } from "./DirectoryPanel";
 import { RecordTools, SessionStrip } from "./RecordTools";
@@ -29,6 +30,7 @@ import { OwnerDesk } from "./OwnerDesk";
 import { PublishReview, type PublishDraft } from "./PublishReview";
 import { templates } from "../lib/templates";
 import { formationSeconds } from "../lib/pool-input";
+import { freshWalletCredit } from "../lib/credit-guidance";
 import {
   detailIsFresh,
   poolReviewKey,
@@ -98,7 +100,7 @@ function Metric({
       <p className="mt-3 break-words text-3xl font-black tracking-tight">
         {value}
       </p>
-      <p className="mt-2 text-xs text-[#718078]">{note}</p>
+      <p className="mt-2 text-xs text-muted">{note}</p>
     </div>
   );
 }
@@ -112,7 +114,7 @@ function Empty({
   return (
     <div className="surface-card p-8">
       <h2 className="text-xl font-black">{title}</h2>
-      <p className="mt-3 text-sm leading-6 text-[#65746c]">{children}</p>
+      <p className="mt-3 text-sm leading-6 text-muted">{children}</p>
     </div>
   );
 }
@@ -143,7 +145,6 @@ function ProductWorkspace({
     wallet,
     stats,
     config,
-    credit,
     busy,
     ready,
     now,
@@ -151,7 +152,12 @@ function ProductWorkspace({
     setNotice,
     transact,
   } = protocol;
-  const [tab, setTab] = useState<Tab>(initialId ? "mine" : "explore");
+  const currentCredit = freshWalletCredit(protocol);
+  const [tab, setActiveTab] = useState<Tab>(initialId ? "mine" : "explore");
+  function setTab(next: Tab) {
+    setActiveTab(next);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
   const [selectedId, setSelectedId] = useState(initialId);
   const [supportContext, setSupportContext] = useState({ hash: "", id: "" });
   const [draft, setDraft] = useState<PublishDraft | null>(null);
@@ -381,27 +387,25 @@ function ProductWorkspace({
   return (
     <main
       id="main-content"
-      className="min-h-screen bg-[#f5f1e8] text-[#142118]"
+      className="min-h-screen bg-background text-foreground"
     >
-      <nav className="sticky top-0 z-40 border-b border-[#173c2d]/10 bg-[#f5f1e8]/95 backdrop-blur-xl">
+      <nav
+        aria-label="Main navigation"
+        className="sticky top-0 z-40 border-b border-line bg-background/95 backdrop-blur-xl"
+      >
         <div
-          className={shell + " flex items-center justify-between gap-4 py-4"}
+          className={
+            shell + " flex flex-wrap items-center justify-between gap-4 py-4"
+          }
         >
           <button
-            className="flex items-center gap-3 text-left"
+            className="min-w-0 rounded-lg text-left"
+            aria-label="Commitment Pools — Explore"
             onClick={() => setTab("explore")}
           >
-            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#173c2d] text-sm font-black text-[#dfff72]">
-              CP
-            </span>
-            <span>
-              <strong className="block text-sm">Commitment Pools</strong>
-              <small className="text-[10px] font-bold uppercase tracking-widest text-[#65746b]">
-                Proof over promises
-              </small>
-            </span>
+            <BrandLockup />
           </button>
-          <div className="hidden rounded-full bg-white/60 p-1 text-sm 2xl:flex">
+          <div className="hidden rounded-full bg-surface p-1 text-sm 2xl:flex">
             {tabs.map(([id, title]) => (
               <button
                 key={id}
@@ -453,7 +457,11 @@ function ProductWorkspace({
             {protocol.loading ? "Loading…" : "Refresh"}
           </button>
         </div>
-        <SessionStrip protocol={protocol} />
+        {(protocol.session?.signedIn ||
+          (protocol.sessionError &&
+            protocol.sessionError !== "Sign in to continue.")) && (
+          <SessionStrip protocol={protocol} />
+        )}
         {protocol.error && (
           <div className="notice notice-error" role="alert">
             <span>!</span>
@@ -492,57 +500,44 @@ function ProductWorkspace({
 
       {tab === "explore" && (
         <>
-          <section
-            className={
-              shell + " grid gap-8 py-12 lg:grid-cols-[1.1fr_.9fr] lg:py-16"
-            }
-          >
-            <div className="py-6">
-              <p className="eyebrow">
-                A little accountability. A real commitment.
-              </p>
-              <h1 className="mt-7 text-[clamp(3.3rem,7vw,7.1rem)] font-black leading-[.9] tracking-[-.07em] text-[#173c2d]">
-                Put some <span className="text-[#547743]">weight</span>
-                <br />
-                behind your word.
+          <section className={shell + " pool-intro"}>
+            <div className="min-w-0">
+              <h1 className="pool-intro-title">
+                Put <span className="text-gold">weight</span> behind your word.
               </h1>
-              <p className="mt-8 max-w-xl text-lg leading-8 text-[#53635a]">
-                Join a cohort, stake on a visible schedule, and prove each round
-                against rules nobody can rewrite after you join.
+              <p className="mt-4 text-base leading-7 text-muted">
+                Stake test GEN, follow the schedule, and prove each round.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-5 flex flex-wrap gap-3">
                 <button
                   className="primary-button"
                   onClick={() => setTab("create")}
                 >
-                  Create a pool ↗
+                  Create a pool
                 </button>
                 <button
                   className="secondary-button"
-                  onClick={() =>
-                    document
-                      .getElementById("pools")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
+                  onClick={() => setTab("mine")}
                 >
-                  Explore pools
+                  Open a pool by ID
                 </button>
               </div>
-              <p className="mt-6 text-xs leading-6 text-[#6c7a72]">
-                Minimum-cohort refunds · Fee snapshot per pool · Explicit proof
-                rules
-              </p>
             </div>
-            <aside className="rounded-[34px] bg-[#173c2d] p-7 text-white shadow-xl sm:p-9">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#b9c8bf]">
-                The commitment, in four steps
-              </p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
-                Know what you sign.
-                <br />
-                Own what comes next.
-              </h2>
-              <ol className="mt-8 space-y-5">
+            <div className="pool-intro-brand">
+              <BrandLockup featured />
+            </div>
+          </section>
+          <section
+            id="pools"
+            className={shell + " pb-10"}
+            aria-label="Pool directory"
+          >
+            <DirectoryPanel protocol={protocol} onOpen={openPool} />
+          </section>
+          <section className={shell + " pb-12"}>
+            <details className="pool-primer">
+              <summary>How pools work</summary>
+              <ol className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                   [
                     "01",
@@ -566,28 +561,19 @@ function ProductWorkspace({
                   ],
                 ].map(([step, title, description]) => (
                   <li key={step} className="flex gap-4">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#dfff72] text-xs font-black text-[#173c2d]">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gold text-xs font-black text-on-gold">
                       {step}
                     </span>
                     <div>
-                      <h3 className="text-sm font-black">{title}</h3>
-                      <p className="mt-1 text-xs leading-5 text-[#bdccc3]">
+                      <h2 className="text-sm font-black">{title}</h2>
+                      <p className="mt-1 text-sm leading-6 text-muted">
                         {description}
                       </p>
                     </div>
                   </li>
                 ))}
               </ol>
-              <div className="mt-8 flex justify-between border-t border-white/15 pt-5 text-sm">
-                <span>Actual pools on this contract</span>
-                <strong>
-                  {stats ? String(stats.pools_created ?? 0) : "—"}
-                </strong>
-              </div>
-            </aside>
-          </section>
-          <section id="pools" className={shell + " pb-16"}>
-            <DirectoryPanel protocol={protocol} onOpen={openPool} />
+            </details>
           </section>
         </>
       )}
@@ -598,11 +584,10 @@ function ProductWorkspace({
             <div>
               <p className="eyebrow">Participant workspace</p>
               <h1 className="mt-2 text-4xl font-black tracking-tight">
-                Your next step, made clear.
+                Pool workspace
               </h1>
-              <p className="mt-3 text-sm text-[#65746c]">
-                Review any public pool. Connect your participant wallet to see
-                your round and credit.
+              <p className="mt-3 text-sm text-muted">
+                Your terms, rounds and credit in one place.
               </p>
             </div>
             <div className="w-full sm:w-80">
@@ -632,45 +617,60 @@ function ProductWorkspace({
               );
             }}
           >
-            <Field title="Open a pool by ID">
-              <input
-                name="lookup"
-                required
-                maxLength={80}
-                placeholder="Pool ID from your invitation"
-              />
-            </Field>
+            <div className="min-w-0 flex-1">
+              <Field title="Open a pool by ID">
+                <input
+                  name="lookup"
+                  required
+                  maxLength={80}
+                  placeholder="Pool ID from your invitation"
+                />
+              </Field>
+            </div>
             <button className="secondary-button self-end" type="submit">
               Open
             </button>
           </form>
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#173c2d]/10 bg-white/60 p-5">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface p-5">
             <div>
-              <p className="eyebrow">Your withdrawable contract credit</p>
+              <p className="eyebrow">Your available credit · all pools</p>
               <p className="mt-2 text-xl font-black">
                 {wallet
-                  ? credit === null
-                    ? "Loading…"
-                    : formatGen(credit) + " GEN"
-                  : "Connect wallet to view"}
+                  ? protocol.creditError
+                    ? "Unavailable"
+                    : currentCredit === null
+                      ? "Checking credit…"
+                      : formatGen(currentCredit) + " GEN"
+                  : "Sign in to view"}
               </p>
               {protocol.creditError && (
-                <p className="mt-2 text-xs text-red-800">
+                <p className="mt-2 text-xs text-danger">
                   Credit unavailable: {protocol.creditError}
                 </p>
               )}
-              <p className="mt-2 text-xs text-[#65746c]">
-                Withdrawal emits a separate transfer. Emission is not proof of
-                delivery.
+              <p className="mt-2 text-xs text-muted">
+                {currentCredit === "0"
+                  ? "No credit to withdraw. Check payout delivery in Activity."
+                  : "Check payout delivery in Activity after withdrawing."}
               </p>
             </div>
-            <button
-              className="primary-button"
-              disabled={disabled || credit === null || BigInt(credit) <= 0n}
-              onClick={() => void transact("Withdraw credit", "withdraw")}
-            >
-              Withdraw credit
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                className="secondary-button"
+                onClick={() => setTab("activity")}
+              >
+                View Activity
+              </button>
+              <button
+                className="primary-button"
+                disabled={
+                  disabled || currentCredit === null || currentCredit === "0"
+                }
+                onClick={() => void transact("Withdraw credit", "withdraw")}
+              >
+                Withdraw credit
+              </button>
+            </div>
           </div>
           {detailError && (
             <div className="mt-6" role="alert">
@@ -678,11 +678,25 @@ function ProductWorkspace({
             </div>
           )}
           {pool && !detailFresh && !detailError && (
-            <p className="mt-5 text-sm text-[#65746c]" role="status">
+            <p className="mt-5 text-sm text-muted" role="status">
               Refreshing pool state. Actions will unlock when checks finish.
             </p>
           )}
-          {!pool ? (
+          {!protocol.session?.signedIn ? (
+            <div className="product-panel mt-6">
+              <h2 className="text-xl font-black">Sign in to open a pool</h2>
+              <p className="product-muted">
+                Use your wallet to load the terms and your progress.
+              </p>
+              <button
+                className="product-button mt-4"
+                disabled={Boolean(busy)}
+                onClick={() => void protocol.connect()}
+              >
+                Sign in with wallet
+              </button>
+            </div>
+          ) : !pool && !detailError ? (
             <div className="mt-6">
               <Empty title={poolId ? "Loading pool…" : "No pool selected"}>
                 {poolId
@@ -690,7 +704,7 @@ function ProductWorkspace({
                   : "Create a pool or open an invitation ID to get started."}
               </Empty>
             </div>
-          ) : (
+          ) : pool ? (
             <div className="mt-7 grid items-start gap-6 lg:grid-cols-[1.15fr_.85fr]">
               <div className="space-y-6">
                 <article className="surface-card p-6 sm:p-8">
@@ -701,13 +715,13 @@ function ProductWorkspace({
                   <h2 className="mt-4 text-3xl font-black tracking-tight">
                     {pool.title}
                   </h2>
-                  <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-[#65746c]">
+                  <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-muted">
                     {pool.description}
                   </p>
                   <h3 className="mt-6 text-sm font-black">
                     The rules you are accepting
                   </h3>
-                  <p className="mt-3 whitespace-pre-wrap rounded-2xl bg-[#edf0e8] p-4 text-sm leading-7">
+                  <p className="mt-3 whitespace-pre-wrap rounded-2xl bg-raised p-4 text-sm leading-7">
                     {pool.rules}
                   </p>
                   <dl className="mt-6 grid grid-cols-2 gap-5 text-sm">
@@ -735,12 +749,12 @@ function ProductWorkspace({
                       ["Fee on forfeitures", pool.fee_bps / 100 + "%"],
                     ].map(([key, value]) => (
                       <div key={key}>
-                        <dt className="text-xs text-[#718078]">{key}</dt>
+                        <dt className="text-xs text-muted">{key}</dt>
                         <dd className="mt-1 font-bold">{value}</dd>
                       </div>
                     ))}
                   </dl>
-                  <p className="mt-6 text-xs leading-6 text-[#65746c]">
+                  <p className="mt-6 text-xs leading-6 text-muted">
                     Failed or missed rounds forfeit stake to successful
                     participants, minus fees. If all fail, stakes return minus
                     fees. Missed minimums or expired activation windows return
@@ -761,7 +775,7 @@ function ProductWorkspace({
                     </p>
                   </details>
                   {actions?.join && (
-                    <div className="mt-6 border-t border-[#173c2d]/10 pt-5">
+                    <div className="mt-6 border-t border-line pt-5">
                       <label className="flex items-start gap-3 text-xs leading-6">
                         <input
                           type="checkbox"
@@ -860,7 +874,7 @@ function ProductWorkspace({
                     )}
                   </div>
                   {pool.activation_failure && (
-                    <p className="mt-4 text-xs text-[#7b3023]">
+                    <p className="mt-4 text-xs text-danger">
                       Activation outcome: {label(pool.activation_failure)}
                     </p>
                   )}
@@ -868,18 +882,19 @@ function ProductWorkspace({
                     <p className="mt-4 text-sm">
                       {pool.winner_count} successful · {pool.loser_count} failed
                       · {formatGen(pool.fee_wei)} GEN fee. Allocations are
-                      available as contract credit.
+                      recorded at settlement; check your current wallet credit
+                      above.
                     </p>
                   )}
                 </article>
                 <article className="surface-card p-6">
                   <h3 className="text-xl font-black">Cohort activity</h3>
                   {!selected?.participants.length ? (
-                    <p className="mt-4 text-sm text-[#718078]">
+                    <p className="mt-4 text-sm text-muted">
                       No participants have joined.
                     </p>
                   ) : (
-                    <ul className="mt-5 divide-y divide-[#173c2d]/10">
+                    <ul className="mt-5 divide-y divide-line">
                       {selected.participants.map((player) => {
                         const missed =
                           player.status === "active" &&
@@ -898,7 +913,7 @@ function ProductWorkspace({
                                   ? " · you"
                                   : ""}
                               </p>
-                              <p className="mt-1 text-xs text-[#718078]">
+                              <p className="mt-1 text-xs text-muted">
                                 {player.rounds_passed}/{pool.rounds_required}{" "}
                                 rounds passed · {label(player.status)}
                               </p>
@@ -931,10 +946,11 @@ function ProductWorkspace({
                   record={pool as unknown as Record<string, unknown>}
                   participant={me as unknown as Record<string, unknown> | null}
                   protocol={protocol}
+                  fresh={detailFresh}
                   onSupport={support}
                 />
-                <article className="rounded-[28px] bg-[#173c2d] p-6 text-white">
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#b9c8bf]">
+                <article className="theme-inset rounded-[28px] p-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted">
                     Your position
                   </p>
                   <h2 className="mt-3 text-3xl font-black">
@@ -949,9 +965,9 @@ function ProductWorkspace({
                       <p className="mt-5">
                         {me.rounds_passed}/{pool.rounds_required} rounds passed
                       </p>
-                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/15">
+                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-raised">
                         <div
-                          className="h-full bg-[#dfff72]"
+                          className="h-full bg-gold"
                           style={{
                             width:
                               (me.rounds_passed / pool.rounds_required) * 100 +
@@ -1016,7 +1032,7 @@ function ProductWorkspace({
                         />
                       </Field>
                     )}
-                    <p className="text-xs leading-5 text-[#718078]">
+                    <p className="text-xs leading-5 text-muted">
                       Submit well before the deadline; consensus can take
                       several minutes. Proof and public evidence must not
                       contain private information.
@@ -1052,10 +1068,10 @@ function ProductWorkspace({
                         {String(selected.attempt.verdict)}
                       </span>
                     </div>
-                    <p className="mt-4 text-sm leading-6 text-[#65746c]">
+                    <p className="mt-4 text-sm leading-6 text-muted">
                       {String(selected.attempt.reasoning ?? "")}
                     </p>
-                    <p className="mt-3 text-xs text-[#718078]">
+                    <p className="mt-3 text-xs text-muted">
                       Leader explanation is not an independent audit. The
                       recorded verdict and evidence digest are the consensus
                       fields.
@@ -1073,7 +1089,7 @@ function ProductWorkspace({
                 )}
               </aside>
             </div>
-          )}
+          ) : null}
         </section>
       )}
 
@@ -1084,9 +1100,7 @@ function ProductWorkspace({
           <div>
             <p className="eyebrow">Creator workflow</p>
             <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-              Write the rules before
-              <br />
-              anyone puts money down.
+              Create a pool
             </h1>
             <div className="product-template mt-7">
               <label className="product-field">
@@ -1235,7 +1249,7 @@ function ProductWorkspace({
                   </div>
                 </fieldset>
               </div>
-              <p className="text-xs leading-6 text-[#718078]">
+              <p className="text-xs leading-6 text-muted">
                 Creation publishes terms without moving funds. Stakes and
                 deadlines stay fixed. Rounds start at the formation deadline;
                 activate promptly.
@@ -1245,20 +1259,22 @@ function ProductWorkspace({
                   ? "Waiting for finality…"
                   : "Review pool before publishing"}
               </button>
+              {!protocol.session?.signedIn && (
+                <p className="text-sm text-muted" role="status">
+                  Sign in with your wallet to review and publish.
+                </p>
+              )}
             </form>
           </div>
           <aside className="space-y-5 lg:pt-24">
-            <article className="rounded-[28px] bg-[#dfff72] p-6">
+            <article className="theme-gold-panel rounded-[28px] p-6">
               <p className="eyebrow">Studionet first</p>
-              <h2 className="mt-4 text-2xl font-black">
-                Make the promise small.
-                <br />
-                Make the rules clear.
+              <h2 className="mt-3 text-2xl font-black">
+                Before you invite a cohort
               </h2>
               <p className="mt-4 text-sm leading-7">
-                This product uses test GEN. Wallet funding and contract payouts
-                must be validated on your Studionet setup before asking a cohort
-                to stake.
+                Use test GEN only. Check wallet funding and payout delivery on
+                Studionet before inviting participants.
               </p>
             </article>
             <article className="surface-card p-6">
@@ -1271,7 +1287,7 @@ function ProductWorkspace({
                 <li>No personal or confidential evidence</li>
               </ul>
             </article>
-            <p className="p-4 text-xs leading-6 text-[#65746c]">
+            <p className="p-4 text-xs leading-6 text-muted">
               Creators cannot edit published terms, judge check-ins, seize
               stakes, or cancel after a participant joins.
             </p>
@@ -1281,18 +1297,20 @@ function ProductWorkspace({
 
       {tab === "owner" && (
         <section className={shell + " py-12"}>
-          <p className="eyebrow">Owner console</p>
+          <p className="eyebrow">Protocol operations</p>
           <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-            Operate the protocol,
-            <br />
-            not people’s outcomes.
+            Owner console
           </h1>
-          <p className="mt-5 text-sm text-[#65746c]">
-            {owner
-              ? (isOwner
-                  ? "Connected as contract owner · "
-                  : "Read-only unless connected as owner · ") + owner
-              : "Loading contract authority…"}
+          <p className="mt-5 break-words text-sm text-muted" role="status">
+            {!protocol.session?.signedIn
+              ? "Sign in to view protocol data. Owner controls require separate verification."
+              : owner
+                ? (isOwner
+                    ? "Connected as contract owner · "
+                    : "Read-only unless connected as owner · ") + owner
+                : protocol.error
+                  ? "Contract authority is unavailable. Refresh to try again."
+                  : "Loading contract authority…"}
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Metric
@@ -1356,13 +1374,15 @@ function ProductWorkspace({
               >
                 Schedule with 24h delay
               </button>
-              <p className="mt-5 text-sm text-[#65746c]">
-                {pendingFeeAt
-                  ? "Scheduled: " +
-                    Number(config?.pending_fee_bps) / 100 +
-                    "% · can apply after " +
-                    date(pendingFeeAt)
-                  : "No fee change is scheduled."}
+              <p className="mt-5 text-sm text-muted">
+                {!config
+                  ? "Sign in and refresh to view scheduled changes."
+                  : pendingFeeAt
+                    ? "Scheduled: " +
+                      Number(config?.pending_fee_bps) / 100 +
+                      "% · can apply after " +
+                      date(pendingFeeAt)
+                    : "No fee change is scheduled."}
               </p>
               <button
                 className="secondary-button mt-4"
@@ -1376,19 +1396,19 @@ function ProductWorkspace({
               >
                 Apply matured change
               </button>
-              <p className="mt-3 text-xs text-[#718078]">
+              <p className="mt-3 text-xs text-muted">
                 Anyone may apply a matured fee. Existing pools retain their
                 original fee.
               </p>
             </form>
-            <article className="rounded-[28px] bg-[#173c2d] p-7 text-white">
-              <p className="text-xs uppercase tracking-widest text-[#b9c8bf]">
+            <article className="rounded-[28px] theme-inset p-7">
+              <p className="text-xs uppercase tracking-widest text-muted">
                 Bounded authority
               </p>
               <h2 className="mt-3 text-3xl font-black">
                 The owner cannot choose who wins.
               </h2>
-              <ul className="mt-6 space-y-4 text-sm leading-7 text-[#bdccc3]">
+              <ul className="mt-6 space-y-4 text-sm leading-7 text-muted">
                 <li>Fees are snapshotted when each pool is created.</li>
                 <li>
                   Proof verdicts, participation, and immutable terms are not
@@ -1441,11 +1461,11 @@ function ProductWorkspace({
           onConfirm={publishPool}
         />
       )}
-      <footer className="border-t border-[#173c2d]/10">
+      <footer className="border-t border-line">
         <div
           className={
             shell +
-            " flex flex-wrap justify-between gap-3 py-8 text-xs text-[#718078]"
+            " flex flex-wrap justify-between gap-3 py-8 text-xs text-muted"
           }
         >
           <p>Commitment Pools · independent GenLayer product</p>
